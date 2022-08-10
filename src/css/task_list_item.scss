@@ -1,0 +1,11 @@
+.task-list-item {
+  .item-media {
+    align-self: initial !important;
+  }
+
+  .item-title-row {
+    &::before {
+      display: none !important;
+    }
+  }
+}

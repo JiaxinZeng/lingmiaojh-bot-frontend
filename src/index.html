@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8">
+
+  <title>Lingmiaojh Bot</title>
+
+  <link rel="icon" href="icons/favicon.png">
+  <link rel="manifest" href="/manifest.json">
+</head>
+<body>
+  <div id="app"></div>
+
+  <script>
+    document.getElementById('app').oncontextmenu = function (e) {
+      if(e.button === 2) {
+        e.preventDefault()
+      }
+    }
+  </script>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
