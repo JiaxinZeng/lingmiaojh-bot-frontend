@@ -29,7 +29,10 @@
                                 changePage()
                               }}>
                         <span slot="media">
-                            <img class="display-block" width="24" height="24" src="assets/ic_lv_you_lian_meng_lian.png"
+                            <img class="display-block"
+                                 width="24"
+                                 height="24"
+                                 src="assets/ic_lv_you_lian_meng_lian.png"
                                  alt=""/>
                         </span>
                     </ListItem>
@@ -41,7 +44,10 @@
                                 changePage()
                               }}>
                         <span slot="media">
-                            <img class="display-block" width="24" height="24" src="assets/ic_hui_jin_sheng_tai.png"
+                            <img class="display-block"
+                                 width="24"
+                                 height="24"
+                                 src="assets/ic_hui_jin_sheng_tai.png"
                                  alt=""/>
                         </span>
                     </ListItem>

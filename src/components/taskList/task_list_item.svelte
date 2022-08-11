@@ -3,6 +3,7 @@
           link
           header={`最新消息:${task.msg}`}
           footer={`余额:${task.coin}`}
+          accordionItem
 >
     <div slot="media" class="display-flex align-items-center justify-content-center flex-direction-column">
         <Row noGap>
@@ -22,15 +23,65 @@
             </span>
         </Row>
     </div>
+    <AccordionContent>
+        <Card noShadow class="no-margin">
+            <CardContent class="no-padding-top">
+                <Row noGap>
+                    {#if type === ''}
+                        <Col width="5">
+                            <Button tooltip="发送验证码">
+                                <Icon class="font-weight-bold" md="material:outgoing_mail"/>
+                            </Button>
+                        </Col>
+                        <Col width="5">
+                            <Button tooltip="重输验证码">
+                                <Icon class="font-weight-bold" md="material:mark_email_read"/>
+                            </Button>
+                        </Col>
+                    {:else if type === '2'}
+                        <Col width="5">
+                            <Button tooltip="重设密码">
+                                <Icon class="font-weight-bold" md="material:lock"/>
+                            </Button>
+                        </Col>
+                    {/if}
+
+                    <Col width="5">
+                        <Button tooltip="删除">
+                            <Icon class="font-weight-bold" md="material:delete"/>
+                        </Button>
+                    </Col>
+
+                    {#if type === ''}
+                        <Col width="85"></Col>
+                    {:else if type === '2'}
+                        <Col width="90"></Col>
+                    {/if}
+                </Row>
+                <Row noGap class="margin-top-half">
+                    <Col width="100">
+                        <span>下次执行时间:{new Date(task.next_executed_at).toLocaleString()}</span>
+                    </Col>
+                </Row>
+                <Row noGap>
+                    <Col width="100">
+                        <span class="word-break-break-all">Token:{task.token}</span>
+                    </Col>
+                </Row>
+            </CardContent>
+        </Card>
+    </AccordionContent>
 </ListItem>
 
 <script>
   import '@/css/task_list_item.scss'
   import {
+    AccordionContent, Button, Card, CardContent, Col,
     Icon,
     ListItem,
     Row
   } from 'framework7-svelte'
 
   export let task
+  export let type = ''
 </script>

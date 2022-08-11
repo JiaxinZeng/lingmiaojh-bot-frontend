@@ -1,6 +1,6 @@
 <List class="no-margin task-list" mediaList noHairlines>
     {#each tasks as task}
-        <TaskListItem task={task}/>
+        <TaskListItem type={type} task={task}/>
     {/each}
 </List>
 

@@ -1,11 +1,12 @@
 <Card noShadow class="no-margin margin-bottom" slot="fixed">
-        <span slot="content">
+        <CardContent padding={false} slot="content">
             <slot></slot>
-        </span>
+        </CardContent>
 </Card>
 
 <script>
   import {
-    Card
+    Card,
+    CardContent
   } from 'framework7-svelte'
 </script>
