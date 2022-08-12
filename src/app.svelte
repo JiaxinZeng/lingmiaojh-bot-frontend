@@ -15,6 +15,24 @@
                         </span>
                     </ListItem>
                     <ListItem link
+                              title="访问管控"
+                              selected={false}
+                              disabled
+                              onClick={() => {}}>
+                        <span slot="media">
+                            <Icon md="material:beach_access"/>
+                        </span>
+                    </ListItem>
+                    <ListItem link
+                              title="运行日志"
+                              selected={false}
+                              disabled
+                              onClick={() => {}}>
+                        <span slot="media">
+                            <Icon md="material:history"/>
+                        </span>
+                    </ListItem>
+                    <ListItem link
                               title="账号管理"
                               disabled>
                         <span slot="media">

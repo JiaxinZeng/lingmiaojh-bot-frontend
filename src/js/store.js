@@ -1,6 +1,5 @@
 import { createStore } from 'framework7/lite'
-import folderApi from '@/js/api/folder'
-import taskApi from '@/js/api/task'
+import Api from '@/js/api'
 
 const store = createStore({
   state: {
@@ -25,30 +24,27 @@ const store = createStore({
   },
   actions: {
     getTasks ({ state }, folderId) {
-      taskApi.getTasks(folderId).then(response => {
-        state.tasks = JSON.parse(response.data).data
+      Api.Task.getTasks('', folderId).then(resp => {
+        state.tasks = JSON.parse(resp.data).data
       })
     },
     filterTasks ({ state }, {
       folderId,
       titleName
     }) {
-      taskApi.getTasks(folderId).then(resp => {
+      Api.Task.getTasks('', folderId).then(resp => {
         state.tasks = JSON.parse(resp.data).data.filter(task => {
           return task.mobile.toLowerCase().includes(titleName.toLowerCase())
         })
       })
     },
-    addTaskFolder ({ state }, folder) {
-      state.taskFolders = [...state.taskFolders, folder]
-    },
     getTaskFolders ({ state }) {
-      folderApi.getTaskFolders().then(resp => {
+      Api.Folder.getTaskFolders('').then(resp => {
         state.taskFolders = JSON.parse(resp.data).data
       })
     },
     filterTaskFolders ({ state }, folderName) {
-      folderApi.getTaskFolders().then(resp => {
+      Api.Folder.getTaskFolders('').then(resp => {
         state.taskFolders = JSON.parse(resp.data).data.filter(folder => {
           return folder.name.toLowerCase().includes(folderName.toLowerCase())
         })
@@ -56,7 +52,7 @@ const store = createStore({
     },
 
     getTask2s ({ state }, folderId) {
-      taskApi.getTask2s(folderId).then(response => {
+      Api.Task.getTasks('2', folderId).then(response => {
         state.task2s = JSON.parse(response.data).data
       })
     },
@@ -64,22 +60,19 @@ const store = createStore({
       folderId,
       titleName
     }) {
-      taskApi.getTask2s(folderId).then(resp => {
+      Api.Task.getTasks('2', folderId).then(resp => {
         state.task2s = JSON.parse(resp.data).data.filter(task => {
           return task.username.toLowerCase().includes(titleName.toLowerCase())
         })
       })
     },
-    addTask2Folder ({ state }, folder) {
-      state.task2Folders = [...state.task2Folders, folder]
-    },
     getTask2Folders ({ state }) {
-      folderApi.getTask2Folders().then(resp => {
+      Api.Folder.getTaskFolders('2').then(resp => {
         state.task2Folders = JSON.parse(resp.data).data
       })
     },
     filterTask2Folders ({ state }, folderName) {
-      folderApi.getTask2Folders().then(resp => {
+      Api.Folder.getTaskFolders('2').then(resp => {
         state.task2Folders = JSON.parse(resp.data).data.filter(folder => {
           return folder.name.toLowerCase().includes(folderName.toLowerCase())
         })

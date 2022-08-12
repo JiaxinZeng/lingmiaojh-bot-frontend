@@ -29,7 +29,7 @@
                 <Row noGap>
                     {#if type === ''}
                         <Col width="5">
-                            <Button tooltip="发送验证码">
+                            <Button tooltip="发送验证码" on:click={onSendVerifyCodeButtonClicked}>
                                 <Icon class="font-weight-bold" md="material:outgoing_mail"/>
                             </Button>
                         </Col>
@@ -47,7 +47,7 @@
                     {/if}
 
                     <Col width="5">
-                        <Button tooltip="删除">
+                        <Button tooltip="删除" on:click={onDeleteButtonClicked}>
                             <Icon class="font-weight-bold" md="material:delete"/>
                         </Button>
                     </Col>
@@ -74,14 +74,52 @@
 </ListItem>
 
 <script>
-  import '@/css/task_list_item.scss'
+  import './task_list_item.scss'
   import {
-    AccordionContent, Button, Card, CardContent, Col,
+    AccordionContent,
+    Button,
+    Card,
+    CardContent,
+    Col,
+    f7,
     Icon,
     ListItem,
     Row
   } from 'framework7-svelte'
+  import Api from '@/js/api'
+  import Util from '@/js/util'
 
   export let task
+  export let folder
   export let type = ''
+
+  function onDeleteButtonClicked () {
+    f7.dialog.confirm('确定删除该任务吗?', '删除任务', () => {
+      let deleteFunc = Api.Task.deleteTaskByMobile
+      if (type === '2') {
+        deleteFunc = Api.Task.deleteTaskByUsername
+      }
+      Api.req(() => deleteFunc(type, task.mobile ?? task.username),
+        true,
+        '删除成功',
+        '删除失败',
+        () => Util.store.getTasks(type, folder.id),
+        null,
+        true,
+        '正在删除'
+      )
+    })
+  }
+
+  function onSendVerifyCodeButtonClicked () {
+    Api.req(() => Api.Task.sendVerifyCode(type, task.mobile),
+      true,
+      '发送成功',
+      '发送失败',
+      null,
+      null,
+      true,
+      '正在发送'
+    )
+  }
 </script>

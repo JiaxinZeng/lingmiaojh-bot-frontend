@@ -12,7 +12,7 @@
 </List>
 
 <script>
-  import '@/css/folder_list_item.scss'
+  import './folder_list_item.scss'
   import {
     Icon,
     List,

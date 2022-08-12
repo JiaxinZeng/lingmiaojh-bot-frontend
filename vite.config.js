@@ -1,6 +1,6 @@
 import path from 'path'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
-import eslintPlugin from 'vite-plugin-eslint'
+import eslint from 'vite-plugin-eslint'
 
 const SRC_DIR = path.resolve(__dirname, './src')
 const PUBLIC_DIR = path.resolve(__dirname, './public')
@@ -9,7 +9,9 @@ const BUILD_DIR = path.resolve(__dirname, './www')
 export default {
   plugins: [
     svelte(),
-    eslintPlugin()
+    eslint({
+      exclude: ['node_modules/**', 'www/**']
+    })
   ],
   root: SRC_DIR,
   base: '',
@@ -19,7 +21,15 @@ export default {
     assetsInlineLimit: 0,
     emptyOutDir: true,
     rollupOptions: {
-      treeshake: false
+      treeshake: false,
+      output: {
+        manualChunks: {
+          lodash: ['lodash'],
+          'framework7-svelte': ['framework7-svelte'],
+          framework7: ['framework7'],
+          dom7: ['dom7']
+        }
+      }
     }
   },
   resolve: {

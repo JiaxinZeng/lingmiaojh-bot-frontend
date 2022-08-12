@@ -23,14 +23,14 @@
   } from 'framework7-svelte'
   import FolderListItem from './folder_list_item.svelte'
   import { onMount } from 'svelte'
-  import store from '@/js/store'
   import _ from 'lodash'
+  import Util from '@/js/util'
 
   export let action = () => {}
   export let type = ''
 
   onMount(() => {
-    store.dispatch(`getTask${type}Folders`, null)
+    Util.store.getTaskFolders(type)
   })
 
   const colNum = 7
