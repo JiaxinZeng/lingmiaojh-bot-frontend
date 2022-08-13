@@ -46,5 +46,27 @@ export default {
       },
       contentType: 'application/json'
     })
+  },
+  signInByMobile (type, mobile, verifyCode) {
+    return Framework7.request({
+      url: `${Config.baseUrl}/api/v1/task${type}/sign_in`,
+      method: 'POST',
+      data: {
+        code: verifyCode,
+        mobile
+      },
+      contentType: 'application/json'
+    })
+  },
+  signInByUsername (type, username, password) {
+    return Framework7.request({
+      url: `${Config.baseUrl}/api/v1/task${type}/sign_in`,
+      method: 'POST',
+      data: {
+        username,
+        password
+      },
+      contentType: 'application/json'
+    })
   }
 }

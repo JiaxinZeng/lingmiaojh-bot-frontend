@@ -3,19 +3,61 @@ import Store from './store'
 export default {
   store: {
     getTasks (type, folderId) {
-      return Store.dispatch(`getTask${type}s`, folderId)
+      return new Promise((resolve, reject) => {
+        Store.dispatch('getTasks', {
+          type,
+          folderId,
+          okCallback (resp) {
+            resolve(resp)
+          },
+          errorCallback (err) {
+            reject(err)
+          }
+        }).then(() => {})
+      })
     },
     getTaskFolders (type) {
-      return Store.dispatch(`getTask${type}Folders`, null)
+      return new Promise((resolve, reject) => {
+        Store.dispatch('getTaskFolders', {
+          type,
+          okCallback (resp) {
+            resolve(resp)
+          },
+          errorCallback (err) {
+            reject(err)
+          }
+        }).then(() => {})
+      })
     },
-    filterTasks (type, folderId, folderName) {
-      return Store.dispatch(`filterTask${type}s`, {
-        folderId,
-        folderName
+    filterTasks (type, folderId, titleName) {
+      console.log(titleName)
+      return new Promise((resolve, reject) => {
+        Store.dispatch('filterTasks', {
+          type,
+          folderId,
+          titleName,
+          okCallback (resp) {
+            resolve(resp)
+          },
+          errorCallback (err) {
+            reject(err)
+          }
+        }).then(() => {})
       })
     },
     filterTaskFolders (type, folderName) {
-      return Store.dispatch(`filterTask${type}Folders`, folderName)
+      return new Promise((resolve, reject) => {
+        Store.dispatch('filterTaskFolders', {
+          type,
+          folderName,
+          okCallback (resp) {
+            resolve(resp)
+          },
+          errorCallback (err) {
+            reject(err)
+          }
+        }).then(() => {})
+      })
     }
   }
 }

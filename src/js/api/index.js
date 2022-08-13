@@ -20,7 +20,7 @@ export default {
       const respObj = JSON.parse(resp.data)
       if (respObj && respObj?.status === 0) {
         closeProgressDialog()
-        okCallback && okCallback()
+        okCallback && okCallback(respObj)
         if (showAlert) {
           f7.dialog.alert(okMsg, '提示')
         }

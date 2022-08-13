@@ -33,18 +33,13 @@
                                 <Icon class="font-weight-bold" md="material:outgoing_mail"/>
                             </Button>
                         </Col>
-                        <Col width="5">
-                            <Button tooltip="重输验证码">
-                                <Icon class="font-weight-bold" md="material:mark_email_read"/>
-                            </Button>
-                        </Col>
-                    {:else if type === '2'}
-                        <Col width="5">
-                            <Button tooltip="重设密码">
-                                <Icon class="font-weight-bold" md="material:lock"/>
-                            </Button>
-                        </Col>
                     {/if}
+
+                    <Col width="5">
+                        <Button tooltip="登录" on:click={onSignInButtonClicked}>
+                            <Icon class="font-weight-bold" md="material:login"/>
+                        </Button>
+                    </Col>
 
                     <Col width="5">
                         <Button tooltip="删除" on:click={onDeleteButtonClicked}>
@@ -106,8 +101,7 @@
         () => Util.store.getTasks(type, folder.id),
         null,
         true,
-        '正在删除'
-      )
+        '正在删除')
     })
   }
 
@@ -119,7 +113,32 @@
       null,
       null,
       true,
-      '正在发送'
-    )
+      '正在发送')
+  }
+
+  function onSignInButtonClicked () {
+    if (type === '') {
+      f7.dialog.prompt('请输入验证码', '登录', (code) => {
+        Api.req(() => Api.Task.signInByMobile(type, task.mobile, code),
+          true,
+          '登录成功',
+          '登录失败',
+          () => Util.store.getTasks(type, folder.id),
+          null,
+          true,
+          '正在登录')
+      })
+    } else if (type === '2') {
+      f7.dialog.prompt('请输入密码', '登录', (password) => {
+        Api.req(() => Api.Task.signInByUsername(type, task.username, password),
+          true,
+          '登录成功',
+          '登录失败',
+          () => Util.store.getTasks(type, folder.id),
+          null,
+          true,
+          '正在登录')
+      })
+    }
   }
 </script>
