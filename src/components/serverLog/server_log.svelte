@@ -1,5 +1,5 @@
 <PageContent>
-    <HighlightAuto class="no-margin" code={logs} />
+    <Highlight class="no-margin" language={basic} code={logs} />
 </PageContent>
 
 <script>
@@ -8,7 +8,8 @@
   } from 'framework7-svelte'
   import { onMount } from 'svelte'
   import Api from '@/js/api'
-  import { HighlightAuto } from 'svelte-highlight'
+  import { Highlight } from 'svelte-highlight'
+  import basic from 'svelte-highlight/languages/basic'
 
   let logs = ''
 

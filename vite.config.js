@@ -24,7 +24,7 @@ export default {
     assetsInlineLimit: 0,
     emptyOutDir: true,
     rollupOptions: {
-      treeshake: false,
+      treeshake: true,
       output: {
         manualChunks: {
           lodash: ['lodash'],
