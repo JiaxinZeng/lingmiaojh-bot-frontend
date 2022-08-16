@@ -29,7 +29,8 @@ export default {
         manualChunks: {
           lodash: ['lodash'],
           framework7: ['framework7'],
-          dom7: ['dom7']
+          dom7: ['dom7'],
+          'highlight.js': ['highlight.js']
         }
       }
     }
