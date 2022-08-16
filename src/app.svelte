@@ -5,9 +5,9 @@
                 <List class="margin" inset menuList>
                     <ListItem link
                               title="仪表盘"
-                              selected={selected === 'home'}
+                              selected={currentPage === 'home'}
                               onClick={() => {
-                                selected = 'home'
+                                currentPage = 'home'
                                 changePage()
                               }}>
                         <span slot="media">
@@ -25,9 +25,11 @@
                     </ListItem>
                     <ListItem link
                               title="运行日志"
-                              selected={false}
-                              disabled
-                              onClick={() => {}}>
+                              selected={currentPage === 'server_log'}
+                              onClick={() => {
+                                currentPage = 'server_log'
+                                changePage()
+                              }}>
                         <span slot="media">
                             <Icon md="material:history"/>
                         </span>
@@ -41,9 +43,9 @@
                     </ListItem>
                     <ListItem link
                               title="旅游联盟链"
-                              selected={selected === 'management'}
+                              selected={currentPage === 'management'}
                               onClick={() => {
-                                selected = 'management'
+                                currentPage = 'management'
                                 changePage()
                               }}>
                         <span slot="media">
@@ -56,9 +58,9 @@
                     </ListItem>
                     <ListItem link
                               title="汇金生态"
-                              selected={selected === 'management2'}
+                              selected={currentPage === 'management2'}
                               onClick={() => {
-                                selected = 'management2'
+                                currentPage = 'management2'
                                 changePage()
                               }}>
                         <span slot="media">
@@ -109,8 +111,8 @@
     }
   }
 
-  let selected = 'home'
+  let currentPage = 'home'
   const changePage = _.debounce(function () {
-    f7.views.main.router.navigate(`/${selected}/`)
+    f7.views.main.router.navigate(`/${currentPage}/`)
   }, 500)
 </script>

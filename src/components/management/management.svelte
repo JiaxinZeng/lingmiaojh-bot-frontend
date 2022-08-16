@@ -80,10 +80,11 @@
         true,
         '新建文件夹成功',
         '新建文件夹失败',
-        () => Util.store.getTaskFolders(type),
-        null,
         true,
         '正在新建文件夹')
+        .then(() => {
+          Util.alert.refresh(() => Util.store.getTaskFolders(type), true)
+        })
     })
   }
 
@@ -102,10 +103,11 @@
         true,
         '重命名成功',
         '重命名失败',
-        () => Util.store.getTaskFolders(type),
-        null,
         true,
         '正在重命名文件夹')
+        .then(() => {
+          Util.alert.refresh(() => Util.store.getTaskFolders(type), true)
+        })
     }, () => {}, clickedFolder?.name)
   }
 
@@ -115,21 +117,15 @@
         true,
         '删除成功',
         '删除失败',
-        () => Util.store.getTaskFolders(type),
-        null,
         true,
         '正在删除文件夹')
+        .then(() => {
+          Util.alert.refresh(() => Util.store.getTaskFolders(type), true)
+        })
     })
   }
 
   function onRefreshButtonClicked () {
-    Api.req(() => Util.store.filterTaskFolders(type, searchbar.instance().query),
-      true,
-      '刷新成功',
-      '刷新失败',
-      null,
-      null,
-      true,
-      '正在刷新')
+    Util.alert.refresh(() => Util.store.filterTaskFolders(type, searchbar.instance().query), false)
   }
 </script>

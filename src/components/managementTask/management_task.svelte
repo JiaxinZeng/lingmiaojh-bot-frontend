@@ -70,33 +70,30 @@
           true,
           '添加成功',
           '添加失败',
-          () => Util.store.getTasks(type, folder.id),
-          null,
           true,
           '正在添加账号')
+          .then(() => {
+            Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
+          })
       } else if (type === '2') {
-        f7.dialog.password('请输入密码', '添加账号', (password) => {
-          Api.req(() => Api.Task.createTaskByUsername(type, value, password, folder.id),
-            true,
-            '添加成功',
-            '添加失败',
-            () => Util.store.getTasks(type, folder.id),
-            null,
-            true,
-            '正在添加账号')
+        f7.dialog.prompt('请输入密码', '添加账号', (password) => {
+          f7.dialog.prompt('请输入支付密码', '添加账号', (paymentPassword) => {
+            Api.req(() => Api.Task.createTaskByUsername(type, value, password, folder.id, paymentPassword),
+              true,
+              '添加成功',
+              '添加失败',
+              true,
+              '正在添加账号')
+              .then(() => {
+                Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
+              })
+          })
         })
       }
     })
   }
 
   function onRefreshButtonClicked () {
-    Api.req(() => Util.store.filterTasks(type, folder.id, searchbar.instance().query),
-      true,
-      '刷新成功',
-      '刷新失败',
-      () => Util.store.getTasks(type, folder.id),
-      null,
-      true,
-      '正在刷新')
+    Util.alert.refresh(() => Util.store.filterTasks(type, folder.id, searchbar.instance().query), false)
   }
 </script>

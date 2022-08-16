@@ -1,4 +1,5 @@
 import Store from './store'
+import Api from '@/js/api'
 
 export default {
   store: {
@@ -58,6 +59,16 @@ export default {
           }
         }).then(() => {})
       })
+    }
+  },
+  alert: {
+    refresh (reqFunc, autoClose) {
+      return Api.req(reqFunc,
+        !autoClose,
+        '刷新成功',
+        '刷新失败',
+        true,
+        '正在刷新')
     }
   }
 }

@@ -1,4 +1,5 @@
 import HomePage from '@/pages/home.svelte'
+import ServerLogPage from '@/pages/server_log.svelte'
 import ManagementPage from '@/pages/management.svelte'
 import ManagementTaskPage from '@/pages/management_task.svelte'
 import Management2Page from '@/pages/management2.svelte'
@@ -8,6 +9,13 @@ const routes = [
   {
     path: '/home/',
     component: HomePage,
+    options: {
+      transition: 'f7-dive'
+    }
+  },
+  {
+    path: '/server_log',
+    component: ServerLogPage,
     options: {
       transition: 'f7-dive'
     }

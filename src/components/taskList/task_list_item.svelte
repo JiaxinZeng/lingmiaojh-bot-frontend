@@ -41,16 +41,22 @@
                         </Button>
                     </Col>
 
+                    {#if type === '2'}
+                        <Col width="5">
+                            <Button tooltip="重设支付密码" on:click={onResetPaymentPasswordButtonClicked}>
+                                <Icon class="font-weight-bold" md="material:shopping_cart"/>
+                            </Button>
+                        </Col>
+                    {/if}
+
                     <Col width="5">
                         <Button tooltip="删除" on:click={onDeleteButtonClicked}>
                             <Icon class="font-weight-bold" md="material:delete"/>
                         </Button>
                     </Col>
 
-                    {#if type === ''}
+                    {#if type === '' || type === '2'}
                         <Col width="85"></Col>
-                    {:else if type === '2'}
-                        <Col width="90"></Col>
                     {/if}
                 </Row>
                 <Row noGap class="margin-top-half">
@@ -98,10 +104,11 @@
         true,
         '删除成功',
         '删除失败',
-        () => Util.store.getTasks(type, folder.id),
-        null,
         true,
         '正在删除')
+        .then(() => {
+          Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
+        })
     })
   }
 
@@ -110,8 +117,6 @@
       true,
       '发送成功',
       '发送失败',
-      null,
-      null,
       true,
       '正在发送')
   }
@@ -123,10 +128,11 @@
           true,
           '登录成功',
           '登录失败',
-          () => Util.store.getTasks(type, folder.id),
-          null,
           true,
           '正在登录')
+          .then(() => {
+            Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
+          })
       })
     } else if (type === '2') {
       f7.dialog.prompt('请输入密码', '登录', (password) => {
@@ -134,11 +140,26 @@
           true,
           '登录成功',
           '登录失败',
-          () => Util.store.getTasks(type, folder.id),
-          null,
           true,
           '正在登录')
+          .then(() => {
+            Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
+          })
       })
     }
+  }
+
+  function onResetPaymentPasswordButtonClicked () {
+    f7.dialog.prompt('请输入密码', '重设支付密码', (password) => {
+      Api.req(() => Api.Task.resetPaymentPasswordByUsername(type, task.username, password),
+        true,
+        '重设成功',
+        '重设失败',
+        true,
+        '正在重设')
+        .then(() => {
+          Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
+        })
+    })
   }
 </script>

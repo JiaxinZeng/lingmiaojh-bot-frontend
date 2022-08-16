@@ -1,11 +1,14 @@
 import Folder from './folder'
 import Task from './task'
+import Log from './log'
 import { f7 } from 'framework7-svelte'
+import Config from '@/js/api/config'
 
 export default {
   Folder,
   Task,
-  req (requestFunc, showAlert, okMsg, errorMsg, okCallback, errorCallback, showProgress, progressTitle) {
+  Log,
+  req (reqFunc, showAlert, okAlert, errAlert, showProgress, progressTitle) {
     let progressDialog = null
     if (showProgress) {
       progressDialog = f7.dialog.progress(progressTitle)
@@ -16,27 +19,29 @@ export default {
       }
     }
 
-    requestFunc().then(resp => {
-      const respObj = JSON.parse(resp.data)
-      if (respObj && respObj?.status === 0) {
-        closeProgressDialog()
-        okCallback && okCallback(respObj)
-        if (showAlert) {
-          f7.dialog.alert(okMsg, '提示')
+    return new Promise((resolve, reject) => {
+      reqFunc().then(resp => {
+        const respObj = JSON.parse(resp.data)
+        if (respObj && respObj?.status === Config.statusOk) {
+          closeProgressDialog()
+          if (showAlert) {
+            f7.dialog.alert(okAlert, '提示')
+          }
+          resolve(respObj)
+        } else {
+          closeProgressDialog()
+          if (showAlert) {
+            f7.dialog.alert(`${errAlert} - ${respObj?.message ?? resp}`, '提示')
+          }
+          reject(respObj ?? resp)
         }
-      } else {
+      }).catch(err => {
         closeProgressDialog()
-        errorCallback && errorCallback()
         if (showAlert) {
-          f7.dialog.alert(`${errorMsg} - ${respObj?.message ?? resp}`, '提示')
+          f7.dialog.alert(`${errAlert} - ${err}`, '提示')
         }
-      }
-    }).catch(err => {
-      closeProgressDialog()
-      errorCallback && errorCallback()
-      if (showAlert) {
-        f7.dialog.alert(`${errorMsg} - ${err}`, '提示')
-      }
+        reject(err)
+      })
     })
   }
 }

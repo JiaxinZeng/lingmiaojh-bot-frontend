@@ -1,12 +1,10 @@
 <Page class="padding-top padding-right padding-bottom display-flex flex-flow-column" pageContent={false}>
-    <PageContent>
-        <h1 class="no-margin">暂无</h1>
-    </PageContent>
+    <ServerLog/>
 </Page>
 
 <script>
   import {
-    Page,
-    PageContent
+    Page
   } from 'framework7-svelte'
+  import ServerLog from '@/components/serverLog'
 </script>

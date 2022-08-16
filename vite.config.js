@@ -13,6 +13,9 @@ export default {
       exclude: ['node_modules/**', 'www/**']
     })
   ],
+  optimizeDeps: {
+    include: ['highlight.js', 'highlight.js/lib/core']
+  },
   root: SRC_DIR,
   base: '',
   publicDir: PUBLIC_DIR,
@@ -25,7 +28,6 @@ export default {
       output: {
         manualChunks: {
           lodash: ['lodash'],
-          'framework7-svelte': ['framework7-svelte'],
           framework7: ['framework7'],
           dom7: ['dom7']
         }
