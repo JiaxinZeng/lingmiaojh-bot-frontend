@@ -107,7 +107,9 @@
       : {},
     dialog: {
       buttonOk: '确定',
-      buttonCancel: '取消'
+      buttonCancel: '取消',
+      usernamePlaceholder: '账号',
+      passwordPlaceholder: '密码'
     }
   }
 

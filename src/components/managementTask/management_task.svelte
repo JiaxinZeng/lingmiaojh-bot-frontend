@@ -9,12 +9,12 @@
                        disableButton={false}
                        placeholder="搜索任务"
                        bind:this={searchbar}
-                       on:searchbarSearch={() => Util.store.filterTasks(type, folder.id, searchbar.instance().query)}
+                       on:searchbarSearch={search}
             />
         </Row>
         <Row noGap class="margin-top">
             <Col width="100">
-                <BlockTitle class="no-margin font-weight-bold font-size-16px">{`[${folder.name}]文件夹`}</BlockTitle>
+                <BlockTitle class="title">{folder.name}</BlockTitle>
             </Col>
         </Row>
         <Row class="margin-top-half" noGap>
@@ -24,16 +24,21 @@
                 </Button>
             </Col>
             <Col width="5">
-                <Button tooltip="刷新" on:click={onRefreshButtonClicked}>
+                <Button tooltip="刷新" on:click={onRefreshButtonClick}>
                     <Icon class="font-weight-bold" md="material:refresh"/>
                 </Button>
             </Col>
             <Col width="5">
-                <Button tooltip="添加账号" on:click={onCreateButtonClicked}>
+                <Button tooltip="添加账号" on:click={onCreateButtonClick}>
                     <Icon class="font-weight-bold" md="material:add"/>
                 </Button>
             </Col>
-            <Col width="85"></Col>
+            <Col width="5">
+                <Button tooltip="导入" on:click={onImportButtonClick}>
+                    <Icon class="font-weight-bold" md="material:download"/>
+                </Button>
+            </Col>
+            <Col width="80"></Col>
         </Row>
     </ActionBar>
     <PageContent class="flex-grow-1">
@@ -56,44 +61,58 @@
   import TaskList from '@/components/taskList'
   import Api from '@/js/api'
   import Util from '@/js/util'
+  import _ from 'lodash'
 
   export let folder
   export let f7router
   export let type = ''
 
+  const search = _.debounce(() => Util.store.filterTasks(type, folder.id, searchbar.instance().query), 500)
+
   let searchbar
 
-  function onCreateButtonClicked () {
-    f7.dialog.prompt('请输入新账号', '添加账号', (value) => {
-      if (type === '') {
-        Api.req(() => Api.Task.createTaskByMobile(type, value, folder.id),
-          true,
-          '添加成功',
-          '添加失败',
-          true,
-          '正在添加账号')
-          .then(() => {
-            Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
-          })
-      } else if (type === '2') {
-        f7.dialog.prompt('请输入密码', '添加账号', (password) => {
-          f7.dialog.prompt('请输入支付密码', '添加账号', (paymentPassword) => {
-            Api.req(() => Api.Task.createTaskByUsername(type, value, password, folder.id, paymentPassword),
-              true,
-              '添加成功',
-              '添加失败',
-              true,
-              '正在添加账号')
-              .then(() => {
-                Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
-              })
-          })
+  function onCreateButtonClick () {
+    if (type === '') {
+      f7.dialog.prompt('请输入新账号', '添加账号', (mobile) => {
+        if (type === '') {
+          Api.req(() => Api.Task.createTaskByMobile(type, mobile, folder.id),
+            true,
+            true,
+            '添加成功',
+            '添加失败',
+            '正在添加账号')
+            .then(() => {
+              Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
+            })
+        }
+      })
+    } else if (type === '2') {
+      f7.dialog.login(null, '添加账号', (username, password) => {
+        f7.dialog.password('请输入支付密码', '添加账号', (paymentPassword) => {
+          Api.req(() => Api.Task.createTaskByUsername(type, username, password, folder.id, paymentPassword),
+            true,
+            true,
+            '添加成功',
+            '添加失败',
+            '正在添加账号')
+            .then(() => {
+              Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
+            })
         })
+      })
+    }
+  }
+
+  function onImportButtonClick () {
+    f7router.navigate('/task_import/', {
+      props: {
+        type,
+        folder
       }
     })
   }
 
-  function onRefreshButtonClicked () {
+  function onRefreshButtonClick () {
     Util.alert.refresh(() => Util.store.filterTasks(type, folder.id, searchbar.instance().query), false)
   }
 </script>

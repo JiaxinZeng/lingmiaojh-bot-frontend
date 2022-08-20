@@ -4,6 +4,7 @@ import ManagementPage from '@/pages/management.svelte'
 import ManagementTaskPage from '@/pages/management_task.svelte'
 import Management2Page from '@/pages/management2.svelte'
 import Management2TaskPage from '@/pages/management2_task.svelte'
+import TaskImportPage from '@/pages/task_import.svelte'
 
 const routes = [
   {
@@ -31,10 +32,7 @@ const routes = [
     path: '/management_task/',
     component: ManagementTaskPage,
     options: {
-      transition: 'f7-fade',
-      props: {
-        folder: null
-      }
+      transition: 'f7-fade'
     }
   },
   {
@@ -48,10 +46,14 @@ const routes = [
     path: '/management2_task/',
     component: Management2TaskPage,
     options: {
-      transition: 'f7-fade',
-      props: {
-        folder: null
-      }
+      transition: 'f7-fade'
+    }
+  },
+  {
+    path: '/task_import/',
+    component: TaskImportPage,
+    options: {
+      transition: 'f7-fade'
     }
   }
 ]

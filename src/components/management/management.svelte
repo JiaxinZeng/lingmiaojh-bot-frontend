@@ -8,17 +8,17 @@
                    disableButton={false}
                    placeholder="搜索文件夹"
                    bind:this={searchbar}
-                   on:searchbarSearch={() => Util.store.filterTaskFolders(type, searchbar.instance().query)}
+                   on:searchbarSearch={search}
         />
     </Row>
     <Row noGap class="margin-top-half">
         <Col width="5">
-            <Button tooltip="新建文件夹" on:click={onCreateButtonClicked}>
+            <Button tooltip="新建文件夹" on:click={onCreateButtonClick}>
                 <Icon class="font-weight-bold" md="material:add"/>
             </Button>
         </Col>
         <Col width="5">
-            <Button tooltip="刷新" on:click={onRefreshButtonClicked}>
+            <Button tooltip="刷新" on:click={onRefreshButtonClick}>
                 <Icon class="font-weight-bold" md="material:refresh"/>
             </Button>
         </Col>
@@ -42,8 +42,8 @@
                         })
                       }}
                       title="打开"/>
-            <ListItem link popoverClose on:click={onChangeFolderNameButtonClicked} title="重命名"/>
-            <ListItem link popoverClose on:click={onDeleteFolderButtonClicked} title="删除"/>
+            <ListItem link popoverClose on:click={onChangeFolderNameButtonClick} title="重命名"/>
+            <ListItem link popoverClose on:click={onDeleteFolderButtonClick} title="删除"/>
         </List>
     </Popover>
 </PageContent>
@@ -70,17 +70,19 @@
   export let f7router
   export let type = ''
 
+  const search = _.debounce(() => Util.store.filterTaskFolders(type, searchbar.instance().query), 500)
+
   let popover
   let clickedFolder = null
   let searchbar
 
-  function onCreateButtonClicked () {
+  function onCreateButtonClick () {
     f7.dialog.prompt('请输入新文件夹名称', '新建文件夹', (name) => {
       Api.req(() => Api.Folder.createTaskFolder(type, name),
         true,
+        true,
         '新建文件夹成功',
         '新建文件夹失败',
-        true,
         '正在新建文件夹')
         .then(() => {
           Util.alert.refresh(() => Util.store.getTaskFolders(type), true)
@@ -97,13 +99,13 @@
     })
   }
 
-  function onChangeFolderNameButtonClicked () {
+  function onChangeFolderNameButtonClick () {
     f7.dialog.prompt('请输入新文件夹名称', '重命名文件夹', (name) => {
       Api.req(() => Api.Folder.changeTaskFolderName(type, clickedFolder.id, name),
         true,
+        true,
         '重命名成功',
         '重命名失败',
-        true,
         '正在重命名文件夹')
         .then(() => {
           Util.alert.refresh(() => Util.store.getTaskFolders(type), true)
@@ -111,13 +113,13 @@
     }, () => {}, clickedFolder?.name)
   }
 
-  function onDeleteFolderButtonClicked () {
+  function onDeleteFolderButtonClick () {
     f7.dialog.confirm('确定删除文件夹吗?', '删除文件夹', () => {
       Api.req(() => Api.Folder.deleteTaskFolder(type, clickedFolder.id),
         true,
+        true,
         '删除成功',
         '删除失败',
-        true,
         '正在删除文件夹')
         .then(() => {
           Util.alert.refresh(() => Util.store.getTaskFolders(type), true)
@@ -125,7 +127,7 @@
     })
   }
 
-  function onRefreshButtonClicked () {
+  function onRefreshButtonClick () {
     Util.alert.refresh(() => Util.store.filterTaskFolders(type, searchbar.instance().query), false)
   }
 </script>

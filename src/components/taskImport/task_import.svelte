@@ -1,0 +1,164 @@
+<ActionBar>
+    <Row noGap>
+        <Col width="100">
+            <BlockTitle class="title">任务导入</BlockTitle>
+        </Col>
+    </Row>
+    <Row noGap class="margin-top-half">
+        <Col width="5">
+            <Button tooltip="返回" on:click={onBackButtonClick}>
+                <Icon class="font-weight-bold" md="material:arrow_back"/>
+            </Button>
+        </Col>
+        <Col width="5">
+            <Button tooltip="确定" on:click={onCheckButtonClick}>
+                <Icon class="font-weight-bold" md="material:check"/>
+            </Button>
+        </Col>
+        <Col width="90"></Col>
+    </Row>
+</ActionBar>
+<PageContent class="flex-grow-1 task-import">
+    <TextEditor bind:this={textEditor}
+                buttons={[['bold', 'italic', 'underline', 'strikeThrough'], ['alignLeft', 'alignCenter', 'alignRight', 'alignJustify']]}
+                placeholder={placeholder}/>
+</PageContent>
+
+<script>
+  import {
+    BlockTitle,
+    Button,
+    Col, f7,
+    Icon,
+    PageContent,
+    Row,
+    TextEditor
+  } from 'framework7-svelte'
+  import ActionBar from '@/components/actionBar'
+  import './task_import.scss'
+  import Dom7 from 'dom7'
+  import Api from '@/js/api'
+  import Util from '@/js/util'
+
+  export let f7router
+  export let type
+  export let folder
+
+  let textEditor = null
+
+  const placeholder = `一行一个账号
+<br/>
+格式:账号|密码|支付密码
+<br/>
+例1 (有三个账号,密码/支付密码都不一致):
+<br/>
+&emsp;12345678910|a1234567|123456
+<br/>
+&emsp;12345678911|a1234568|123457
+<br/>
+&emsp;12345678912|a1234569|123458
+<br/>
+例2 (有三个账号,密码/支付密码都一致):
+<br/>
+&emsp;12345678910|a1234567|123456
+<br/>
+&emsp;12345678911
+<br/>
+&emsp;12345678912
+<br/>
+例3 (有三个账号,第一个与其余支付密码不一致,第二个与第三个支付密码一致):
+<br/>
+&emsp;12345678910|a1234567|123456
+<br/>
+&emsp;12345678911||123457
+<br/>
+&emsp;12345678912
+<br/>
+例4 (有三个账号,第一个与其余密码不一致,第二个与第三个密码一致):
+<br/>
+&emsp;12345678910|a1234567|123456
+<br/>
+&emsp;12345678911|123457 或者 12345678911|123457|
+<br/>
+&emsp;12345678912
+`
+
+  function onCheckButtonClick () {
+    const instance = textEditor.instance()
+    const el = instance.$el[0]
+    const content = instance.$contentEl[0].innerText
+
+    if (content.trim().length === 0 || Dom7(el).find('.text-editor-placeholder').length !== 0) {
+      f7.dialog.alert('请输入内容', '提示')
+      return
+    }
+
+    const contentLines = content.split('\n')
+    const accounts = []
+
+    let usingPassword = null
+    let usingPaymentPassword = null
+    for (let i = 0; i < contentLines.length; i++) {
+      const accountInfos = contentLines[i].split('|')
+
+      if (accountInfos.length === 0 || accountInfos[0].trim().length === 0) {
+        continue
+      }
+      if (accountInfos?.[1] && accountInfos[1].trim().length !== 0) {
+        usingPassword = accountInfos[1]
+      }
+      if (accountInfos?.[2] && accountInfos[2].trim().length !== 0) {
+        usingPaymentPassword = accountInfos[2]
+      }
+
+      if (type === '2') {
+        if (!usingPassword || !usingPaymentPassword) {
+          f7.dialog.alert('格式不正确', '提示')
+          return
+        }
+      }
+
+      accounts.push({
+        account: accountInfos[0],
+        password: usingPassword,
+        paymentPassword: usingPaymentPassword
+      })
+    }
+
+    let importedCount = 0
+    const dialog = f7.dialog.progress('正在导入', 0)
+    const getProgressText = () => `${importedCount} / ${accounts.length}`
+    dialog.setText(getProgressText())
+
+    Api.req(async function () {
+      let lastResp
+      for (let i = 0; i < accounts.length; i++) {
+        const account = accounts[i]
+
+        if (type === '') {
+          lastResp = await Api.Task.createTaskByMobile(type, account.account, folder.id)
+        } else if (type === '2') {
+          lastResp = await Api.Task.createTaskByUsername(type,
+            account.account,
+            account.password,
+            folder.id,
+            account.paymentPassword)
+        }
+
+        dialog.setProgress(Math.round(i / accounts.length * 100))
+        dialog.setText(getProgressText())
+
+        importedCount++
+      }
+      return lastResp
+    }, true, false, () => `导入成功 ${getProgressText()}`, () => `导入失败 ${getProgressText()}`)
+      .finally(() => {
+        dialog.close()
+      })
+  }
+
+  function onBackButtonClick () {
+    Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
+    f7router.back()
+  }
+</script>
