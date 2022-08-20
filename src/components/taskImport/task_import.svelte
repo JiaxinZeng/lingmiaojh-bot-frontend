@@ -28,7 +28,8 @@
   import {
     BlockTitle,
     Button,
-    Col, f7,
+    Col,
+    f7,
     Icon,
     PageContent,
     Row,
@@ -45,6 +46,7 @@
   export let folder
 
   let textEditor = null
+  let isImported = false
 
   const placeholder = `一行一个账号
 <br/>
@@ -149,6 +151,9 @@
         dialog.setText(getProgressText())
 
         importedCount++
+        if (!isImported) {
+          isImported = true
+        }
       }
       return lastResp
     }, true, false, () => `导入成功 ${getProgressText()}`, () => `导入失败 ${getProgressText()}`)
@@ -158,7 +163,9 @@
   }
 
   function onBackButtonClick () {
-    Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
+    if (isImported) {
+      Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
+    }
     f7router.back()
   }
 </script>

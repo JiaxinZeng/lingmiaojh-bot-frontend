@@ -28,7 +28,7 @@ export default {
     return Framework7.request({
       url: `${Config.baseUrl}/api/v1/task${type}`,
       method: 'POST',
-      data: function () {
+      data: (function () {
         const data = {
           mobile,
           folder: folderId
@@ -38,7 +38,7 @@ export default {
         }
 
         return data
-      },
+      })(),
       contentType: 'application/json'
     })
   },
