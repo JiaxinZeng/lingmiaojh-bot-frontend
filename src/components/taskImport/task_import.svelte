@@ -127,6 +127,11 @@
       })
     }
 
+    if (accounts.length === 0) {
+      f7.dialog.alert('格式不正确', '提示')
+      return
+    }
+
     let importedCount = 0
     const dialog = f7.dialog.progress('正在导入', 0)
     const getProgressText = () => `${importedCount} / ${accounts.length}`
