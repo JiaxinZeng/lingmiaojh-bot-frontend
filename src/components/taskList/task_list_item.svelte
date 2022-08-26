@@ -41,7 +41,7 @@
                         </Button>
                     </Col>
 
-                    {#if type === '2'}
+                    {#if type === '2' || type === '4'}
                         <Col width="5">
                             <Button tooltip="重设支付密码" on:click={onResetPaymentPasswordButtonClick}>
                                 <Icon class="font-weight-bold" md="material:shopping_cart"/>
@@ -55,9 +55,7 @@
                         </Button>
                     </Col>
 
-                    {#if type === '' || type === '2'}
-                        <Col width="85"></Col>
-                    {/if}
+                    <Col width="85"></Col>
                 </Row>
                 <Row noGap class="margin-top-half">
                     <Col width="100">
@@ -97,7 +95,7 @@
   function onDeleteButtonClick () {
     f7.dialog.confirm('确定删除该任务吗?', '删除任务', () => {
       let deleteFunc = Api.Task.deleteTaskByMobile
-      if (type === '2') {
+      if (type === '2' || type === '4') {
         deleteFunc = Api.Task.deleteTaskByUsername
       }
       Api.req(() => deleteFunc(type, task.mobile ?? task.username), true, true, '删除成功', '删除失败', '正在删除')
@@ -119,7 +117,7 @@
             Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
           })
       })
-    } else if (type === '2') {
+    } else if (type === '2' || type === '4') {
       f7.dialog.prompt('请输入密码', '登录', (password) => {
         Api.req(() => Api.Task.signInByUsername(type, task.username, password), true, true, '登录成功', '登录失败',
           '正在登录')
