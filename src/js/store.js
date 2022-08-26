@@ -6,7 +6,9 @@ const store = createStore({
     tasks: [],
     taskFolders: [],
     task2s: [],
-    task2Folders: []
+    task2Folders: [],
+    task4s: [],
+    task4Folders: []
   },
   getters: {
     tasks ({ state }) {
@@ -20,6 +22,12 @@ const store = createStore({
     },
     task2Folders ({ state }) {
       return state.task2Folders
+    },
+    task4s ({ state }) {
+      return state.task4s
+    },
+    task4Folders ({ state }) {
+      return state.task4Folders
     }
   },
   actions: {
