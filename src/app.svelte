@@ -71,6 +71,51 @@
                                  alt=""/>
                         </span>
                     </ListItem>
+                    <ListItem link
+                              title="游鱼商城"
+                              selected={currentPage === 'management3'}
+                              onClick={() => {
+                                currentPage = 'management3'
+                                changePage()
+                              }}>
+                        <span slot="media">
+                            <img class="display-block"
+                                 width="24"
+                                 height="24"
+                                 src="assets/ic_you_yu_shop.png"
+                                 alt=""/>
+                        </span>
+                    </ListItem>
+                    <ListItem link
+                              title="酷游"
+                              selected={currentPage === 'management4'}
+                              onClick={() => {
+                                currentPage = 'management4'
+                                changePage()
+                              }}>
+                        <span slot="media">
+                            <img class="display-block"
+                                 width="24"
+                                 height="24"
+                                 src="assets/ic_ku_you.png"
+                                 alt=""/>
+                        </span>
+                    </ListItem>
+                    <ListItem link
+                              title="智联宇"
+                              selected={currentPage === 'management5'}
+                              onClick={() => {
+                                currentPage = 'management5'
+                                changePage()
+                              }}>
+                        <span slot="media">
+                            <img class="display-block"
+                                 width="24"
+                                 height="24"
+                                 src="assets/ic_zhi_lian_yu.png"
+                                 alt=""/>
+                        </span>
+                    </ListItem>
                 </List>
             </Page>
         </View>
