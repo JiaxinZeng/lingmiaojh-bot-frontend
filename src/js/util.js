@@ -64,10 +64,8 @@ export default {
   alert: {
     refresh (reqFunc, autoClose) {
       return Api.req(reqFunc,
-        !autoClose,
-        true,
-        '刷新成功',
-        '刷新失败',
+        autoClose ? null : '刷新成功',
+        autoClose ? null : '刷新失败',
         '正在刷新')
     }
   }

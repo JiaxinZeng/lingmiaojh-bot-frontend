@@ -78,12 +78,7 @@
 
   function onCreateButtonClick () {
     f7.dialog.prompt('请输入新文件夹名称', '新建文件夹', (name) => {
-      Api.req(() => Api.Folder.createTaskFolder(type, name),
-        true,
-        true,
-        '新建文件夹成功',
-        '新建文件夹失败',
-        '正在新建文件夹')
+      Api.req(() => Api.Folder.createTaskFolder(type, name), '新建文件夹成功', '新建文件夹失败', '正在新建文件夹')
         .then(() => {
           Util.alert.refresh(() => Util.store.getTaskFolders(type), true)
         })
@@ -101,11 +96,7 @@
 
   function onChangeFolderNameButtonClick () {
     f7.dialog.prompt('请输入新文件夹名称', '重命名文件夹', (name) => {
-      Api.req(() => Api.Folder.changeTaskFolderName(type, clickedFolder.id, name),
-        true,
-        true,
-        '重命名成功',
-        '重命名失败',
+      Api.req(() => Api.Folder.changeTaskFolderName(type, clickedFolder.id, name), '重命名成功', '重命名失败',
         '正在重命名文件夹')
         .then(() => {
           Util.alert.refresh(() => Util.store.getTaskFolders(type), true)
@@ -115,12 +106,7 @@
 
   function onDeleteFolderButtonClick () {
     f7.dialog.confirm('确定删除文件夹吗?', '删除文件夹', () => {
-      Api.req(() => Api.Folder.deleteTaskFolder(type, clickedFolder.id),
-        true,
-        true,
-        '删除成功',
-        '删除失败',
-        '正在删除文件夹')
+      Api.req(() => Api.Folder.deleteTaskFolder(type, clickedFolder.id), '删除成功', '删除失败', '正在删除文件夹')
         .then(() => {
           Util.alert.refresh(() => Util.store.getTaskFolders(type), true)
         })

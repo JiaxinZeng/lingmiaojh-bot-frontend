@@ -161,7 +161,7 @@
         }
       }
       return lastResp
-    }, true, false, () => `导入成功 ${getProgressText()}`, () => `导入失败 ${getProgressText()}`)
+    }, () => `导入成功 ${getProgressText()}`, () => `导入失败 ${getProgressText()}`)
       .finally(() => {
         dialog.close()
       })

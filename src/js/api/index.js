@@ -8,9 +8,9 @@ export default {
   Folder,
   Task,
   Log,
-  req (reqFunc, showAlert, showProgress, okAlert, errAlert, progressTitle) {
+  req (reqFunc, okAlert, errAlert, progressTitle) {
     let progressDialog = null
-    if (showProgress) {
+    if (progressTitle) {
       progressDialog = f7.dialog.progress(progressTitle)
     }
 
@@ -25,7 +25,7 @@ export default {
         const respObj = JSON.parse(resp.data)
         if (respObj && respObj?.status === Config.statusOk) {
           closeProgressDialog()
-          if (showAlert) {
+          if (okAlert) {
             if (typeof okAlert === 'function') {
               f7.dialog.alert(okAlert(respObj), '提示')
             } else {
@@ -35,7 +35,7 @@ export default {
           resolve(respObj)
         } else {
           closeProgressDialog()
-          if (showAlert) {
+          if (errAlert) {
             if (typeof errAlert === 'function') {
               f7.dialog.alert(
                 `${errAlert(respObj ?? resp)} - ${respObj?.message ?? resp}`,
@@ -50,7 +50,7 @@ export default {
         }
       }).catch(err => {
         closeProgressDialog()
-        if (showAlert) {
+        if (errAlert) {
           if (typeof errAlert === 'function') {
             f7.dialog.alert(`${errAlert(err)} - ${err}`, '提示')
           } else {

@@ -98,7 +98,7 @@
       if (type === '2' || type === '4') {
         deleteFunc = Api.Task.deleteTaskByUsername
       }
-      Api.req(() => deleteFunc(type, task.mobile ?? task.username), true, true, '删除成功', '删除失败', '正在删除')
+      Api.req(() => deleteFunc(type, task.mobile ?? task.username), '删除成功', '删除失败', '正在删除')
         .then(() => {
           Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
         })
@@ -106,21 +106,20 @@
   }
 
   function onSendVerifyCodeButtonClick () {
-    Api.req(() => Api.Task.sendVerifyCode(type, task.mobile), true, true, '发送成功', '发送失败', '正在发送')
+    Api.req(() => Api.Task.sendVerifyCode(type, task.mobile), '发送成功', '发送失败', '正在发送')
   }
 
   function onSignInButtonClick () {
     if (type === '') {
       f7.dialog.prompt('请输入验证码', '登录', (code) => {
-        Api.req(() => Api.Task.signInByMobile(type, task.mobile, code), true, true, '登录成功', '登录失败', '正在登录')
+        Api.req(() => Api.Task.signInByMobile(type, task.mobile, code), '登录成功', '登录失败', '正在登录')
           .then(() => {
             Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
           })
       })
     } else if (type === '2' || type === '4') {
       f7.dialog.prompt('请输入密码', '登录', (password) => {
-        Api.req(() => Api.Task.signInByUsername(type, task.username, password), true, true, '登录成功', '登录失败',
-          '正在登录')
+        Api.req(() => Api.Task.signInByUsername(type, task.username, password), '登录成功', '登录失败', '正在登录')
           .then(() => {
             Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
           })
@@ -130,8 +129,7 @@
 
   function onResetPaymentPasswordButtonClick () {
     f7.dialog.password('请输入密码', '重设支付密码', (password) => {
-      Api.req(() => Api.Task.resetPaymentPasswordByUsername(type, task.username, password), true, true, '重设成功',
-        '重设失败', '正在重设')
+      Api.req(() => Api.Task.resetPaymentPassword(type, task.username, password), '重设成功', '重设失败', '正在重设')
         .then(() => {
           Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
         })

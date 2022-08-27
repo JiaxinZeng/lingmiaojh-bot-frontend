@@ -74,12 +74,7 @@
   function onCreateButtonClick () {
     if (type === '') {
       f7.dialog.prompt('请输入新账号', '添加账号', (mobile) => {
-        Api.req(() => Api.Task.createTaskByMobile(type, mobile, folder.id),
-          true,
-          true,
-          '添加成功',
-          '添加失败',
-          '正在添加账号')
+        Api.req(() => Api.Task.createTaskByMobile(type, mobile, folder.id), '添加成功', '添加失败', '正在添加账号')
           .then(() => {
             Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
           })
@@ -87,12 +82,8 @@
     } else if (type === '2' || type === '4') {
       f7.dialog.login(null, '添加账号', (username, password) => {
         f7.dialog.password('请输入支付密码', '添加账号', (paymentPassword) => {
-          Api.req(() => Api.Task.createTaskByUsername(type, username, password, folder.id, paymentPassword),
-            true,
-            true,
-            '添加成功',
-            '添加失败',
-            '正在添加账号')
+          Api.req(() => Api.Task.createTaskByUsername(type, username, password, folder.id, paymentPassword), '添加成功',
+            '添加失败', '正在添加账号')
             .then(() => {
               Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
             })

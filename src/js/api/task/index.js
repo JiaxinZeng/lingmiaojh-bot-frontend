@@ -83,24 +83,13 @@ export default {
       contentType: 'application/json'
     })
   },
-  resetPaymentPasswordByMobile (type, mobile, paymentPassword) {
+  resetPaymentPassword (type, name, paymentPassword) {
     return Framework7.request({
       url: `${Config.baseUrl}/api/v1/task${type}/reset_payment_password`,
       method: 'POST',
       data: {
         payment_password: paymentPassword,
-        mobile
-      },
-      contentType: 'application/json'
-    })
-  },
-  resetPaymentPasswordByUsername (type, username, paymentPassword) {
-    return Framework7.request({
-      url: `${Config.baseUrl}/api/v1/task${type}/reset_payment_password`,
-      method: 'POST',
-      data: {
-        payment_password: paymentPassword,
-        username
+        name
       },
       contentType: 'application/json'
     })
