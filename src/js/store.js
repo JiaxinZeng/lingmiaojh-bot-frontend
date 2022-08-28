@@ -38,6 +38,12 @@ const store = createStore({
     },
     task4Folders ({ state }) {
       return state.task4Folders
+    },
+    task5s ({ state }) {
+      return state.task5s
+    },
+    task5Folders ({ state }) {
+      return state.task5Folders
     }
   },
   actions: {

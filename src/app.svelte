@@ -102,7 +102,7 @@
                         </span>
                     </ListItem>
                     <ListItem link
-                              title="智联宇"
+                              title="嗨品集"
                               selected={currentPage === 'management5'}
                               onClick={() => {
                                 currentPage = 'management5'
