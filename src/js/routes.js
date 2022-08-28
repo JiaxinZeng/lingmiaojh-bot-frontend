@@ -5,9 +5,11 @@ import ManagementTaskPage from '@/pages/management_task.svelte'
 import Management2Page from '@/pages/management2.svelte'
 import Management2TaskPage from '@/pages/management2_task.svelte'
 import Management3Page from '@/pages/management3.svelte'
+import Management3TaskPage from '@/pages/management3_task.svelte'
 import Management4Page from '@/pages/management4.svelte'
 import Management4TaskPage from '@/pages/management4_task.svelte'
 import Management5Page from '@/pages/management5.svelte'
+import Management5TaskPage from '@/pages/management5_task.svelte'
 import TaskImportPage from '@/pages/task_import.svelte'
 
 const routes = [
@@ -61,6 +63,13 @@ const routes = [
     }
   },
   {
+    path: '/management3_task/',
+    component: Management3TaskPage,
+    options: {
+      transition: 'f7-fade'
+    }
+  },
+  {
     path: '/management4/',
     component: Management4Page,
     options: {
@@ -79,6 +88,13 @@ const routes = [
     component: Management5Page,
     options: {
       transition: 'f7-dive'
+    }
+  },
+  {
+    path: '/management5_task/',
+    component: Management5TaskPage,
+    options: {
+      transition: 'f7-fade'
     }
   },
   {

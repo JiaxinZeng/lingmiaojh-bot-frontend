@@ -112,7 +112,7 @@
                             <img class="display-block"
                                  width="24"
                                  height="24"
-                                 src="assets/ic_zhi_lian_yu.png"
+                                 src="assets/ic_hi_pin_ji.png"
                                  alt=""/>
                         </span>
                     </ListItem>

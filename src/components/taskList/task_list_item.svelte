@@ -1,5 +1,5 @@
 <ListItem class="task-list-item"
-          title={`${task?.mobile ?? task?.username}`}
+          title={`${task.name}`}
           link
           header={`最新消息:${task.msg}`}
           footer={`余额:${task.coin}`}
@@ -41,7 +41,7 @@
                         </Button>
                     </Col>
 
-                    {#if type === '2' || type === '4'}
+                    {#if type === '2' || type === '3' || type === '4' || type === '5'}
                         <Col width="5">
                             <Button tooltip="重设支付密码" on:click={onResetPaymentPasswordButtonClick}>
                                 <Icon class="font-weight-bold" md="material:shopping_cart"/>
@@ -95,7 +95,7 @@
   function onDeleteButtonClick () {
     f7.dialog.confirm('确定删除该任务吗?', '删除任务', () => {
       let deleteFunc = Api.Task.deleteTaskByMobile
-      if (type === '2' || type === '4') {
+      if (type === '2' || type === '3' || type === '4' || type === '5') {
         deleteFunc = Api.Task.deleteTaskByUsername
       }
       Api.req(() => deleteFunc(type, task.mobile ?? task.username), '删除成功', '删除失败', '正在删除')
@@ -117,7 +117,7 @@
             Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
           })
       })
-    } else if (type === '2' || type === '4') {
+    } else if (type === '2' || type === '3' || type === '4' || type === '5') {
       f7.dialog.prompt('请输入密码', '登录', (password) => {
         Api.req(() => Api.Task.signInByUsername(type, task.username, password), '登录成功', '登录失败', '正在登录')
           .then(() => {
