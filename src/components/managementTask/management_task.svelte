@@ -72,7 +72,7 @@
   let searchbar
 
   function onCreateButtonClick () {
-    if (type === '') {
+    if (type === '' || type === '6') {
       f7.dialog.prompt('请输入新账号', '添加账号', (mobile) => {
         Api.req(() => Api.Task.createTaskByMobile(type, mobile, folder.id), '添加成功', '添加失败', '正在添加账号')
           .then(() => {

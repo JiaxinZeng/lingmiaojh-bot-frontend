@@ -116,6 +116,21 @@
                                  alt=""/>
                         </span>
                     </ListItem>
+                    <ListItem link
+                              title="每日乡村"
+                              selected={currentPage === 'management6'}
+                              onClick={() => {
+                                currentPage = 'management6'
+                                changePage()
+                              }}>
+                        <span slot="media">
+                            <img class="display-block"
+                                 width="24"
+                                 height="24"
+                                 src="assets/ic_mei_ri_xiang_cun.png"
+                                 alt=""/>
+                        </span>
+                    </ListItem>
                 </List>
             </Page>
         </View>

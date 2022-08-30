@@ -113,7 +113,7 @@
         usingPaymentPassword = accountInfos[2]
       }
 
-      if (type === '2') {
+      if (type === '2' || type === '3' | type === '4' | type === '5') {
         if (!usingPassword || !usingPaymentPassword) {
           f7.dialog.alert('格式不正确', '提示')
           return
@@ -142,9 +142,9 @@
       for (let i = 0; i < accounts.length; i++) {
         const account = accounts[i]
 
-        if (type === '') {
+        if (type === '' || type === '6') {
           lastResp = await Api.Task.createTaskByMobile(type, account.account, folder.id)
-        } else if (type === '2') {
+        } else if (type === '2' || type === '3' | type === '4' | type === '5') {
           lastResp = await Api.Task.createTaskByUsername(type,
             account.account,
             account.password,

@@ -27,7 +27,7 @@
         <Card noShadow class="no-margin">
             <CardContent class="no-padding-top">
                 <Row noGap>
-                    {#if type === ''}
+                    {#if type === '' || type === '6'}
                         <Col width="5">
                             <Button tooltip="发送验证码" on:click={onSendVerifyCodeButtonClick}>
                                 <Icon class="font-weight-bold" md="material:outgoing_mail"/>
@@ -94,11 +94,7 @@
 
   function onDeleteButtonClick () {
     f7.dialog.confirm('确定删除该任务吗?', '删除任务', () => {
-      let deleteFunc = Api.Task.deleteTaskByMobile
-      if (type === '2' || type === '3' || type === '4' || type === '5') {
-        deleteFunc = Api.Task.deleteTaskByUsername
-      }
-      Api.req(() => deleteFunc(type, task.mobile ?? task.username), '删除成功', '删除失败', '正在删除')
+      Api.req(() => Api.Task.deleteTask(type, task.name), '删除成功', '删除失败', '正在删除')
         .then(() => {
           Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
         })
@@ -106,20 +102,20 @@
   }
 
   function onSendVerifyCodeButtonClick () {
-    Api.req(() => Api.Task.sendVerifyCode(type, task.mobile), '发送成功', '发送失败', '正在发送')
+    Api.req(() => Api.Task.sendLoginVerifyCode(type, task.name), '发送成功', '发送失败', '正在发送')
   }
 
   function onSignInButtonClick () {
-    if (type === '') {
+    if (type === '' || type === '6') {
       f7.dialog.prompt('请输入验证码', '登录', (code) => {
-        Api.req(() => Api.Task.signInByMobile(type, task.mobile, code), '登录成功', '登录失败', '正在登录')
+        Api.req(() => Api.Task.loginByMobile(type, task.name, code), '登录成功', '登录失败', '正在登录')
           .then(() => {
             Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
           })
       })
     } else if (type === '2' || type === '3' || type === '4' || type === '5') {
       f7.dialog.prompt('请输入密码', '登录', (password) => {
-        Api.req(() => Api.Task.signInByUsername(type, task.username, password), '登录成功', '登录失败', '正在登录')
+        Api.req(() => Api.Task.loginByUsername(type, task.name, password), '登录成功', '登录失败', '正在登录')
           .then(() => {
             Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
           })
@@ -129,7 +125,7 @@
 
   function onResetPaymentPasswordButtonClick () {
     f7.dialog.password('请输入密码', '重设支付密码', (password) => {
-      Api.req(() => Api.Task.resetPaymentPassword(type, task.username, password), '重设成功', '重设失败', '正在重设')
+      Api.req(() => Api.Task.resetPaymentPassword(type, task.name, password), '重设成功', '重设失败', '正在重设')
         .then(() => {
           Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
         })

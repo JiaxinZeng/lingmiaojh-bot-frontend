@@ -7,20 +7,14 @@ export default {
       `${Config.baseUrl}/api/v1/task${type}/folder/${folderId}`
     )
   },
-  sendVerifyCode (type, mobile) {
+  sendLoginVerifyCode (type, mobile) {
     return Framework7.request.get(
-      `${Config.baseUrl}/api/v1/task${type}/send_verify_code/${mobile}`
+      `${Config.baseUrl}/api/v1/task${type}/login/send_verify_code/${mobile}`
     )
   },
-  deleteTaskByMobile (type, mobile) {
+  deleteTask (type, name) {
     return Framework7.request({
-      url: `${Config.baseUrl}/api/v1/task${type}/mobile/${mobile}`,
-      method: 'DELETE'
-    })
-  },
-  deleteTaskByUsername (type, username) {
-    return Framework7.request({
-      url: `${Config.baseUrl}/api/v1/task${type}/username/${username}`,
+      url: `${Config.baseUrl}/api/v1/task${type}/${name}`,
       method: 'DELETE'
     })
   },
@@ -61,9 +55,9 @@ export default {
       contentType: 'application/json'
     })
   },
-  signInByMobile (type, mobile, verifyCode) {
+  loginByMobile (type, mobile, verifyCode) {
     return Framework7.request({
-      url: `${Config.baseUrl}/api/v1/task${type}/sign_in`,
+      url: `${Config.baseUrl}/api/v1/task${type}/login`,
       method: 'POST',
       data: {
         code: verifyCode,
@@ -72,9 +66,9 @@ export default {
       contentType: 'application/json'
     })
   },
-  signInByUsername (type, username, password) {
+  loginByUsername (type, username, password) {
     return Framework7.request({
-      url: `${Config.baseUrl}/api/v1/task${type}/sign_in`,
+      url: `${Config.baseUrl}/api/v1/task${type}/login`,
       method: 'POST',
       data: {
         username,
