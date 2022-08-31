@@ -23,7 +23,7 @@ export default {
     return new Promise((resolve, reject) => {
       reqFunc().then(resp => {
         const respObj = JSON.parse(resp.data)
-        if (respObj && respObj?.status === Config.statusOk) {
+        if (respObj && respObj?.status === Config.statusSuccessCode) {
           closeProgressDialog()
           if (okAlert) {
             if (typeof okAlert === 'function') {

@@ -6,7 +6,7 @@
             </ListItemCell>
         </ListItemRow>
         <ListItemRow>
-            <ListItemCell class="text-align-center item-title">{folderName}</ListItemCell>
+            <div bind:this={title} class="text-align-center item-title item-cell">{folderName}</div>
         </ListItemRow>
     </ListItem>
 </List>
@@ -20,7 +20,15 @@
     ListItemCell,
     ListItemRow
   } from 'framework7-svelte'
+  import clamp from 'clamp-js'
+  import { onMount } from 'svelte'
 
   export let folderName = '未命名'
   export let action = () => {}
+
+  let title
+
+  onMount(() => {
+    clamp(title, { clamp: 2 })
+  })
 </script>

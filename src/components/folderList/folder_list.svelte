@@ -33,6 +33,6 @@
     Util.store.getTaskFolders(type)
   })
 
-  const colNum = 7
+  const colNum = 5
   let folders = useStore(`task${type}Folders`, newFolders => (folders = _.chunk(newFolders, colNum)))
 </script>

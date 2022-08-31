@@ -1,50 +1,48 @@
 {#if folder}
     <ActionBar>
         <Row noGap>
-            <Searchbar noHairline
-                       noShadow
-                       customSearch
-                       backdrop={false}
-                       form={false}
-                       disableButton={false}
-                       placeholder="搜索任务"
-                       bind:this={searchbar}
-                       on:searchbarSearch={search}
-            />
-        </Row>
-        <Row noGap class="margin-top">
             <Col width="100">
                 <BlockTitle class="title">{folder.name}</BlockTitle>
             </Col>
         </Row>
         <Row class="margin-top-half" noGap>
-            <Col width="5">
-                <Button tooltip="返回" on:click={() => f7router.back()}>
+            <Col width="10">
+                <Button on:click={() => f7router.back()}>
                     <Icon class="font-weight-bold" md="material:arrow_back"/>
+                    <span class="font-weight-bold">返回</span>
                 </Button>
             </Col>
-            <Col width="5">
-                <Button tooltip="刷新" on:click={onRefreshButtonClick}>
+            <Col width="10">
+                <Button on:click={onRefreshButtonClick}>
                     <Icon class="font-weight-bold" md="material:refresh"/>
+                    <span class="font-weight-bold">刷新</span>
                 </Button>
             </Col>
-            <Col width="5">
-                <Button tooltip="添加账号" on:click={onCreateButtonClick}>
+            <Col width="10">
+                <Button on:click={onCreateButtonClick}>
                     <Icon class="font-weight-bold" md="material:add"/>
+                    <span class="font-weight-bold">添加</span>
                 </Button>
             </Col>
-            <Col width="5">
-                <Button tooltip="导入" on:click={onImportButtonClick}>
+            <Col width="10">
+                <Button on:click={onImportButtonClick}>
                     <Icon class="font-weight-bold" md="material:download"/>
+                    <span class="font-weight-bold">导入</span>
                 </Button>
             </Col>
-            <Col width="80"></Col>
+            <Col width="10">
+                <Button>
+                    <Icon class="font-weight-bold" md="material:search"/>
+                    <span class="font-weight-bold">查询</span>
+                </Button>
+            </Col>
+            <Col width="50"></Col>
         </Row>
     </ActionBar>
     <PageContent class="flex-grow-1">
         <TaskList tasks={tasks} type={type} folder={folder}/>
     </PageContent>
-    <span class="font-weight-bold font-size-16px">总:{tasks.length} 离线:{(function () {
+    <div class="font-weight-bold font-size-12px margin-top-half">[总计:{tasks.length}]&nbsp;[离线:{(function () {
       let i = 0
       tasks.forEach((task) => {
         if (task.status === 0) {
@@ -52,7 +50,7 @@
         }
       })
       return i
-    })()} 在线:{(function () {
+    })()}]&nbsp;[在线:{(function () {
       let i = 0
       tasks.forEach((task) => {
         if (task.status === 1) {
@@ -60,7 +58,7 @@
         }
       })
       return i
-    })()}</span>
+    })()}]</div>
 {/if}
 
 <div bind:this={createMobileDialogElement} class="create-mobile-dialog dialog dialog-buttons-2" style="display: none;">
@@ -112,7 +110,6 @@
     ListInput,
     PageContent,
     Row,
-    Searchbar,
     useStore
   } from 'framework7-svelte'
   import TaskList from '@/components/taskList'
@@ -127,15 +124,16 @@
   export let type = ''
 
   onMount(() => {
-    Util.store.getTasks(type, folder.id)
+    if (folder?.id) {
+      Util.store.getTasks(type, folder.id)
+    }
   })
 
-  const search = _.debounce(() => Util.store.filterTasks(type, folder.id, searchbar.instance().query), 500)
+  // const search = _.debounce(() => Util.store.filterTasks(type, folder.id, searchbar.instance().query), 500)
 
   let tasks = useStore(`task${type}s`, newTasks => (tasks = _.sortBy(newTasks, function (task) {
     return task.status
   })))
-  let searchbar
   let createMobileDialogElement
   let createMobileDialogMobileInputValue
   let createMobileDialogCodeInputValue
@@ -170,7 +168,7 @@
   }
 
   function onRefreshButtonClick () {
-    Util.alert.refresh(() => Util.store.filterTasks(type, folder.id, searchbar.instance().query), false)
+    Util.alert.refresh(() => Util.store.getTasks(type, folder.id), false)
   }
 
   function onCreateMobileDialogSendButtonClick () {

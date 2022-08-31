@@ -1,24 +1,26 @@
 <ListItem class="task-list-item"
           title={`${task.name}`}
           link
-          header={`最新消息:${task.msg}`}
+          header={`消息:${task.msg}`}
           footer={`余额:${task.coin}`}
           accordionItem
 >
+    <span slot="after">[创建时间:{new Date(task.created_at).toLocaleString()}]</span>
+    <span slot="after-start" class="margin-right-half">[上级手机号:]</span>
     <div slot="media" class="display-flex align-items-center justify-content-center flex-direction-column">
         <Row noGap>
             {#if task.status === 0}
-                <Icon md="material:warning" size="24"/>
+                <Icon md="material:error" class="color-red" size="24"/>
             {:else if task.status === 1}
-                <Icon md="material:pending" size="24"/>
+                <Icon md="material:pending" class="color-green" size="24"/>
             {/if}
         </Row>
-        <Row noGap class="text-align-center">
+        <Row noGap class="text-align-center font-weight-bold">
             <span class="font-size-12px">
                 {#if task.status === 0}
-                    待登录
+                    离线
                 {:else if task.status === 1}
-                    运行中
+                    在线
                 {/if}
             </span>
         </Row>

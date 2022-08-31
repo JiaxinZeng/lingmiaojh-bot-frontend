@@ -12,17 +12,19 @@
         />
     </Row>
     <Row noGap class="margin-top-half">
-        <Col width="5">
-            <Button tooltip="新建文件夹" on:click={onCreateButtonClick}>
+        <Col width="10">
+            <Button on:click={onCreateButtonClick}>
                 <Icon class="font-weight-bold" md="material:add"/>
+                <span class="font-weight-bold">添加</span>
             </Button>
         </Col>
-        <Col width="5">
-            <Button tooltip="刷新" on:click={onRefreshButtonClick}>
+        <Col width="10">
+            <Button on:click={onRefreshButtonClick}>
                 <Icon class="font-weight-bold" md="material:refresh"/>
+                <span class="font-weight-bold">刷新</span>
             </Button>
         </Col>
-        <Col width="90"></Col>
+        <Col width="80"></Col>
     </Row>
 </ActionBar>
 <PageContent class="flex-grow-1">
