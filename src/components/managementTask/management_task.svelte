@@ -46,6 +46,43 @@
     </PageContent>
 {/if}
 
+<div bind:this={createMobileDialogElement} class="create-mobile-dialog dialog dialog-buttons-2" style="display: none;">
+    <div class="dialog-inner">
+        <div class="dialog-title">添加账号</div>
+        <List noHairlines class="no-padding no-margin">
+            <ListInput
+                    outline
+                    label="手机号码"
+                    floatingLabel
+                    type="text"
+                    placeholder="请输入手机号码"
+                    on:input={e => (createMobileDialogMobileInputValue = e.detail[0].target.value)}
+            />
+            <ListInput
+                    outline
+                    label="验证码"
+                    floatingLabel
+                    type="text"
+                    placeholder="请输入验证码"
+                    on:input={e => (createMobileDialogCodeInputValue = e.detail[0].target.value)}
+            >
+                <Button
+                        slot="content-end"
+                        class="content-end margin-left-half"
+                        tooltip="发送验证码"
+                        on:click={onCreateMobileDialogSendButtonClick}
+                >
+                    <Icon class="font-weight-bold font-size-24px" md="material:send"/>
+                </Button>
+            </ListInput>
+        </List>
+    </div>
+    <div class="dialog-buttons">
+        <span class="dialog-button" on:click={onCreateMobileDialogCancelButtonClick}>取消</span>
+        <span class="dialog-button dialog-button-bold" on:click={onCreateMobileDialogConfirmButtonClick}>确定</span>
+    </div>
+</div>
+
 <script>
   import ActionBar from '@/components/actionBar'
   import {
@@ -54,6 +91,8 @@
     Col,
     f7,
     Icon,
+    List,
+    ListInput,
     PageContent,
     Row,
     Searchbar
@@ -62,6 +101,7 @@
   import Api from '@/js/api'
   import Util from '@/js/util'
   import _ from 'lodash'
+  import './management_task.scss'
 
   export let folder
   export let f7router
@@ -70,15 +110,24 @@
   const search = _.debounce(() => Util.store.filterTasks(type, folder.id, searchbar.instance().query), 500)
 
   let searchbar
+  let createMobileDialogElement
+  let createMobileDialogMobileInputValue
+  let createMobileDialogCodeInputValue
+  let createMobileDialog
+  let createMobileDialogSendButtonClicked = false
 
   function onCreateButtonClick () {
     if (type === '' || type === '6') {
-      f7.dialog.prompt('请输入新账号', '添加账号', (mobile) => {
-        Api.req(() => Api.Task.createTaskByMobile(type, mobile, folder.id), '添加成功', '添加失败', '正在添加账号')
-          .then(() => {
-            Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
-          })
+      // f7.dialog.prompt('请输入新账号', '添加账号', (mobile) => {
+      //   Api.req(() => Api.Task.createTaskByMobile(type, mobile, folder.id), '添加成功', '添加失败', '正在添加账号')
+      //     .then(() => {
+      //       Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
+      //     })
+      // })
+      createMobileDialog = f7.dialog.create({
+        el: createMobileDialogElement
       })
+      createMobileDialog.open()
     } else if (type === '2' || type === '3' || type === '4' || type === '5') {
       f7.dialog.login(null, '添加账号', (username, password) => {
         f7.dialog.password('请输入支付密码', '添加账号', (paymentPassword) => {
@@ -103,5 +152,52 @@
 
   function onRefreshButtonClick () {
     Util.alert.refresh(() => Util.store.filterTasks(type, folder.id, searchbar.instance().query), false)
+  }
+
+  function onCreateMobileDialogSendButtonClick () {
+    createMobileDialog.close();
+    (async function () {
+      try {
+        await Api.req(() => Api.Task.createTaskByMobile(type, createMobileDialogMobileInputValue, folder.id), null, '添加失败', '正在添加账号')
+        await Api.req(() => Api.Task.sendLoginVerifyCode(type, createMobileDialogMobileInputValue), '发送成功', '发送失败', '正在发送')
+        createMobileDialogSendButtonClicked = true
+      } catch (err) {
+      }
+      createMobileDialog.open()
+    })()
+  }
+
+  function onCreateMobileDialogCancelButtonClick () {
+    createMobileDialog.close()
+    if (createMobileDialogSendButtonClicked) {
+      Api.req(() => Api.Task.deleteTask(type, createMobileDialogMobileInputValue), null, '取消失败', '正在取消添加账号')
+        .then(() => createMobileDialog.destroy())
+        .catch(() => createMobileDialog.open())
+    }
+
+    createMobileDialog.destroy()
+  }
+
+  function onCreateMobileDialogConfirmButtonClick () {
+    createMobileDialog.close()
+    if (createMobileDialogCodeInputValue) {
+      (async function () {
+        try {
+          if (!createMobileDialogSendButtonClicked) {
+            await Api.req(() => Api.Task.createTaskByMobile(type, createMobileDialogMobileInputValue, folder.id), null, '添加失败', '正在添加账号')
+          }
+          await Api.req(() => Api.Task.loginByMobile(type, createMobileDialogMobileInputValue, createMobileDialogCodeInputValue), '登录成功', '登录失败', '正在登录')
+        } catch (err) {
+          createMobileDialog.open()
+          return
+        }
+        await Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
+        createMobileDialogSendButtonClicked = false
+        createMobileDialog.destroy()
+      })()
+      return
+    }
+
+    f7.dialog.alert('请先输入验证码', '提示', () => createMobileDialog.open())
   }
 </script>
