@@ -87,11 +87,20 @@
 
   function onFolderListAction (e, folder) {
     clickedFolder = folder
-    _.forEach(e.detail.path, (item) => {
-      if (item.className?.includes('folder-list-item')) {
-        popover.instance().open(item, true)
+
+    let target = e.detail.target
+    while (true) {
+      if (target.classList.contains('folder-list-item')) {
+        popover.instance().open(target, true)
+        break
       }
-    })
+
+      target = target.parentElement
+
+      if (!target) {
+        break
+      }
+    }
   }
 
   function onChangeFolderNameButtonClick () {

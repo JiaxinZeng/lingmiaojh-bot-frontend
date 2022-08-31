@@ -42,8 +42,25 @@
         </Row>
     </ActionBar>
     <PageContent class="flex-grow-1">
-        <TaskList type={type} folder={folder}/>
+        <TaskList tasks={tasks} type={type} folder={folder}/>
     </PageContent>
+    <span class="font-weight-bold font-size-16px">总:{tasks.length} 离线:{(function () {
+      let i = 0
+      tasks.forEach((task) => {
+        if (task.status === 0) {
+          i++
+        }
+      })
+      return i
+    })()} 在线:{(function () {
+      let i = 0
+      tasks.forEach((task) => {
+        if (task.status === 1) {
+          i++
+        }
+      })
+      return i
+    })()}</span>
 {/if}
 
 <div bind:this={createMobileDialogElement} class="create-mobile-dialog dialog dialog-buttons-2" style="display: none;">
@@ -95,20 +112,29 @@
     ListInput,
     PageContent,
     Row,
-    Searchbar
+    Searchbar,
+    useStore
   } from 'framework7-svelte'
   import TaskList from '@/components/taskList'
   import Api from '@/js/api'
   import Util from '@/js/util'
   import _ from 'lodash'
   import './management_task.scss'
+  import { onMount } from 'svelte'
 
   export let folder
   export let f7router
   export let type = ''
 
+  onMount(() => {
+    Util.store.getTasks(type, folder.id)
+  })
+
   const search = _.debounce(() => Util.store.filterTasks(type, folder.id, searchbar.instance().query), 500)
 
+  let tasks = useStore(`task${type}s`, newTasks => (tasks = _.sortBy(newTasks, function (task) {
+    return task.status
+  })))
   let searchbar
   let createMobileDialogElement
   let createMobileDialogMobileInputValue
@@ -118,12 +144,6 @@
 
   function onCreateButtonClick () {
     if (type === '' || type === '6') {
-      // f7.dialog.prompt('请输入新账号', '添加账号', (mobile) => {
-      //   Api.req(() => Api.Task.createTaskByMobile(type, mobile, folder.id), '添加成功', '添加失败', '正在添加账号')
-      //     .then(() => {
-      //       Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
-      //     })
-      // })
       createMobileDialog = f7.dialog.create({
         el: createMobileDialogElement
       })
@@ -131,8 +151,7 @@
     } else if (type === '2' || type === '3' || type === '4' || type === '5') {
       f7.dialog.login(null, '添加账号', (username, password) => {
         f7.dialog.password('请输入支付密码', '添加账号', (paymentPassword) => {
-          Api.req(() => Api.Task.createTaskByUsername(type, username, password, folder.id, paymentPassword), '添加成功',
-            '添加失败', '正在添加账号')
+          Api.req(() => Api.Task.createTaskByUsername(type, username, password, folder.id, paymentPassword), '添加成功', '添加失败', '正在添加账号')
             .then(() => {
               Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
             })

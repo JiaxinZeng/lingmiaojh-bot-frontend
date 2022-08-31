@@ -1,4 +1,4 @@
-<Page class="padding-top padding-right padding-bottom display-flex flex-flow-column" pageContent={false}>
+<Page class="padding display-flex flex-flow-column" pageContent={false}>
     <Management f7router={f7router} />
 </Page>
 

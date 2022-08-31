@@ -1,6 +1,7 @@
 import path from 'path'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import eslint from 'vite-plugin-eslint'
+import legacy from '@vitejs/plugin-legacy'
 
 const SRC_DIR = path.resolve(__dirname, './src')
 const PUBLIC_DIR = path.resolve(__dirname, './public')
@@ -11,6 +12,30 @@ export default {
     svelte(),
     eslint({
       exclude: ['node_modules/**', 'www/**']
+    }),
+    legacy({
+      targets: ['ie >= 11'],
+      additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
+      renderLegacyChunks: true,
+      polyfills: [
+        'es.symbol',
+        'es.array.filter',
+        'es.promise',
+        'es.promise.finally',
+        'es/map',
+        'es/set',
+        'es.array.for-each',
+        'es.object.define-properties',
+        'es.object.define-property',
+        'es.object.get-own-property-descriptor',
+        'es.object.get-own-property-descriptors',
+        'es.object.keys',
+        'es.object.to-string',
+        'web.dom-collections.for-each',
+        'esnext.global-this',
+        'esnext.string.match-all',
+        'es.object.assign'
+      ]
     })
   ],
   optimizeDeps: {
