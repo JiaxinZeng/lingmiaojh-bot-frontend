@@ -1,9 +1,13 @@
 <App { ...f7params } dark colorTheme="pink">
     {#if !onlyPage}
-        <Panel cover left visibleBreakpoint={960}>
+        <Panel bind:this={sidebar} cover left visibleBreakpoint={960}>
             <View>
                 <Page>
-                    <List class="margin-top margin-bottom margin-left" noHairlines menuList>
+                    <List
+                            class={`${window.innerWidth > 960 ? 'margin-top margin-bottom margin-left' : 'no-margin'}`}
+                            noHairlines
+                            menuList
+                    >
                         <ListItem link
                                   title="仪表盘"
                                   selected={currentPage === 'home'}
@@ -136,6 +140,17 @@
                 </Page>
             </View>
         </Panel>
+
+        {#if window.innerWidth < 960}
+            <Fab
+                    position="right-bottom"
+                    color="pink"
+                    class="z-index-5001"
+                    on:click={() => { sidebar.instance().toggle() }}
+            >
+                <Icon md="material:menu"></Icon>
+            </Fab>
+        {/if}
     {/if}
 
     <View main class="safe-areas" url={onlyPage ? `/${onlyPage}/` : '/home/'}/>
@@ -151,12 +166,13 @@
     List,
     ListItem,
     Icon,
-    f7
+    f7,
+    Fab
   } from 'framework7-svelte'
   import routes from '@/js/routes'
   import store from '@/js/store'
   import _ from 'lodash'
-  import Util from '@/js/util'
+  import app from 'framework7'
 
   const f7params = {
     name: 'Lingmiaojh Bot',
@@ -176,10 +192,12 @@
     }
   }
 
-  const onlyPage = Util.getQueryParams(window.location.href)?.page
+  const onlyPage = app.utils.parseUrlQuery(window.location.href)?.page
 
   let currentPage = 'home'
   const changePage = _.debounce(function () {
     f7.views.main.router.navigate(`/${currentPage}/`)
   }, 500)
+
+  let sidebar
 </script>

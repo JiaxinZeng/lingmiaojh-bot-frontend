@@ -4,19 +4,18 @@
             <BlockTitle class="title">任务导入</BlockTitle>
         </Col>
     </Row>
-    <Row noGap class="margin-top-half">
-        <Col width="5">
+    <div class="margin-top-half display-flex">
+        <div>
             <Button tooltip="返回" on:click={onBackButtonClick}>
                 <Icon class="font-weight-bold" md="material:arrow_back"/>
             </Button>
-        </Col>
-        <Col width="5">
+        </div>
+        <div>
             <Button tooltip="确定" on:click={onCheckButtonClick}>
                 <Icon class="font-weight-bold" md="material:check"/>
             </Button>
-        </Col>
-        <Col width="90"></Col>
-    </Row>
+        </div>
+    </div>
 </ActionBar>
 <PageContent class="flex-grow-1 task-import">
     <TextEditor bind:this={textEditor}

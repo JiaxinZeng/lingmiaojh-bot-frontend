@@ -18,10 +18,6 @@
   }
 }
 
-#app {
-  min-width: 1125px;
-}
-
 body {
   overflow-x: auto;
   background-color: #121212;
@@ -71,4 +67,12 @@ body {
 
 .word-break-break-all {
   word-break: break-all !important;
+}
+
+.flex-flow-wrap {
+  flex-flow: wrap !important;
+}
+
+.z-index-5001 {
+    z-index: 5001 !important;
 }

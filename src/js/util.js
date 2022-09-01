@@ -68,12 +68,5 @@ export default {
         autoClose ? null : '刷新失败',
         '正在刷新')
     }
-  },
-  getQueryParams (url) {
-    try {
-      return JSON.parse('{"' + decodeURI(url.split('?')[1]).replace(/"/g, '"').replace(/&/g, '","').replace(/=/g, '":"') + '"}')
-    } catch (err) {
-      return ''
-    }
   }
 }

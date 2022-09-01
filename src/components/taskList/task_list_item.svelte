@@ -5,14 +5,12 @@
           footer={`余额:${task.coin}`}
           accordionItem
 >
-    <span slot="after">[创建时间:{new Date(task.created_at).toLocaleString()}]</span>
-    <span slot="after-start" class="margin-right-half">[上级手机号:]</span>
-    <div slot="media" class="display-flex align-items-center justify-content-center flex-direction-column">
+    <div slot="media" class="display-flex align-items-center width-100 justify-content-center flex-direction-column">
         <Row noGap>
             {#if task.status === 0}
-                <Icon md="material:error" class="color-red" size="24"/>
+                <Icon md="material:error" size="24"/>
             {:else if task.status === 1}
-                <Icon md="material:pending" class="color-green" size="24"/>
+                <Icon md="material:pending" size="24"/>
             {/if}
         </Row>
         <Row noGap class="text-align-center font-weight-bold">
@@ -28,37 +26,35 @@
     <AccordionContent>
         <Card noShadow class="no-margin">
             <CardContent class="no-padding-top">
-                <Row noGap>
+                <div class="display-flex flex-flow-wrap">
                     {#if type === '' || type === '6'}
-                        <Col width="5">
+                        <div>
                             <Button tooltip="发送验证码" on:click={onSendVerifyCodeButtonClick}>
                                 <Icon class="font-weight-bold" md="material:outgoing_mail"/>
                             </Button>
-                        </Col>
+                        </div>
                     {/if}
 
-                    <Col width="5">
+                    <div>
                         <Button tooltip="登录" on:click={onSignInButtonClick}>
                             <Icon class="font-weight-bold" md="material:login"/>
                         </Button>
-                    </Col>
+                    </div>
 
                     {#if type === '2' || type === '3' || type === '4' || type === '5'}
-                        <Col width="5">
+                        <div>
                             <Button tooltip="重设支付密码" on:click={onResetPaymentPasswordButtonClick}>
                                 <Icon class="font-weight-bold" md="material:shopping_cart"/>
                             </Button>
-                        </Col>
+                        </div>
                     {/if}
 
-                    <Col width="5">
+                    <div>
                         <Button tooltip="删除" on:click={onDeleteButtonClick}>
                             <Icon class="font-weight-bold" md="material:delete"/>
                         </Button>
-                    </Col>
-
-                    <Col width="85"></Col>
-                </Row>
+                    </div>
+                </div>
                 <Row noGap class="margin-top-half">
                     <Col width="100">
                         <span>下次执行时间:{new Date(task.next_executed_at).toLocaleString()}</span>
@@ -66,7 +62,17 @@
                 </Row>
                 <Row noGap>
                     <Col width="100">
-                        <span class="word-break-break-all">Token:{task.token}</span>
+                        <span>创建时间:{new Date(task.created_at).toLocaleString()}</span>
+                    </Col>
+                </Row>
+                <Row noGap>
+                    <Col width="100">
+                        <span>上级手机号:</span>
+                    </Col>
+                </Row>
+                <Row noGap>
+                    <Col width="100">
+                        <span>上级ID:</span>
                     </Col>
                 </Row>
             </CardContent>

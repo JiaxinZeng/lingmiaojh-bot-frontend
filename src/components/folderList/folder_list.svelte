@@ -33,6 +33,6 @@
     Util.store.getTaskFolders(type)
   })
 
-  const colNum = 5
+  const colNum = Math.ceil((window.innerWidth - 32) / 250)
   let folders = useStore(`task${type}Folders`, newFolders => (folders = _.chunk(newFolders, colNum)))
 </script>

@@ -11,21 +11,20 @@
                    on:searchbarSearch={search}
         />
     </Row>
-    <Row noGap class="margin-top-half">
-        <Col width="10">
+    <div class="margin-top-half display-flex">
+        <div>
             <Button on:click={onCreateButtonClick}>
                 <Icon class="font-weight-bold" md="material:add"/>
                 <span class="font-weight-bold">添加</span>
             </Button>
-        </Col>
-        <Col width="10">
+        </div>
+        <div>
             <Button on:click={onRefreshButtonClick}>
                 <Icon class="font-weight-bold" md="material:refresh"/>
                 <span class="font-weight-bold">刷新</span>
             </Button>
-        </Col>
-        <Col width="80"></Col>
-    </Row>
+        </div>
+    </div>
 </ActionBar>
 <PageContent class="flex-grow-1">
     <FolderList type={type} action={onFolderListAction}/>
@@ -54,7 +53,6 @@
   import ActionBar from '@/components/actionBar'
   import {
     Button,
-    Col,
     f7,
     Icon,
     List,
