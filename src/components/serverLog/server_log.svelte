@@ -14,7 +14,7 @@
   let logs = ''
 
   onMount(() => {
-    Api.Log.getServerLogs().then(resp => {
+    Api.log.getServerLogs().then(resp => {
       (JSON.parse(resp.data)?.data ?? [])?.forEach(log => {
         if ((log?.log?.length ?? 0) === 0) {
           return

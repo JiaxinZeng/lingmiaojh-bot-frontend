@@ -64,13 +64,13 @@
   } from 'framework7-svelte'
   import FolderList from '@/components/folderList'
   import _ from 'lodash'
-  import Api from '@/js/api'
-  import Util from '@/js/util'
+  import api from '@/js/api'
+  import utils from '@/js/utils'
 
   export let f7router
   export let type = ''
 
-  const search = _.debounce(() => Util.store.filterTaskFolders(type, searchbar.instance().query), 500)
+  const search = _.debounce(() => utils.store.filterTaskFolders(type, searchbar.instance().query), 500)
 
   let popover
   let clickedFolder = null
@@ -78,9 +78,9 @@
 
   function onCreateButtonClick () {
     f7.dialog.prompt('请输入新文件夹名称', '新建文件夹', (name) => {
-      Api.req(() => Api.Folder.createTaskFolder(type, name), '新建文件夹成功', '新建文件夹失败', '正在新建文件夹')
+      api.req(() => api.folder.createTaskFolder(type, name), '新建文件夹成功', '新建文件夹失败', '正在新建文件夹')
         .then(() => {
-          Util.alert.refresh(() => Util.store.getTaskFolders(type), true)
+          utils.progress.refresh(() => utils.store.getTaskFolders(type), true)
         })
     })
   }
@@ -105,24 +105,24 @@
 
   function onChangeFolderNameButtonClick () {
     f7.dialog.prompt('请输入新文件夹名称', '重命名文件夹', (name) => {
-      Api.req(() => Api.Folder.changeTaskFolderName(type, clickedFolder.id, name), '重命名成功', '重命名失败',
+      api.req(() => api.folder.changeTaskFolderName(type, clickedFolder.id, name), '重命名成功', '重命名失败',
         '正在重命名文件夹')
         .then(() => {
-          Util.alert.refresh(() => Util.store.getTaskFolders(type), true)
+          utils.progress.refresh(() => utils.store.getTaskFolders(type), true)
         })
     }, () => {}, clickedFolder?.name)
   }
 
   function onDeleteFolderButtonClick () {
     f7.dialog.confirm('确定删除文件夹吗?', '删除文件夹', () => {
-      Api.req(() => Api.Folder.deleteTaskFolder(type, clickedFolder.id), '删除成功', '删除失败', '正在删除文件夹')
+      api.req(() => api.folder.deleteTaskFolder(type, clickedFolder.id), '删除成功', '删除失败', '正在删除文件夹')
         .then(() => {
-          Util.alert.refresh(() => Util.store.getTaskFolders(type), true)
+          utils.progress.refresh(() => utils.store.getTaskFolders(type), true)
         })
     })
   }
 
   function onRefreshButtonClick () {
-    Util.alert.refresh(() => Util.store.filterTaskFolders(type, searchbar.instance().query), false)
+    utils.progress.refresh(() => utils.store.filterTaskFolders(type, searchbar.instance().query), false)
   }
 </script>

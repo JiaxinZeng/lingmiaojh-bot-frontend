@@ -1,4 +1,4 @@
-<ActionBar>
+<ActionBar class="margin-bottom-half">
     <Row noGap>
         <Col width="100">
             <BlockTitle class="title">任务导入</BlockTitle>
@@ -38,7 +38,7 @@
   import './task_import.scss'
   import Dom7 from 'dom7'
   import Api from '@/js/api'
-  import Util from '@/js/util'
+  import Util from '@/js/utils'
 
   export let f7router
   export let type
@@ -142,9 +142,9 @@
         const account = accounts[i]
 
         if (type === '' || type === '6') {
-          lastResp = await Api.Task.createTaskByMobile(type, account.account, folder.id)
+          lastResp = await Api.task.createTaskByMobile(type, account.account, folder.id)
         } else if (type === '2' || type === '3' | type === '4' | type === '5') {
-          lastResp = await Api.Task.createTaskByUsername(type,
+          lastResp = await Api.task.createTaskByUsername(type,
             account.account,
             account.password,
             folder.id,
@@ -168,7 +168,7 @@
 
   function onBackButtonClick () {
     if (isImported) {
-      Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
+      Util.progress.refresh(() => Util.store.getTasks(type, folder.id), true)
     }
     f7router.back()
   }

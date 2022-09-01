@@ -30,13 +30,12 @@ export default {
         }).then(() => {})
       })
     },
-    filterTasks (type, folderId, titleName) {
-      console.log(titleName)
+    filterTasks (type, folderId, condition) {
       return new Promise((resolve, reject) => {
         Store.dispatch('filterTasks', {
           type,
           folderId,
-          titleName,
+          condition,
           okCallback (resp) {
             resolve(resp)
           },
@@ -61,7 +60,7 @@ export default {
       })
     }
   },
-  alert: {
+  progress: {
     refresh (reqFunc, autoClose) {
       return Api.req(reqFunc,
         autoClose ? null : '刷新成功',

@@ -24,7 +24,7 @@
   import FolderListItem from './folder_list_item.svelte'
   import { onMount } from 'svelte'
   import _ from 'lodash'
-  import Util from '@/js/util'
+  import Util from '@/js/utils'
 
   export let action = () => {}
   export let type = ''

@@ -1,5 +1,5 @@
 {#if folder}
-    <ActionBar>
+    <ActionBar class="margin-bottom-half">
         <Row noGap>
             <Col width="100">
                 <BlockTitle class="title">{folder.name}</BlockTitle>
@@ -31,33 +31,32 @@
                 </Button>
             </div>
             <div>
-                <Button>
+                <Button on:click={onQueryButtonClick}>
                     <Icon class="font-weight-bold" md="material:search"/>
                     <span class="font-weight-bold">查询</span>
                 </Button>
             </div>
         </div>
     </ActionBar>
-    <PageContent class="flex-grow-1">
-        <TaskList tasks={tasks} type={type} folder={folder}/>
+    <PageContent class="flex-grow-1 management-task-page-context">
+        {#key tasks}
+            <TaskList type={type} folder={folder} tasks={tasks}/>
+        {/key}
     </PageContent>
-    <div class="font-weight-bold font-size-12px margin-top-half">[总计:{tasks.length}]&nbsp;[离线:{(function () {
-      let i = 0
-      tasks.forEach((task) => {
+    <div class="font-weight-bold font-size-12px margin-top-half">[总计:{tasks.length}]&nbsp;[离线:{
+      tasks.reduce((total, task) => {
         if (task.status === 0) {
-          i++
+          total++
         }
-      })
-      return i
-    })()}]&nbsp;[在线:{(function () {
-      let i = 0
-      tasks.forEach((task) => {
+        return total
+      }, 0)}]&nbsp;[在线:{
+      tasks.reduce((total, task) => {
         if (task.status === 1) {
-          i++
+          total++
         }
-      })
-      return i
-    })()}]</div>
+      return total
+    }, 0)}]
+    </div>
 {/if}
 
 <div bind:this={createMobileDialogElement} class="create-mobile-dialog dialog dialog-buttons-2" style="display: none;">
@@ -97,6 +96,118 @@
     </div>
 </div>
 
+<div bind:this={queryDialogElement} class="query-task-dialog dialog dialog-buttons-2" style="display: none;">
+    <div class="dialog-inner">
+        <div class="dialog-title">查询任务</div>
+        <List noHairlines class="no-padding no-margin">
+            <ListInput
+                    outline
+                    label="手机号码"
+                    floatingLabel
+                    type="text"
+                    placeholder="请输入手机号码"
+                    value={queryDialogMobileInputValue}
+                    on:input={e => (queryDialogMobileInputValue = e.detail[0].target.value)}
+            >
+                <Input
+                        slot="content-start"
+                        outline
+                        type="select"
+                        class="condition"
+                        value={queryDialogMobileConditionValue}
+                        on:input={e => (queryDialogMobileConditionValue = e.detail[0].target.value)}
+                >
+                    <option value="all">不限</option>
+                    <option value="include">包含</option>
+                    <option value="equal">相等</option>
+                </Input>
+            </ListInput>
+            <ListInput
+                    outline
+                    label="上级手机号码"
+                    floatingLabel
+                    type="text"
+                    placeholder="请输入手机号码"
+                    value={queryDialogInviterMobileInputValue}
+                    on:input={e => (queryDialogInviterMobileInputValue = e.detail[0].target.value)}
+            >
+                <Input
+                        slot="content-start"
+                        outline
+                        type="select"
+                        class="condition"
+                        value={queryDialogInviterMobileConditionValue}
+                        on:input={e => (queryDialogInviterMobileConditionValue = e.detail[0].target.value)}
+                >
+                    <option value="all">不限</option>
+                    <option value="include">包含</option>
+                    <option value="equal">相等</option>
+                </Input>
+            </ListInput>
+            <ListInput
+                    outline
+                    label="上级ID"
+                    floatingLabel
+                    type="text"
+                    placeholder="请输入ID"
+                    value={queryDialogInviterIdInputValue}
+                    on:input={e => (queryDialogInviterIdInputValue = e.detail[0].target.value)}
+            >
+                <Input
+                        slot="content-start"
+                        outline
+                        type="select"
+                        class="condition"
+                        value={queryDialogInviterIdConditionValue}
+                        on:input={e => (queryDialogInviterIdConditionValue = e.detail[0].target.value)}
+                >
+                    <option value="all">不限</option>
+                    <option value="include">包含</option>
+                    <option value="equal">相等</option>
+                </Input>
+            </ListInput>
+            <ListInput
+                    outline
+                    label="创建时间"
+                    floatingLabel
+                    type="datetime-local"
+                    placeholder="请选择日期"
+                    value={queryDialogCreateTimeInputValue}
+                    on:input={e => (queryDialogCreateTimeInputValue = e.detail[0].target.value)}
+            >
+                <Input
+                        slot="content-start"
+                        outline
+                        type="select"
+                        class="condition"
+                        value={queryDialogCreateTimeConditionValue}
+                        on:input={e => (queryDialogCreateTimeConditionValue = e.detail[0].target.value)}
+                >
+                    <option value="all">不限</option>
+                    <option value="before">之前</option>
+                    <option value="after">之后</option>
+                </Input>
+            </ListInput>
+            <ListInput
+                    outline
+                    label="运行状态"
+                    type="select"
+                    placeholder="请选择日期"
+                    value={queryDialogStatusConditionValue}
+                    on:input={e => (queryDialogStatusConditionValue = e.detail[0].target.value)}
+            >
+                <option value="all">不限</option>
+                <option value="online">在线</option>
+                <option value="offline">离线</option>
+            </ListInput>
+        </List>
+    </div>
+    <div class="dialog-buttons">
+        <span class="dialog-button" on:click={onQueryDialogCloseButtonClick}>取消</span>
+        <span class="dialog-button dialog-button-bold" on:click={onQueryDialogConfirmButtonClick}>确定</span>
+    </div>
+</div>
+
 <script>
   import ActionBar from '@/components/actionBar'
   import {
@@ -105,6 +216,7 @@
     Col,
     f7,
     Icon,
+    Input,
     List,
     ListInput,
     PageContent,
@@ -112,11 +224,11 @@
     useStore
   } from 'framework7-svelte'
   import TaskList from '@/components/taskList'
-  import Api from '@/js/api'
-  import Util from '@/js/util'
-  import _ from 'lodash'
+  import api from '@/js/api'
+  import utils from '@/js/utils'
   import './management_task.scss'
   import { onMount } from 'svelte'
+  import _ from 'lodash'
 
   export let folder
   export let f7router
@@ -124,20 +236,31 @@
 
   onMount(() => {
     if (folder?.id) {
-      Util.store.getTasks(type, folder.id)
+      utils.store.getTasks(type, folder.id)
     }
   })
-
-  // const search = _.debounce(() => Util.store.filterTasks(type, folder.id, searchbar.instance().query), 500)
 
   let tasks = useStore(`task${type}s`, newTasks => (tasks = _.sortBy(newTasks, function (task) {
     return task.status
   })))
+
   let createMobileDialogElement
   let createMobileDialogMobileInputValue
   let createMobileDialogCodeInputValue
   let createMobileDialog
   let createMobileDialogSendButtonClicked = false
+
+  let queryDialogElement
+  let queryDialog
+  let queryDialogMobileInputValue = ''
+  let queryDialogMobileConditionValue = 'all'
+  let queryDialogInviterMobileInputValue = ''
+  let queryDialogInviterMobileConditionValue = 'all'
+  let queryDialogInviterIdInputValue = ''
+  let queryDialogInviterIdConditionValue = 'all'
+  let queryDialogCreateTimeInputValue = ''
+  let queryDialogCreateTimeConditionValue = 'all'
+  let queryDialogStatusConditionValue = 'all'
 
   function onCreateButtonClick () {
     if (type === '' || type === '6') {
@@ -148,9 +271,10 @@
     } else if (type === '2' || type === '3' || type === '4' || type === '5') {
       f7.dialog.login(null, '添加账号', (username, password) => {
         f7.dialog.password('请输入支付密码', '添加账号', (paymentPassword) => {
-          Api.req(() => Api.Task.createTaskByUsername(type, username, password, folder.id, paymentPassword), '添加成功', '添加失败', '正在添加账号')
+          api.req(() => api.task.createTaskByUsername(type, username, password, folder.id, paymentPassword), '添加成功',
+            '添加失败', '正在添加账号')
             .then(() => {
-              Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
+              utils.progress.refresh(() => utils.store.getTasks(type, folder.id), true)
             })
         })
       })
@@ -167,15 +291,17 @@
   }
 
   function onRefreshButtonClick () {
-    Util.alert.refresh(() => Util.store.getTasks(type, folder.id), false)
+    utils.progress.refresh(() => utils.store.getTasks(type, folder.id), false)
   }
 
   function onCreateMobileDialogSendButtonClick () {
     createMobileDialog.close();
     (async function () {
       try {
-        await Api.req(() => Api.Task.createTaskByMobile(type, createMobileDialogMobileInputValue, folder.id), null, '添加失败', '正在添加账号')
-        await Api.req(() => Api.Task.sendLoginVerifyCode(type, createMobileDialogMobileInputValue), '发送成功', '发送失败', '正在发送')
+        await api.req(() => api.task.createTaskByMobile(type, createMobileDialogMobileInputValue, folder.id), null,
+          '添加失败', '正在添加账号')
+        await api.req(() => api.task.sendLoginVerifyCode(type, createMobileDialogMobileInputValue), '发送成功',
+          '发送失败', '正在发送')
         createMobileDialogSendButtonClicked = true
       } catch (err) {
       }
@@ -186,12 +312,10 @@
   function onCreateMobileDialogCancelButtonClick () {
     createMobileDialog.close()
     if (createMobileDialogSendButtonClicked) {
-      Api.req(() => Api.Task.deleteTask(type, createMobileDialogMobileInputValue), null, '取消失败', '正在取消添加账号')
+      api.req(() => api.task.deleteTask(type, createMobileDialogMobileInputValue), null, '取消失败', '正在取消添加账号')
         .then(() => createMobileDialog.destroy())
         .catch(() => createMobileDialog.open())
     }
-
-    createMobileDialog.destroy()
   }
 
   function onCreateMobileDialogConfirmButtonClick () {
@@ -200,20 +324,92 @@
       (async function () {
         try {
           if (!createMobileDialogSendButtonClicked) {
-            await Api.req(() => Api.Task.createTaskByMobile(type, createMobileDialogMobileInputValue, folder.id), null, '添加失败', '正在添加账号')
+            await api.req(() => api.task.createTaskByMobile(type, createMobileDialogMobileInputValue, folder.id), null,
+              '添加失败', '正在添加账号')
           }
-          await Api.req(() => Api.Task.loginByMobile(type, createMobileDialogMobileInputValue, createMobileDialogCodeInputValue), '登录成功', '登录失败', '正在登录')
+          await api.req(
+            () => api.task.loginByMobile(type, createMobileDialogMobileInputValue, createMobileDialogCodeInputValue),
+            '登录成功', '登录失败', '正在登录')
         } catch (err) {
           createMobileDialog.open()
           return
         }
-        await Util.alert.refresh(() => Util.store.getTasks(type, folder.id), true)
+        await utils.progress.refresh(() => utils.store.getTasks(type, folder.id), true)
         createMobileDialogSendButtonClicked = false
-        createMobileDialog.destroy()
       })()
       return
     }
 
     f7.dialog.alert('请先输入验证码', '提示', () => createMobileDialog.open())
+  }
+
+  function onQueryButtonClick () {
+    queryDialog = f7.dialog.create({
+      el: queryDialogElement
+    })
+    queryDialog.open()
+  }
+
+  function onQueryDialogCloseButtonClick () {
+    queryDialog.close()
+  }
+
+  function onQueryDialogConfirmButtonClick () {
+    queryDialog.close()
+
+    api.req(() => utils.store.filterTasks(type, folder.id, task => {
+      if (queryDialogMobileConditionValue === 'include') {
+        if (!task?.name?.includes(queryDialogMobileInputValue)) {
+          return false
+        }
+      } else if (queryDialogMobileConditionValue === 'equal') {
+        if (task?.name !== queryDialogMobileInputValue) {
+          return false
+        }
+      }
+
+      // if (queryDialogInviterMobileConditionValue === 'include') {
+      //   if (!task?.inviterMobile?.includes(queryDialogInviterMobileInputValue)) {
+      //     return false
+      //   }
+      // } else if (queryDialogInviterMobileConditionValue === 'equal') {
+      //   if (task?.inviterMobile !== queryDialogInviterMobileInputValue) {
+      //     return false
+      //   }
+      // }
+      //
+      // if (queryDialogInviterIdConditionValue === 'include') {
+      //   if (!task?.inviterId?.includes(queryDialogInviterIdInputValue)) {
+      //     return false
+      //   }
+      // } else if (queryDialogInviterIdConditionValue === 'equal') {
+      //   if (task?.inviterId !== queryDialogInviterIdInputValue) {
+      //     return false
+      //   }
+      // }
+
+      if (queryDialogCreateTimeConditionValue === 'before') {
+        if (!task?.created_at || new Date(task?.created_at) >= new Date(queryDialogCreateTimeInputValue)) {
+          return false
+        }
+      } else if (queryDialogCreateTimeConditionValue === 'after') {
+        if (!task?.created_at || new Date(task?.created_at) <= new Date(queryDialogCreateTimeInputValue)) {
+          return false
+        }
+      }
+
+      if (queryDialogStatusConditionValue === 'online') {
+        if (task?.status !== 1) {
+          return false
+        }
+      } else if (queryDialogStatusConditionValue === 'offline') {
+        if (task?.status !== 0) {
+          return false
+        }
+      }
+
+      return true
+    }), '查询完成', '查询失败', '正在查询')
+      .catch(() => queryDialog.open())
   }
 </script>

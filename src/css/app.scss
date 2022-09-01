@@ -76,3 +76,15 @@ body {
 .z-index-5001 {
     z-index: 5001 !important;
 }
+
+.border-radius-card {
+  border-radius: var(--f7-card-border-radius) !important;
+}
+
+.overflow-hidden {
+    overflow: hidden !important;
+}
+
+.calendar-popover, .sheet-modal {
+  z-index: 13501;
+}

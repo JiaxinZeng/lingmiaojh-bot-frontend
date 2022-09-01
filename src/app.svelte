@@ -1,10 +1,15 @@
 <App { ...f7params } dark colorTheme="pink">
     {#if !onlyPage}
-        <Panel bind:this={sidebar} cover left visibleBreakpoint={960}>
+        <Panel
+                bind:this={sidebar}
+                cover
+                left
+                visibleBreakpoint={960}
+        >
             <View>
                 <Page>
                     <List
-                            class={`${window.innerWidth > 960 ? 'margin-top margin-bottom margin-left' : 'no-margin'}`}
+                            class={`${window.innerWidth > 960 ? 'margin-top margin-bottom margin-left border-radius-card' : 'no-margin'} overflow-hidden`}
                             noHairlines
                             menuList
                     >

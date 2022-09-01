@@ -1,13 +1,13 @@
-import Folder from './folder'
-import Task from './task'
-import Log from './log'
+import folder from './folder'
+import task from './task'
+import log from './log'
 import { f7 } from 'framework7-svelte'
-import Config from '@/js/api/config'
+import config from '@/js/api/config'
 
 export default {
-  Folder,
-  Task,
-  Log,
+  folder,
+  task,
+  log,
   req (reqFunc, okAlert, errAlert, progressTitle) {
     let progressDialog = null
     if (progressTitle) {
@@ -23,7 +23,7 @@ export default {
     return new Promise((resolve, reject) => {
       reqFunc().then(resp => {
         const respObj = JSON.parse(resp.data)
-        if (respObj && respObj?.status === Config.statusSuccessCode) {
+        if (respObj && respObj?.status === config.statusSuccessCode) {
           closeProgressDialog()
           if (okAlert) {
             if (typeof okAlert === 'function') {

@@ -1,4 +1,9 @@
 .task-list {
   border-radius: var(--f7-card-border-radius);
-  overflow: hidden;
+}
+
+.task-list-item {
+  .item-media {
+    align-self: initial !important;
+  }
 }

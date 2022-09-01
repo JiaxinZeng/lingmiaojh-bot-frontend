@@ -61,7 +61,7 @@ const store = createStore({
       okCallback,
       errorCallback
     }) {
-      Api.Task.getTasks(type, folderId).then(resp => {
+      Api.task.getTasks(type, folderId).then(resp => {
         state[`task${type}s`] = JSON.parse(resp.data).data
         okCallback && okCallback(resp)
       }).catch(err => {
@@ -71,15 +71,12 @@ const store = createStore({
     filterTasks ({ state }, {
       type,
       folderId,
-      titleName,
+      condition,
       okCallback,
       errorCallback
     }) {
-      Api.Task.getTasks(type, folderId).then(resp => {
-        state[`task${type}s`] = JSON.parse(resp.data).data.filter(task => {
-          const taskTitleName = task.name
-          return taskTitleName.toLowerCase().includes(titleName.toLowerCase())
-        })
+      Api.task.getTasks(type, folderId).then(resp => {
+        state[`task${type}s`] = JSON.parse(resp.data).data.filter(condition)
         okCallback && okCallback(resp)
       }).catch(err => {
         errorCallback && errorCallback(err)
@@ -90,7 +87,7 @@ const store = createStore({
       okCallback,
       errorCallback
     }) {
-      Api.Folder.getTaskFolders(type).then(resp => {
+      Api.folder.getTaskFolders(type).then(resp => {
         state[`task${type}Folders`] = JSON.parse(resp.data).data
         okCallback && okCallback(resp)
       }).catch(err => {
@@ -103,7 +100,7 @@ const store = createStore({
       okCallback,
       errorCallback
     }) {
-      Api.Folder.getTaskFolders(type).then(resp => {
+      Api.folder.getTaskFolders(type).then(resp => {
         state[`task${type}Folders`] = JSON.parse(resp.data)
           .data
           .filter(folder => {
