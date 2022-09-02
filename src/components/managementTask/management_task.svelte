@@ -146,24 +146,25 @@
             </ListInput>
             <ListInput
                     outline
-                    label="上级ID"
+                    label="余额"
                     floatingLabel
-                    type="text"
-                    placeholder="请输入ID"
-                    value={queryDialogInviterIdInputValue}
-                    on:input={e => (queryDialogInviterIdInputValue = e.detail[0].target.value)}
+                    type="number"
+                    placeholder="请输入余额"
+                    value={queryDialogCoinInputValue}
+                    on:input={e => (queryDialogCoinInputValue = e.detail[0].target.value)}
             >
                 <Input
                         slot="content-start"
                         outline
                         type="select"
                         class="condition"
-                        value={queryDialogInviterIdConditionValue}
-                        on:input={e => (queryDialogInviterIdConditionValue = e.detail[0].target.value)}
+                        value={queryDialogCoinConditionValue}
+                        on:input={e => (queryDialogCoinConditionValue = e.detail[0].target.value)}
                 >
                     <option value="all">不限</option>
-                    <option value="include">包含</option>
-                    <option value="equal">相等</option>
+                    <option value="less">小于</option>
+                    <option value="more">大于</option>
+                    <option value="equal">等于</option>
                 </Input>
             </ListInput>
             <ListInput
@@ -256,8 +257,8 @@
   let queryDialogMobileConditionValue = 'all'
   let queryDialogInviterMobileInputValue = ''
   let queryDialogInviterMobileConditionValue = 'all'
-  let queryDialogInviterIdInputValue = ''
-  let queryDialogInviterIdConditionValue = 'all'
+  let queryDialogCoinInputValue = ''
+  let queryDialogCoinConditionValue = 'all'
   let queryDialogCreateTimeInputValue = ''
   let queryDialogCreateTimeConditionValue = 'all'
   let queryDialogStatusConditionValue = 'all'
@@ -377,16 +378,20 @@
       //     return false
       //   }
       // }
-      //
-      // if (queryDialogInviterIdConditionValue === 'include') {
-      //   if (!task?.inviterId?.includes(queryDialogInviterIdInputValue)) {
-      //     return false
-      //   }
-      // } else if (queryDialogInviterIdConditionValue === 'equal') {
-      //   if (task?.inviterId !== queryDialogInviterIdInputValue) {
-      //     return false
-      //   }
-      // }
+
+      if (queryDialogCoinConditionValue === 'equal') {
+        if (task?.coin !== Number(queryDialogCoinInputValue)) {
+          return false
+        }
+      } else if (queryDialogCoinConditionValue === 'more') {
+        if (task?.coin < Number(queryDialogCoinInputValue)) {
+          return false
+        }
+      } else if (queryDialogCoinConditionValue === 'less') {
+        if (task?.coin > Number(queryDialogCoinInputValue)) {
+          return false
+        }
+      }
 
       if (queryDialogCreateTimeConditionValue === 'before') {
         if (!task?.created_at || new Date(task?.created_at) >= new Date(queryDialogCreateTimeInputValue)) {

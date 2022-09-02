@@ -1,5 +1,5 @@
 import { createStore } from 'framework7/lite'
-import Api from '@/js/api'
+import api from '@/js/api'
 
 const store = createStore({
   state: {
@@ -61,7 +61,7 @@ const store = createStore({
       okCallback,
       errorCallback
     }) {
-      Api.task.getTasks(type, folderId).then(resp => {
+      api.task.getTasks(type, folderId).then(resp => {
         state[`task${type}s`] = JSON.parse(resp.data).data
         okCallback && okCallback(resp)
       }).catch(err => {
@@ -75,7 +75,7 @@ const store = createStore({
       okCallback,
       errorCallback
     }) {
-      Api.task.getTasks(type, folderId).then(resp => {
+      api.task.getTasks(type, folderId).then(resp => {
         state[`task${type}s`] = JSON.parse(resp.data).data.filter(condition)
         okCallback && okCallback(resp)
       }).catch(err => {
@@ -87,7 +87,7 @@ const store = createStore({
       okCallback,
       errorCallback
     }) {
-      Api.folder.getTaskFolders(type).then(resp => {
+      api.folder.getTaskFolders(type).then(resp => {
         state[`task${type}Folders`] = JSON.parse(resp.data).data
         okCallback && okCallback(resp)
       }).catch(err => {
@@ -100,7 +100,7 @@ const store = createStore({
       okCallback,
       errorCallback
     }) {
-      Api.folder.getTaskFolders(type).then(resp => {
+      api.folder.getTaskFolders(type).then(resp => {
         state[`task${type}Folders`] = JSON.parse(resp.data)
           .data
           .filter(folder => {

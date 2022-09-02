@@ -16,10 +16,8 @@
                         <ListItem link
                                   title="仪表盘"
                                   selected={currentPage === 'home'}
-                                  onClick={() => {
-                                currentPage = 'home'
-                                changePage()
-                              }}>
+                                  onClick={changePage('home')}
+                        >
                         <span slot="media">
                             <Icon md="material:dashboard"/>
                         </span>
@@ -28,7 +26,7 @@
                                   title="访问管控"
                                   selected={false}
                                   disabled
-                                  onClick={() => {}}>
+                        >
                         <span slot="media">
                             <Icon md="material:beach_access"/>
                         </span>
@@ -36,110 +34,97 @@
                         <ListItem link
                                   title="运行日志"
                                   selected={currentPage === 'server_log'}
-                                  onClick={() => {
-                                currentPage = 'server_log'
-                                changePage()
-                              }}>
+                                  onClick={changePage('server_log')}
+                        >
                         <span slot="media">
                             <Icon md="material:history"/>
                         </span>
                         </ListItem>
                         <ListItem link
                                   title="账号管理"
-                                  disabled>
+                                  disabled
+                        >
                         <span slot="media">
                             <Icon md="material:person_filled"/>
                         </span>
                         </ListItem>
                         <ListItem link
-                                  title="旅游联盟链"
+                                  title="旅游LML"
                                   selected={currentPage === 'management'}
-                                  onClick={() => {
-                                currentPage = 'management'
-                                changePage()
-                              }}>
-                        <span slot="media">
-                            <img class="display-block"
-                                 width="24"
-                                 height="24"
-                                 src="assets/ic_lv_you_lian_meng_lian.png"
-                                 alt=""/>
-                        </span>
+                                  onClick={changePage('management')}
+                        >
+<!--                        <span slot="media">-->
+<!--                            <img class="display-block"-->
+<!--                                 width="24"-->
+<!--                                 height="24"-->
+<!--                                 src="assets/ic_lv_you_lian_meng_lian.png"-->
+<!--                                 alt=""/>-->
+<!--                        </span>-->
                         </ListItem>
                         <ListItem link
-                                  title="汇金生态"
+                                  title="汇J生T"
                                   selected={currentPage === 'management2'}
-                                  onClick={() => {
-                                currentPage = 'management2'
-                                changePage()
-                              }}>
-                        <span slot="media">
-                            <img class="display-block"
-                                 width="24"
-                                 height="24"
-                                 src="assets/ic_hui_jin_sheng_tai.png"
-                                 alt=""/>
-                        </span>
+                                  onClick={changePage('management2')}
+                        >
+<!--                        <span slot="media">-->
+                            <!--                            <img class="display-block"-->
+                            <!--                                 width="24"-->
+                            <!--                                 height="24"-->
+                            <!--                                 src="assets/ic_hui_jin_sheng_tai.png"-->
+                            <!--                                 alt=""/>-->
+                            <!--                        </span>-->
                         </ListItem>
                         <ListItem link
-                                  title="游鱼商城"
+                                  title="游Y商C"
                                   selected={currentPage === 'management3'}
-                                  onClick={() => {
-                                currentPage = 'management3'
-                                changePage()
-                              }}>
-                        <span slot="media">
-                            <img class="display-block"
-                                 width="24"
-                                 height="24"
-                                 src="assets/ic_you_yu_shop.png"
-                                 alt=""/>
-                        </span>
+                                  onClick={changePage('management3')}
+                        >
+<!--                        <span slot="media">-->
+<!--                            <img class="display-block"-->
+<!--                                 width="24"-->
+<!--                                 height="24"-->
+<!--                                 src="assets/ic_you_yu_shop.png"-->
+<!--                                 alt=""/>-->
+<!--                        </span>-->
                         </ListItem>
                         <ListItem link
-                                  title="酷游"
+                                  title="酷Y"
                                   selected={currentPage === 'management4'}
-                                  onClick={() => {
-                                currentPage = 'management4'
-                                changePage()
-                              }}>
-                        <span slot="media">
-                            <img class="display-block"
-                                 width="24"
-                                 height="24"
-                                 src="assets/ic_ku_you.png"
-                                 alt=""/>
-                        </span>
+                                  onClick={changePage('management4')}
+                        >
+<!--                        <span slot="media">-->
+<!--                            <img class="display-block"-->
+<!--                                 width="24"-->
+<!--                                 height="24"-->
+<!--                                 src="assets/ic_ku_you.png"-->
+<!--                                 alt=""/>-->
+<!--                        </span>-->
                         </ListItem>
                         <ListItem link
-                                  title="嗨品集"
+                                  title="嗨PJ"
                                   selected={currentPage === 'management5'}
-                                  onClick={() => {
-                                currentPage = 'management5'
-                                changePage()
-                              }}>
-                        <span slot="media">
-                            <img class="display-block"
-                                 width="24"
-                                 height="24"
-                                 src="assets/ic_hi_pin_ji.png"
-                                 alt=""/>
-                        </span>
+                                  onClick={changePage('management5')}
+                        >
+<!--                        <span slot="media">-->
+<!--                            <img class="display-block"-->
+<!--                                 width="24"-->
+<!--                                 height="24"-->
+<!--                                 src="assets/ic_hi_pin_ji.png"-->
+<!--                                 alt=""/>-->
+<!--                        </span>-->
                         </ListItem>
                         <ListItem link
-                                  title="每日乡村"
+                                  title="每日XC"
                                   selected={currentPage === 'management6'}
-                                  onClick={() => {
-                                currentPage = 'management6'
-                                changePage()
-                              }}>
-                        <span slot="media">
-                            <img class="display-block"
-                                 width="24"
-                                 height="24"
-                                 src="assets/ic_mei_ri_xiang_cun.png"
-                                 alt=""/>
-                        </span>
+                                  onClick={changePage('management6')}
+                        >
+<!--                        <span slot="media">-->
+<!--                            <img class="display-block"-->
+<!--                                 width="24"-->
+<!--                                 height="24"-->
+<!--                                 src="assets/ic_mei_ri_xiang_cun.png"-->
+<!--                                 alt=""/>-->
+<!--                        </span>-->
                         </ListItem>
                     </List>
                 </Page>
@@ -200,9 +185,15 @@
   const onlyPage = app.utils.parseUrlQuery(window.location.href)?.page
 
   let currentPage = 'home'
-  const changePage = _.debounce(function () {
-    f7.views.main.router.navigate(`/${currentPage}/`)
+  const _changePage = _.debounce(function (page) {
+    f7.views.main.router.navigate(`/${page}/`)
   }, 500)
+  const changePage = (page) => {
+    return function () {
+      currentPage = page
+      _changePage(page)
+    }
+  }
 
   let sidebar
 </script>

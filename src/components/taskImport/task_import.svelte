@@ -37,8 +37,8 @@
   import ActionBar from '@/components/actionBar'
   import './task_import.scss'
   import Dom7 from 'dom7'
-  import Api from '@/js/api'
-  import Util from '@/js/utils'
+  import api from '@/js/api'
+  import utils from '@/js/utils'
 
   export let f7router
   export let type
@@ -136,15 +136,15 @@
     const getProgressText = () => `${importedCount} / ${accounts.length}`
     dialog.setText(getProgressText())
 
-    Api.req(async function () {
+    api.req(async function () {
       let lastResp
       for (let i = 0; i < accounts.length; i++) {
         const account = accounts[i]
 
         if (type === '' || type === '6') {
-          lastResp = await Api.task.createTaskByMobile(type, account.account, folder.id)
+          lastResp = await api.task.createTaskByMobile(type, account.account, folder.id)
         } else if (type === '2' || type === '3' | type === '4' | type === '5') {
-          lastResp = await Api.task.createTaskByUsername(type,
+          lastResp = await api.task.createTaskByUsername(type,
             account.account,
             account.password,
             folder.id,
@@ -168,7 +168,7 @@
 
   function onBackButtonClick () {
     if (isImported) {
-      Util.progress.refresh(() => Util.store.getTasks(type, folder.id), true)
+      utils.progress.refresh(() => utils.store.getTasks(type, folder.id), true)
     }
     f7router.back()
   }

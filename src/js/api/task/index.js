@@ -1,26 +1,26 @@
 import Framework7 from 'framework7'
-import Config from '@/js/api/config'
+import config from '@/js/api/config'
 
 export default {
   getTasks (type, folderId) {
     return Framework7.request.get(
-      `${Config.baseUrl}/api/v1/task${type}/folder/${folderId}`
+      `${config.baseUrl}/api/v1/task${type}/folder/${folderId}`
     )
   },
   sendLoginVerifyCode (type, mobile) {
     return Framework7.request.get(
-      `${Config.baseUrl}/api/v1/task${type}/login/send_verify_code/${mobile}`
+      `${config.baseUrl}/api/v1/task${type}/login/send_verify_code/${mobile}`
     )
   },
   deleteTask (type, name) {
     return Framework7.request({
-      url: `${Config.baseUrl}/api/v1/task${type}/${name}`,
+      url: `${config.baseUrl}/api/v1/task${type}/${name}`,
       method: 'DELETE'
     })
   },
   createTaskByMobile (type, mobile, folderId, paymentPassword) {
     return Framework7.request({
-      url: `${Config.baseUrl}/api/v1/task${type}`,
+      url: `${config.baseUrl}/api/v1/task${type}`,
       method: 'POST',
       data: (function () {
         const data = {
@@ -38,7 +38,7 @@ export default {
   },
   createTaskByUsername (type, username, password, folderId, paymentPassword) {
     return Framework7.request({
-      url: `${Config.baseUrl}/api/v1/task${type}`,
+      url: `${config.baseUrl}/api/v1/task${type}`,
       method: 'POST',
       data: (function () {
         const data = {
@@ -57,7 +57,7 @@ export default {
   },
   loginByMobile (type, mobile, verifyCode) {
     return Framework7.request({
-      url: `${Config.baseUrl}/api/v1/task${type}/login`,
+      url: `${config.baseUrl}/api/v1/task${type}/login`,
       method: 'POST',
       data: {
         code: verifyCode,
@@ -68,7 +68,7 @@ export default {
   },
   loginByUsername (type, username, password) {
     return Framework7.request({
-      url: `${Config.baseUrl}/api/v1/task${type}/login`,
+      url: `${config.baseUrl}/api/v1/task${type}/login`,
       method: 'POST',
       data: {
         username,
@@ -79,7 +79,7 @@ export default {
   },
   resetPaymentPassword (type, name, paymentPassword) {
     return Framework7.request({
-      url: `${Config.baseUrl}/api/v1/task${type}/reset_payment_password`,
+      url: `${config.baseUrl}/api/v1/task${type}/reset_payment_password`,
       method: 'POST',
       data: {
         payment_password: paymentPassword,
