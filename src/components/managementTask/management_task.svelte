@@ -169,6 +169,28 @@
             </ListInput>
             <ListInput
                     outline
+                    label="消息"
+                    floatingLabel
+                    type="text"
+                    placeholder="请输入消息"
+                    value={queryDialogMsgInputValue}
+                    on:input={e => (queryDialogMsgInputValue = e.detail[0].target.value)}
+            >
+                <Input
+                        slot="content-start"
+                        outline
+                        type="select"
+                        class="condition"
+                        value={queryDialogMsgConditionValue}
+                        on:input={e => (queryDialogMsgConditionValue = e.detail[0].target.value)}
+                >
+                    <option value="all">不限</option>
+                    <option value="include">包含</option>
+                    <option value="equal">相等</option>
+                </Input>
+            </ListInput>
+            <ListInput
+                    outline
                     label="创建时间"
                     floatingLabel
                     type="datetime-local"
@@ -259,6 +281,8 @@
   let queryDialogInviterMobileConditionValue = 'all'
   let queryDialogCoinInputValue = ''
   let queryDialogCoinConditionValue = 'all'
+  let queryDialogMsgInputValue = ''
+  let queryDialogMsgConditionValue = 'all'
   let queryDialogCreateTimeInputValue = ''
   let queryDialogCreateTimeConditionValue = 'all'
   let queryDialogStatusConditionValue = 'all'
@@ -278,6 +302,14 @@
               utils.progress.refresh(() => utils.store.getTasks(type, folder.id), true)
             })
         })
+      })
+    } else if (type === '7') {
+      f7.dialog.login(null, '添加账号', (username, password) => {
+        api.req(() => api.task.createTaskByUsername(type, username, password, folder.id), '添加成功',
+          '添加失败', '正在添加账号')
+          .then(() => {
+            utils.progress.refresh(() => utils.store.getTasks(type, folder.id), true)
+          })
       })
     }
   }
@@ -389,6 +421,16 @@
         }
       } else if (queryDialogCoinConditionValue === 'less') {
         if (task?.coin > Number(queryDialogCoinInputValue)) {
+          return false
+        }
+      }
+
+      if (queryDialogMsgConditionValue === 'include') {
+        if (!task?.msg?.includes(queryDialogMsgInputValue)) {
+          return false
+        }
+      } else if (queryDialogMsgConditionValue === 'equal') {
+        if (task?.msg !== queryDialogMsgInputValue) {
           return false
         }
       }

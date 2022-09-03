@@ -119,6 +119,13 @@
         }
       }
 
+      if (type === '7') {
+        if (!usingPassword) {
+          f7.dialog.alert('格式不正确', '提示')
+          return
+        }
+      }
+
       accounts.push({
         account: accountInfos[0],
         password: usingPassword,
@@ -149,6 +156,11 @@
             account.password,
             folder.id,
             account.paymentPassword)
+        } else if (type === '7') {
+          lastResp = await api.task.createTaskByUsername(type,
+            account.account,
+            account.password,
+            folder.id)
         }
 
         dialog.setProgress(Math.round(i / accounts.length * 100))

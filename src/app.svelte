@@ -126,6 +126,12 @@
 <!--                                 alt=""/>-->
 <!--                        </span>-->
                         </ListItem>
+                        <ListItem link
+                                  title="七C人S"
+                                  selected={currentPage === 'management7'}
+                                  onClick={changePage('management7')}
+                        >
+                        </ListItem>
                     </List>
                 </Page>
             </View>

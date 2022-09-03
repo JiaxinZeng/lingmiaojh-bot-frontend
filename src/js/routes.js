@@ -12,6 +12,8 @@ import Management5Page from '@/pages/management5.svelte'
 import Management5TaskPage from '@/pages/management5_task.svelte'
 import Management6Page from '@/pages/management6.svelte'
 import Management6TaskPage from '@/pages/management6_task.svelte'
+import Management7Page from '@/pages/management7.svelte'
+import Management7TaskPage from '@/pages/management7_task.svelte'
 import TaskImportPage from '@/pages/task_import.svelte'
 
 const routes = [
@@ -109,6 +111,20 @@ const routes = [
   {
     path: '/management6_task/',
     component: Management6TaskPage,
+    options: {
+      transition: 'f7-fade'
+    }
+  },
+  {
+    path: '/management7/',
+    component: Management7Page,
+    options: {
+      transition: 'f7-dive'
+    }
+  },
+  {
+    path: '/management7_task/',
+    component: Management7TaskPage,
     options: {
       transition: 'f7-fade'
     }

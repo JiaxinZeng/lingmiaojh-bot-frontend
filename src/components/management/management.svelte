@@ -1,4 +1,4 @@
-<ActionBar>
+<ActionBar class="margin-bottom-half">
     <Row noGap>
         <Searchbar noHairline
                    noShadow
