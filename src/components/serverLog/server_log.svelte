@@ -1,5 +1,8 @@
-<PageContent>
-    <Highlight class="no-margin" language={basic} code={logs} />
+<PageContent class="flex-grow-1">
+    <div bind:this={viewport} class="scrollable-container">
+        <Highlight class="no-margin" language={basic} code={logs} />
+    </div>
+    <Svrollbar {viewport} {contents} />
 </PageContent>
 
 <script>
@@ -7,14 +10,17 @@
     PageContent
   } from 'framework7-svelte'
   import { onMount } from 'svelte'
-  import Api from '@/js/api'
+  import api from '@/js/api'
   import { Highlight } from 'svelte-highlight'
   import basic from 'svelte-highlight/languages/basic'
+  import { Svrollbar } from 'svrollbar'
 
   let logs = ''
+  let viewport
+  let contents
 
   onMount(() => {
-    Api.log.getServerLogs().then(resp => {
+    api.log.getServerLogs().then(resp => {
       (JSON.parse(resp.data)?.data ?? [])?.forEach(log => {
         if ((log?.log?.length ?? 0) === 0) {
           return
@@ -22,5 +28,7 @@
         logs += `${log?.log}\n`
       })
     })
+
+    contents = document.querySelector('.hljs')
   })
 </script>

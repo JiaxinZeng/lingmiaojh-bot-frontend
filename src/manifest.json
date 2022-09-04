@@ -1,11 +1,12 @@
 {
-  "name": "Lingmiaojh Bot",
-  "short_name": "Lingmiaojh Bot",
-  "description": "Lingmiaojh Bot",
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "NuLiTui Bot",
+  "short_name": "NLT BOT",
+  "description": "努力推账号托管云端系统",
   "lang": "zh-CN",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#EE350F",
+  "background_color": "#121212",
   "theme_color": "#EE350F",
   "icons": [
     {

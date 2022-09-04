@@ -1,4 +1,4 @@
-<Page class="padding display-flex flex-flow-column" pageContent={false}>
+<Page class="main-page" pageContent={false}>
     <TaskImport f7router={f7router} type={type} folder={folder}/>
 </Page>
 

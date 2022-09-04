@@ -38,12 +38,17 @@
             </div>
         </div>
     </ActionBar>
-    <PageContent class="flex-grow-1 management-task-page-context">
-        {#key tasks}
-            <TaskList type={type} folder={folder} tasks={tasks}/>
+    <PageContent class="flex-grow-1 management-task-page-content">
+        <div bind:this={viewport} class="scrollable-container">
+            {#key tasks}
+                <TaskList parent={viewport} type={type} folder={folder} tasks={tasks}/>
+            {/key}
+        </div>
+        {#key contents}
+            <Svrollbar {viewport} {contents} />
         {/key}
     </PageContent>
-    <div class="font-weight-bold font-size-12px margin-top-half">[总计:{tasks.length}]&nbsp;[离线:{
+    <div class="font-weight-bold font-size-12px">[总计:{tasks.length}]&nbsp;[离线:{
       tasks.reduce((total, task) => {
         if (task.status === 0) {
           total++
@@ -241,8 +246,7 @@
     Icon,
     Input,
     List,
-    ListInput,
-    PageContent,
+    ListInput, PageContent,
     Row,
     useStore
   } from 'framework7-svelte'
@@ -250,8 +254,9 @@
   import api from '@/js/api'
   import utils from '@/js/utils'
   import './management_task.scss'
-  import { onMount } from 'svelte'
+  import { afterUpdate, onMount } from 'svelte'
   import _ from 'lodash'
+  import { Svrollbar } from 'svrollbar'
 
   export let folder
   export let f7router
@@ -262,10 +267,18 @@
       utils.store.getTasks(type, folder.id)
     }
   })
+  afterUpdate(() => {
+    contents = document.querySelector('.task-list')
+
+    console.log(contents)
+  })
 
   let tasks = useStore(`task${type}s`, newTasks => (tasks = _.sortBy(newTasks, function (task) {
     return task.status
   })))
+
+  let viewport
+  let contents
 
   let createMobileDialogElement
   let createMobileDialogMobileInputValue

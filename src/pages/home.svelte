@@ -1,4 +1,4 @@
-<Page class="padding display-flex flex-flow-column" pageContent={false}>
+<Page class="main-page" pageContent={false}>
     <PageContent>
         <h1 class="no-margin">Nu Li Tui</h1>
     </PageContent>

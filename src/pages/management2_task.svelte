@@ -1,4 +1,4 @@
-<Page class="padding display-flex flex-flow-column" pageContent={false}>
+<Page class="main-page" pageContent={false}>
     <ManagementTask type="2" folder={folder} f7router={f7router} />
 </Page>
 

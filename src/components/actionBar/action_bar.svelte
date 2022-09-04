@@ -1,7 +1,7 @@
 <Card noShadow class={`no-margin action-bar ${classNames}`} slot="fixed">
-        <CardContent padding={false} slot="content">
-            <slot></slot>
-        </CardContent>
+    <CardContent padding={false} slot="content">
+        <slot></slot>
+    </CardContent>
 </Card>
 
 <script>

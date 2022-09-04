@@ -8,7 +8,8 @@
         virtualListParams={{
           items: tasks,
           renderExternal,
-          height: 80.8
+          height: 80.8,
+          scrollableParentEl: parent
         }}
 >
     <ul>
@@ -122,6 +123,7 @@
   export let folder
   export let type = ''
   export let tasks
+  export let parent
 
   let vlData = {
     items: []

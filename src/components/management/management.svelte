@@ -1,17 +1,5 @@
 <ActionBar class="margin-bottom-half">
-    <Row noGap>
-        <Searchbar noHairline
-                   noShadow
-                   customSearch
-                   backdrop={false}
-                   form={false}
-                   disableButton={false}
-                   placeholder="搜索文件夹"
-                   bind:this={searchbar}
-                   on:searchbarSearch={search}
-        />
-    </Row>
-    <div class="margin-top-half display-flex">
+    <div class="display-flex">
         <div>
             <Button on:click={onCreateButtonClick}>
                 <Icon class="font-weight-bold" md="material:add"/>
@@ -58,23 +46,16 @@
     List,
     ListItem,
     PageContent,
-    Popover,
-    Row,
-    Searchbar
+    Popover
   } from 'framework7-svelte'
   import FolderList from '@/components/folderList'
-  import _ from 'lodash'
   import api from '@/js/api'
   import utils from '@/js/utils'
 
   export let f7router
   export let type = ''
-
-  const search = _.debounce(() => utils.store.filterTaskFolders(type, searchbar.instance().query), 500)
-
   let popover
   let clickedFolder = null
-  let searchbar
 
   function onCreateButtonClick () {
     f7.dialog.prompt('请输入新文件夹名称', '新建文件夹', (name) => {
@@ -123,6 +104,6 @@
   }
 
   function onRefreshButtonClick () {
-    utils.progress.refresh(() => utils.store.filterTaskFolders(type, searchbar.instance().query), false)
+    utils.progress.refresh(() => utils.store.getTaskFolders(type), false)
   }
 </script>
