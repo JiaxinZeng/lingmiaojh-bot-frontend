@@ -6,17 +6,15 @@
   scrollbar-width: none;
 }
 
-body {
-  background-color: #121212;
-}
-
 :root {
   .dark {
+    background-color: #121212;
     --f7-menu-list-selected-bg-color: var(--f7-page-bg-color);
+    &.color-theme-pink {
+      --f7-menu-list-selected-text-color: var(--f7-color-pink);
+      --f7-dialog-button-text-color: var(--f7-color-pink);
+    }
   }
-
-  --f7-menu-list-selected-text-color: var(--f7-color-pink);
-  --f7-dialog-button-text-color: var(--f7-color-pink);
   --f7-popover-width: 170px;
 }
 

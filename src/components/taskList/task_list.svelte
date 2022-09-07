@@ -69,11 +69,13 @@
                                     </div>
                                 {/if}
 
-                                <div>
-                                    <Button tooltip="删除" on:click={onDeleteButtonClick(task)}>
-                                        <Icon class="font-weight-bold" md="material:delete"/>
-                                    </Button>
-                                </div>
+                                {#if !noDelete}
+                                    <div>
+                                        <Button tooltip="删除" on:click={onDeleteButtonClick(task)}>
+                                            <Icon class="font-weight-bold" md="material:delete"/>
+                                        </Button>
+                                    </div>
+                                {/if}
                             </div>
                             <Row noGap class="margin-top-half">
                                 <Col width="100">
@@ -119,6 +121,7 @@
   } from 'framework7-svelte'
   import api from '@/js/api'
   import util from '@/js/utils'
+  import framework7 from 'framework7'
 
   export let folder
   export let type = ''
@@ -128,6 +131,7 @@
   let vlData = {
     items: []
   }
+  const noDelete = framework7.utils.parseUrlQuery(window.location.href)?.noDelete
 
   function renderExternal (virtualList, virtualListData) {
     vlData = virtualListData

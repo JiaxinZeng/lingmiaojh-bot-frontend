@@ -32,7 +32,9 @@
                       }}
                       title="打开"/>
             <ListItem link popoverClose on:click={onChangeFolderNameButtonClick} title="重命名"/>
-            <ListItem link popoverClose on:click={onDeleteFolderButtonClick} title="删除"/>
+            {#if !noDelete}
+                <ListItem link popoverClose on:click={onDeleteFolderButtonClick} title="删除"/>
+            {/if}
         </List>
     </Popover>
 </PageContent>
@@ -51,11 +53,13 @@
   import FolderList from '@/components/folderList'
   import api from '@/js/api'
   import utils from '@/js/utils'
+  import framework7 from 'framework7'
 
   export let f7router
   export let type = ''
   let popover
   let clickedFolder = null
+  const noDelete = framework7.utils.parseUrlQuery(window.location.href)?.noDelete
 
   function onCreateButtonClick () {
     f7.dialog.prompt('请输入新文件夹名称', '新建文件夹', (name) => {

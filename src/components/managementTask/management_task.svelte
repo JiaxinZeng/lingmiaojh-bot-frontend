@@ -269,8 +269,6 @@
   })
   afterUpdate(() => {
     contents = document.querySelector('.task-list')
-
-    console.log(contents)
   })
 
   let tasks = useStore(`task${type}s`, newTasks => (tasks = _.sortBy(newTasks, function (task) {

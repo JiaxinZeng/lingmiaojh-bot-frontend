@@ -1,5 +1,6 @@
 import Framework7 from 'framework7/lite-bundle'
 import Framework7Svelte from 'framework7-svelte'
+import framework7 from 'framework7'
 
 import 'framework7/css/bundle'
 
@@ -8,6 +9,12 @@ import '@/css/app.scss'
 import '@/css/highlight.scss'
 
 import App from '@/app.svelte'
+
+Framework7.request.setup({
+  headers: {
+    'access-token': framework7.utils.parseUrlQuery(window.location.href)?.accessToken
+  }
+})
 
 Framework7.use(Framework7Svelte)
 const app = new App({

@@ -1,4 +1,4 @@
-<App { ...f7params } dark colorTheme="pink">
+<App { ...f7params } colorTheme="blue">
     {#if !onlyPage}
         <Panel
                 bind:this={sidebar}
@@ -140,7 +140,6 @@
         {#if window.innerWidth < 960}
             <Fab
                     position="right-bottom"
-                    color="pink"
                     class="z-index-5001"
                     on:click={() => { sidebar.instance().toggle() }}
             >
@@ -168,7 +167,7 @@
   import routes from '@/js/routes'
   import store from '@/js/store'
   import _ from 'lodash'
-  import app from 'framework7'
+  import framework7 from 'framework7'
 
   const f7params = {
     name: 'Lingmiaojh Bot',
@@ -188,7 +187,7 @@
     }
   }
 
-  const onlyPage = app.utils.parseUrlQuery(window.location.href)?.page
+  const onlyPage = framework7.utils.parseUrlQuery(window.location.href)?.page
 
   let currentPage = 'home'
   const _changePage = _.debounce(function (page) {
