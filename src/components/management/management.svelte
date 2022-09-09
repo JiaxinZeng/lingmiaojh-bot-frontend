@@ -65,7 +65,7 @@
     f7.dialog.prompt('请输入新文件夹名称', '新建文件夹', (name) => {
       api.req(() => api.folder.createTaskFolder(type, name), '新建文件夹成功', '新建文件夹失败', '正在新建文件夹')
         .then(() => {
-          utils.progress.refresh(() => utils.store.getTaskFolders(type), true)
+          utils.progress.loading(() => utils.store.getTaskFolders(type), true)
         })
     })
   }
@@ -93,7 +93,7 @@
       api.req(() => api.folder.changeTaskFolderName(type, clickedFolder.id, name), '重命名成功', '重命名失败',
         '正在重命名文件夹')
         .then(() => {
-          utils.progress.refresh(() => utils.store.getTaskFolders(type), true)
+          utils.progress.loading(() => utils.store.getTaskFolders(type), true)
         })
     }, () => {}, clickedFolder?.name)
   }
@@ -102,12 +102,12 @@
     f7.dialog.confirm('确定删除文件夹吗?', '删除文件夹', () => {
       api.req(() => api.folder.deleteTaskFolder(type, clickedFolder.id), '删除成功', '删除失败', '正在删除文件夹')
         .then(() => {
-          utils.progress.refresh(() => utils.store.getTaskFolders(type), true)
+          utils.progress.loading(() => utils.store.getTaskFolders(type), true)
         })
     })
   }
 
   function onRefreshButtonClick () {
-    utils.progress.refresh(() => utils.store.getTaskFolders(type), false)
+    utils.progress.loading(() => utils.store.getTaskFolders(type), false)
   }
 </script>

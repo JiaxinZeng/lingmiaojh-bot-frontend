@@ -45,7 +45,7 @@
             {/key}
         </div>
         {#key contents}
-            <Svrollbar {viewport} {contents} />
+            <Svrollbar {viewport} {contents}/>
         {/key}
     </PageContent>
     <div class="font-weight-bold font-size-12px">[总计:{tasks.length}]&nbsp;[离线:{
@@ -59,8 +59,18 @@
         if (task.status === 1) {
           total++
         }
-      return total
-    }, 0)}]
+        return total
+      }, 0)}]&nbsp;[今日导入数:{
+      tasks.reduce((total, task) => {
+        if (!task?.created_at) {
+          return total
+        }
+        const createdAt = new Date(task?.created_at)
+        if (createdAt <= new Date().setHours(23, 59, 59, 999) && createdAt >= new Date().setHours(0, 0, 0, 0)) {
+          total++
+        }
+        return total
+      }, 0)}]
     </div>
 {/if}
 
@@ -129,20 +139,20 @@
             </ListInput>
             <ListInput
                     outline
-                    label="上级手机号码"
+                    label="邀请人"
                     floatingLabel
                     type="text"
-                    placeholder="请输入手机号码"
-                    value={queryDialogInviterMobileInputValue}
-                    on:input={e => (queryDialogInviterMobileInputValue = e.detail[0].target.value)}
+                    placeholder="请输入邀请人"
+                    value={queryDialogInviterInputValue}
+                    on:input={e => (queryDialogInviterInputValue = e.detail[0].target.value)}
             >
                 <Input
                         slot="content-start"
                         outline
                         type="select"
                         class="condition"
-                        value={queryDialogInviterMobileConditionValue}
-                        on:input={e => (queryDialogInviterMobileConditionValue = e.detail[0].target.value)}
+                        value={queryDialogInviterConditionValue}
+                        on:input={e => (queryDialogInviterConditionValue = e.detail[0].target.value)}
                 >
                     <option value="all">不限</option>
                     <option value="include">包含</option>
@@ -288,8 +298,8 @@
   let queryDialog
   let queryDialogMobileInputValue = ''
   let queryDialogMobileConditionValue = 'all'
-  let queryDialogInviterMobileInputValue = ''
-  let queryDialogInviterMobileConditionValue = 'all'
+  let queryDialogInviterInputValue = ''
+  let queryDialogInviterConditionValue = 'all'
   let queryDialogCoinInputValue = ''
   let queryDialogCoinConditionValue = 'all'
   let queryDialogMsgInputValue = ''
@@ -310,16 +320,16 @@
           api.req(() => api.task.createTaskByUsername(type, username, password, folder.id, paymentPassword), '添加成功',
             '添加失败', '正在添加账号')
             .then(() => {
-              utils.progress.refresh(() => utils.store.getTasks(type, folder.id), true)
+              utils.progress.loading(() => utils.store.getTasks(type, folder.id), true)
             })
         })
       })
-    } else if (type === '7') {
+    } else if (type === '7' || type === '8') {
       f7.dialog.login(null, '添加账号', (username, password) => {
         api.req(() => api.task.createTaskByUsername(type, username, password, folder.id), '添加成功',
           '添加失败', '正在添加账号')
           .then(() => {
-            utils.progress.refresh(() => utils.store.getTasks(type, folder.id), true)
+            utils.progress.loading(() => utils.store.getTasks(type, folder.id), true)
           })
       })
     }
@@ -335,7 +345,7 @@
   }
 
   function onRefreshButtonClick () {
-    utils.progress.refresh(() => utils.store.getTasks(type, folder.id), false)
+    utils.progress.loading(() => utils.store.getTasks(type, folder.id), false)
   }
 
   function onCreateMobileDialogSendButtonClick () {
@@ -378,7 +388,7 @@
           createMobileDialog.open()
           return
         }
-        await utils.progress.refresh(() => utils.store.getTasks(type, folder.id), true)
+        await utils.progress.loading(() => utils.store.getTasks(type, folder.id), true)
         createMobileDialogSendButtonClicked = false
       })()
       return
@@ -412,15 +422,15 @@
         }
       }
 
-      // if (queryDialogInviterMobileConditionValue === 'include') {
-      //   if (!task?.inviterMobile?.includes(queryDialogInviterMobileInputValue)) {
-      //     return false
-      //   }
-      // } else if (queryDialogInviterMobileConditionValue === 'equal') {
-      //   if (task?.inviterMobile !== queryDialogInviterMobileInputValue) {
-      //     return false
-      //   }
-      // }
+      if (queryDialogInviterConditionValue === 'include') {
+        if (!task?.inviter?.includes(queryDialogInviterInputValue)) {
+          return false
+        }
+      } else if (queryDialogInviterConditionValue === 'equal') {
+        if (task?.inviter !== queryDialogInviterInputValue) {
+          return false
+        }
+      }
 
       if (queryDialogCoinConditionValue === 'equal') {
         if (task?.coin !== Number(queryDialogCoinInputValue)) {

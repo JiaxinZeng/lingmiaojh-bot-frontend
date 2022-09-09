@@ -1,17 +1,19 @@
 <Block class="no-margin no-padding">
-    {#each folders as folderRow}
-        <Row noGap>
-            {#each new Array(colNum) as _, i}
-                <Col>
-                    {#if folderRow[i]}
-                        <FolderListItem action={e => {
+    {#if folders}
+        {#each folders as folderRow}
+            <Row noGap>
+                {#each new Array(colNum) as _, i}
+                    <Col>
+                        {#if folderRow[i]}
+                            <FolderListItem action={e => {
                           action(e, folderRow[i])
                         }} folderName={folderRow[i].name}/>
-                    {/if}
-                </Col>
-            {/each}
-        </Row>
-    {/each}
+                        {/if}
+                    </Col>
+                {/each}
+            </Row>
+        {/each}
+    {/if}
 </Block>
 
 <script>

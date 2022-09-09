@@ -1,11 +1,11 @@
-import Store from './store'
-import Api from '@/js/api'
+import store from './store'
+import api from '@/js/api'
 
 export default {
   store: {
     getTasks (type, folderId) {
       return new Promise((resolve, reject) => {
-        Store.dispatch('getTasks', {
+        store.dispatch('getTasks', {
           type,
           folderId,
           okCallback (resp) {
@@ -19,7 +19,7 @@ export default {
     },
     getTaskFolders (type) {
       return new Promise((resolve, reject) => {
-        Store.dispatch('getTaskFolders', {
+        store.dispatch('getTaskFolders', {
           type,
           okCallback (resp) {
             resolve(resp)
@@ -32,7 +32,7 @@ export default {
     },
     filterTasks (type, folderId, condition) {
       return new Promise((resolve, reject) => {
-        Store.dispatch('filterTasks', {
+        store.dispatch('filterTasks', {
           type,
           folderId,
           condition,
@@ -47,9 +47,21 @@ export default {
     },
     filterTaskFolders (type, folderName) {
       return new Promise((resolve, reject) => {
-        Store.dispatch('filterTaskFolders', {
+        store.dispatch('filterTaskFolders', {
           type,
           folderName,
+          okCallback (resp) {
+            resolve(resp)
+          },
+          errorCallback (err) {
+            reject(err)
+          }
+        }).then(() => {})
+      })
+    },
+    getUserInfo () {
+      return new Promise((resolve, reject) => {
+        store.dispatch('getUserInfo', {
           okCallback (resp) {
             resolve(resp)
           },
@@ -61,11 +73,11 @@ export default {
     }
   },
   progress: {
-    refresh (reqFunc, autoClose) {
-      return Api.req(reqFunc,
-        autoClose ? null : '刷新成功',
-        autoClose ? null : '刷新失败',
-        '正在刷新')
+    loading (reqFunc, autoClose, progressTitle, okAlert, errAlert) {
+      return api.req(reqFunc,
+        autoClose ? null : okAlert ?? '刷新成功',
+        autoClose ? null : errAlert ?? '刷新失败',
+        progressTitle ?? '正在刷新')
     }
   }
 }

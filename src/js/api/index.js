@@ -1,6 +1,7 @@
 import folder from './folder'
 import task from './task'
 import log from './log'
+import user from './user'
 import { f7 } from 'framework7-svelte'
 import config from '@/js/api/config'
 
@@ -8,6 +9,7 @@ export default {
   folder,
   task,
   log,
+  user,
   req (reqFunc, okAlert, errAlert, progressTitle) {
     let progressDialog = null
     if (progressTitle) {

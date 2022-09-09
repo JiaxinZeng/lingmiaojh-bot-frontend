@@ -119,7 +119,7 @@
         }
       }
 
-      if (type === '7') {
+      if (type === '7' || type === '8') {
         if (!usingPassword) {
           f7.dialog.alert('格式不正确', '提示')
           return
@@ -150,13 +150,13 @@
 
         if (type === '' || type === '6') {
           lastResp = await api.task.createTaskByMobile(type, account.account, folder.id)
-        } else if (type === '2' || type === '3' | type === '4' | type === '5') {
+        } else if (type === '2' || type === '3' || type === '4' || type === '5') {
           lastResp = await api.task.createTaskByUsername(type,
             account.account,
             account.password,
             folder.id,
             account.paymentPassword)
-        } else if (type === '7') {
+        } else if (type === '7' || type === '8') {
           lastResp = await api.task.createTaskByUsername(type,
             account.account,
             account.password,
@@ -180,7 +180,7 @@
 
   function onBackButtonClick () {
     if (isImported) {
-      utils.progress.refresh(() => utils.store.getTasks(type, folder.id), true)
+      utils.progress.loading(() => utils.store.getTasks(type, folder.id), true)
     }
     f7router.back()
   }

@@ -89,12 +89,7 @@
                             </Row>
                             <Row noGap>
                                 <Col width="100">
-                                    <span>上级手机号:</span>
-                                </Col>
-                            </Row>
-                            <Row noGap>
-                                <Col width="100">
-                                    <span>上级ID:</span>
+                                    <span>邀请人:{task.inviter}</span>
                                 </Col>
                             </Row>
                         </CardContent>
@@ -142,7 +137,7 @@
       f7.dialog.confirm('确定删除该任务吗?', '删除任务', () => {
         api.req(() => api.task.deleteTask(type, task.name), '删除成功', '删除失败', '正在删除')
           .then(() => {
-            util.progress.refresh(() => util.store.getTasks(type, folder.id), true)
+            util.progress.loading(() => util.store.getTasks(type, folder.id), true)
           })
       })
     }
@@ -160,14 +155,14 @@
         f7.dialog.prompt('请输入验证码', '登录', (code) => {
           api.req(() => api.task.loginByMobile(type, task.name, code), '登录成功', '登录失败', '正在登录')
             .then(() => {
-              util.progress.refresh(() => util.store.getTasks(type, folder.id), true)
+              util.progress.loading(() => util.store.getTasks(type, folder.id), true)
             })
         })
-      } else if (type === '2' || type === '3' || type === '4' || type === '5' || type === '7') {
+      } else if (type === '2' || type === '3' || type === '4' || type === '5' || type === '7' || type === '8') {
         f7.dialog.prompt('请输入密码', '登录', (password) => {
           api.req(() => api.task.loginByUsername(type, task.name, password), '登录成功', '登录失败', '正在登录')
             .then(() => {
-              util.progress.refresh(() => util.store.getTasks(type, folder.id), true)
+              util.progress.loading(() => util.store.getTasks(type, folder.id), true)
             })
         })
       }
@@ -179,7 +174,7 @@
       f7.dialog.password('请输入密码', '重设支付密码', (password) => {
         api.req(() => api.task.resetPaymentPassword(type, task.name, password), '重设成功', '重设失败', '正在重设')
           .then(() => {
-            util.progress.refresh(() => util.store.getTasks(type, folder.id), true)
+            util.progress.loading(() => util.store.getTasks(type, folder.id), true)
           })
       })
     }

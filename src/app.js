@@ -1,5 +1,5 @@
-import Framework7 from 'framework7/lite-bundle'
 import Framework7Svelte from 'framework7-svelte'
+import framework7Bundle from 'framework7/lite-bundle'
 import framework7 from 'framework7'
 
 import 'framework7/css/bundle'
@@ -10,19 +10,17 @@ import '@/css/highlight.scss'
 
 import App from '@/app.svelte'
 
-Framework7.request.setup({
+framework7.request.setup({
   headers: {
     'access-token': framework7.utils.parseUrlQuery(window.location.href)?.accessToken
   }
 })
 
-Framework7.use(Framework7Svelte)
+framework7Bundle.use(Framework7Svelte)
 const app = new App({
   target: document.getElementById('app')
 })
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/service-worker.js')
-}
+navigator?.serviceWorker.register('/service-worker.js')
 
 export default app

@@ -3,6 +3,7 @@ import api from '@/js/api'
 
 const store = createStore({
   state: {
+    userInfo: {},
     tasks: [],
     taskFolders: [],
     task2s: [],
@@ -16,9 +17,14 @@ const store = createStore({
     task6s: [],
     task6Folders: [],
     task7s: [],
-    task7Folders: []
+    task7Folders: [],
+    task8s: [],
+    task8Folders: []
   },
   getters: {
+    userInfo ({ state }) {
+      return state.userInfo
+    },
     tasks ({ state }) {
       return state.tasks
     },
@@ -60,6 +66,12 @@ const store = createStore({
     },
     task7Folders ({ state }) {
       return state.task7Folders
+    },
+    task8s ({ state }) {
+      return state.task8s
+    },
+    task8Folders ({ state }) {
+      return state.task8Folders
     }
   },
   actions: {
@@ -114,6 +126,17 @@ const store = createStore({
           .filter(folder => {
             return folder.name.toLowerCase().includes(folderName.toLowerCase())
           })
+        okCallback && okCallback(resp)
+      }).catch(err => {
+        errorCallback && errorCallback(err)
+      })
+    },
+    getUserInfo ({ state }, {
+      okCallback,
+      errorCallback
+    }) {
+      api.user.getUserInfo().then(resp => {
+        state.userInfo = JSON.parse(resp.data).data
         okCallback && okCallback(resp)
       }).catch(err => {
         errorCallback && errorCallback(err)
