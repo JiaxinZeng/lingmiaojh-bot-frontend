@@ -112,16 +112,19 @@
         usingPaymentPassword = accountInfos[2]
       }
 
-      if (type === '2' || type === '3' | type === '4' | type === '5') {
+      if (type === '2' || type === '3' || type === '4') {
         if (!usingPassword || !usingPaymentPassword) {
-          f7.dialog.alert('格式不正确', '提示')
+          f7.dialog.alert('没有输入密码或者支付密码', '提示')
           return
         }
-      }
-
-      if (type === '7' || type === '8') {
+      } else if (type === '7' || type === '8') {
         if (!usingPassword) {
-          f7.dialog.alert('格式不正确', '提示')
+          f7.dialog.alert('没有输入密码', '提示')
+          return
+        }
+      } else if (type === '5') {
+        if (!usingPaymentPassword) {
+          f7.dialog.alert('没有输入支付密码', '提示')
           return
         }
       }

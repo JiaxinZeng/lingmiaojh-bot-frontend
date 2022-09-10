@@ -46,7 +46,7 @@
                     <Card noShadow class="no-margin">
                         <CardContent class="no-padding-top">
                             <div class="display-flex flex-flow-wrap">
-                                {#if type === '' || type === '6'}
+                                {#if type === '' || type === '5' || type === '6'}
                                     <div>
                                         <Button tooltip="发送验证码" on:click={onSendVerifyCodeButtonClick(task)}>
                                             <Icon class="font-weight-bold" md="material:outgoing_mail"/>
@@ -151,16 +151,16 @@
 
   function onSignInButtonClick (task) {
     return function () {
-      if (type === '' || type === '6') {
+      if (type === '' || type === '5' || type === '6') {
         f7.dialog.prompt('请输入验证码', '登录', (code) => {
-          api.req(() => api.task.loginByMobile(type, task.name, code), '登录成功', '登录失败', '正在登录')
+          api.req(() => api.task.loginByCode(type, task.name, code), '登录成功', '登录失败', '正在登录')
             .then(() => {
               util.progress.loading(() => util.store.getTasks(type, folder.id), true)
             })
         })
-      } else if (type === '2' || type === '3' || type === '4' || type === '5' || type === '7' || type === '8') {
+      } else if (type === '2' || type === '3' || type === '4' || type === '7' || type === '8') {
         f7.dialog.prompt('请输入密码', '登录', (password) => {
-          api.req(() => api.task.loginByUsername(type, task.name, password), '登录成功', '登录失败', '正在登录')
+          api.req(() => api.task.loginByPassword(type, task.name, password), '登录成功', '登录失败', '正在登录')
             .then(() => {
               util.progress.loading(() => util.store.getTasks(type, folder.id), true)
             })

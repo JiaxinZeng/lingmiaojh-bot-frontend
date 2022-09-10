@@ -55,18 +55,27 @@ export default {
       contentType: 'application/json'
     })
   },
-  loginByMobile (type, mobile, verifyCode) {
+  cancelCreate (type, mobile) {
+    return Framework7.request({
+      url: `${config.baseUrl}/api/v1/task${type}/cancel_create`,
+      method: 'POST',
+      data: {
+        name: mobile
+      }
+    })
+  },
+  loginByCode (type, mobile, code) {
     return Framework7.request({
       url: `${config.baseUrl}/api/v1/task${type}/login`,
       method: 'POST',
       data: {
-        code: verifyCode,
+        code,
         mobile
       },
       contentType: 'application/json'
     })
   },
-  loginByUsername (type, username, password) {
+  loginByPassword (type, username, password) {
     return Framework7.request({
       url: `${config.baseUrl}/api/v1/task${type}/login`,
       method: 'POST',
