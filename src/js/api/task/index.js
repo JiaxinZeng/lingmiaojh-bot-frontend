@@ -61,7 +61,8 @@ export default {
       method: 'POST',
       data: {
         name: mobile
-      }
+      },
+      contentType: 'application/json'
     })
   },
   loginByCode (type, mobile, code) {

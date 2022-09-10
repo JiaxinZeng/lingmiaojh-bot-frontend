@@ -10,11 +10,13 @@
   .dark {
     background-color: #121212;
     --f7-menu-list-selected-bg-color: var(--f7-page-bg-color);
+
     &.color-theme-pink {
       --f7-menu-list-selected-text-color: var(--f7-color-pink);
       --f7-dialog-button-text-color: var(--f7-color-pink);
     }
   }
+
   --f7-popover-width: 170px;
 }
 
@@ -29,9 +31,11 @@
   padding: var(--f7-typography-padding);
 }
 
-.device-desktop {
-  .main-page {
-    padding-left: calc(var(--f7-typography-padding) / 2);
+@media (min-width: 960px) {
+  .device-desktop {
+    .main-page {
+      padding-left: calc(var(--f7-typography-padding) / 2);
+    }
   }
 }
 

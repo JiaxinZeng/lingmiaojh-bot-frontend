@@ -48,29 +48,29 @@
             <Svrollbar {viewport} {contents}/>
         {/key}
     </PageContent>
-    <div class="font-weight-bold font-size-12px">[总计:{tasks.length}]&nbsp;[离线:{
+    <div class="font-weight-bold font-size-12px margin-top-half">总计{tasks.length}&nbsp;|&nbsp;离线{
       tasks.reduce((total, task) => {
         if (task.status === 0) {
           total++
         }
         return total
-      }, 0)}]&nbsp;[在线:{
+      }, 0)}&nbsp;|&nbsp;在线{
       tasks.reduce((total, task) => {
         if (task.status === 1) {
           total++
         }
         return total
-      }, 0)}]&nbsp;[今日导入数:{
+      }, 0)}&nbsp;|&nbsp;今日导入{
       tasks.reduce((total, task) => {
         if (!task?.created_at) {
           return total
         }
-        const createdAt = new Date(task?.created_at)
+        const createdAt = new Date(task.created_at)
         if (createdAt <= new Date().setHours(23, 59, 59, 999) && createdAt >= new Date().setHours(0, 0, 0, 0)) {
           total++
         }
         return total
-      }, 0)}]
+      }, 0)}
     </div>
 {/if}
 
@@ -93,7 +93,7 @@
                         floatingLabel
                         type="text"
                         placeholder="请输入支付密码"
-                        on:intput={e => (createMobileDialogPaymentPasswordInputValue = e.detail[0].target.value)}
+                        on:input={e => (createMobileDialogPaymentPasswordInputValue = e.detail[0].target.value)}
                 />
             {/if}
             <ListInput
@@ -461,65 +461,65 @@
 
     api.req(() => utils.store.filterTasks(type, folder.id, task => {
       if (queryDialogMobileConditionValue === 'include') {
-        if (!task?.name?.includes(queryDialogMobileInputValue)) {
+        if (!task.name.includes(queryDialogMobileInputValue)) {
           return false
         }
       } else if (queryDialogMobileConditionValue === 'equal') {
-        if (task?.name !== queryDialogMobileInputValue) {
+        if (task.name !== queryDialogMobileInputValue) {
           return false
         }
       }
 
       if (queryDialogInviterConditionValue === 'include') {
-        if (!task?.inviter?.includes(queryDialogInviterInputValue)) {
+        if (!task.inviter.includes(queryDialogInviterInputValue)) {
           return false
         }
       } else if (queryDialogInviterConditionValue === 'equal') {
-        if (task?.inviter !== queryDialogInviterInputValue) {
+        if (task.inviter !== queryDialogInviterInputValue) {
           return false
         }
       }
 
       if (queryDialogCoinConditionValue === 'equal') {
-        if (task?.coin !== Number(queryDialogCoinInputValue)) {
+        if (task.coin !== Number(queryDialogCoinInputValue)) {
           return false
         }
       } else if (queryDialogCoinConditionValue === 'more') {
-        if (task?.coin < Number(queryDialogCoinInputValue)) {
+        if (task.coin < Number(queryDialogCoinInputValue)) {
           return false
         }
       } else if (queryDialogCoinConditionValue === 'less') {
-        if (task?.coin > Number(queryDialogCoinInputValue)) {
+        if (task.coin > Number(queryDialogCoinInputValue)) {
           return false
         }
       }
 
       if (queryDialogMsgConditionValue === 'include') {
-        if (!task?.msg?.includes(queryDialogMsgInputValue)) {
+        if (!task.msg.includes(queryDialogMsgInputValue)) {
           return false
         }
       } else if (queryDialogMsgConditionValue === 'equal') {
-        if (task?.msg !== queryDialogMsgInputValue) {
+        if (task.msg !== queryDialogMsgInputValue) {
           return false
         }
       }
 
       if (queryDialogCreateTimeConditionValue === 'before') {
-        if (!task?.created_at || new Date(task?.created_at) >= new Date(queryDialogCreateTimeInputValue)) {
+        if (!task.created_at || new Date(task.created_at) >= new Date(queryDialogCreateTimeInputValue)) {
           return false
         }
       } else if (queryDialogCreateTimeConditionValue === 'after') {
-        if (!task?.created_at || new Date(task?.created_at) <= new Date(queryDialogCreateTimeInputValue)) {
+        if (!task.created_at || new Date(task.created_at) <= new Date(queryDialogCreateTimeInputValue)) {
           return false
         }
       }
 
       if (queryDialogStatusConditionValue === 'online') {
-        if (task?.status !== 1) {
+        if (task.status !== 1) {
           return false
         }
       } else if (queryDialogStatusConditionValue === 'offline') {
-        if (task?.status !== 0) {
+        if (task.status !== 0) {
           return false
         }
       }

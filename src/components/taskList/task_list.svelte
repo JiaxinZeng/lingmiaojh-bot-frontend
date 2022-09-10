@@ -17,12 +17,17 @@
             <ListItem class="task-list-item"
                       title={`${task.name}`}
                       link
-                      header={`消息:${task.msg}`}
-                      footer={`余额:${task.coin}`}
+                      header={`${task.msg}`}
                       accordionItem
                       virtualListIndex={tasks.indexOf(task)}
                       style={`top: ${vlData.topPosition}px`}
             >
+                <div slot="footer">
+                    <Row noGap>
+                        <Col width="50">{`余额 ${task.coin}`}</Col>
+                        <Col width="50">{`${task.inviter}`}</Col>
+                    </Row>
+                </div>
                 <div slot="media"
                      class="display-flex align-items-center width-100 justify-content-center flex-direction-column">
                     <Row noGap>
@@ -78,19 +83,16 @@
                                 {/if}
                             </div>
                             <Row noGap class="margin-top-half">
-                                <Col width="100">
-                                    <span>下次执行时间:{new Date(task.next_executed_at).toLocaleString()}</span>
+                                <Col width="50" xlarge="10" large="20" medium="30">
+                                    <span>下次执行时间</span>
                                 </Col>
+                                <Col width="50" xlarge="90" large="80" medium="70">{new Date(task.next_executed_at).toLocaleString()}</Col>
                             </Row>
                             <Row noGap>
-                                <Col width="100">
-                                    <span>创建时间:{new Date(task.created_at).toLocaleString()}</span>
+                                <Col width="50" xlarge="10" large="20" medium="30">
+                                    <span>创建时间</span>
                                 </Col>
-                            </Row>
-                            <Row noGap>
-                                <Col width="100">
-                                    <span>邀请人:{task.inviter}</span>
-                                </Col>
+                                <Col width="50" xlarge="90" large="80" medium="70">{new Date(task.created_at).toLocaleString()}</Col>
                             </Row>
                         </CardContent>
                     </Card>

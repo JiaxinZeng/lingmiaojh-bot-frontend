@@ -6,3 +6,9 @@
     font-weight: bold;
   }
 }
+
+:not(.dark) {
+  .action-bar {
+    background: var(--f7-bars-bg-color);
+  }
+}

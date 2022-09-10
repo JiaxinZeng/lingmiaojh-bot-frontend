@@ -4,9 +4,12 @@
 
 <script>
   import {
-    Page
+    Page, useStore
   } from 'framework7-svelte'
   import Management from '@/components/management'
+
+  let userInfo = useStore('userInfo', newUserInfo => (userInfo = newUserInfo))
+  $: document.title = `${userInfo?.nickname} hpj`
 
   export let f7router
 </script>
