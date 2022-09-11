@@ -24,8 +24,8 @@
             >
                 <div slot="footer">
                     <Row noGap>
-                        <Col width="50">{`余额 ${task.coin}`}</Col>
-                        <Col width="50">{`${task.inviter}`}</Col>
+                        <Col width="50"><span class="font-weight-bold">邀请人&nbsp;</span>{`${task.inviter}`}</Col>
+                        <Col width="50"><span class="font-weight-bold">余额&nbsp;</span>{`${task.coin}`}</Col>
                     </Row>
                 </div>
                 <div slot="media"
@@ -83,16 +83,16 @@
                                 {/if}
                             </div>
                             <Row noGap class="margin-top-half">
-                                <Col width="50" xlarge="10" large="20" medium="30">
-                                    <span>下次执行时间</span>
+                                <Col>
+                                    <span class="font-weight-bold">下次执行时间&nbsp;</span>
+                                    <span>{new Date(task.next_executed_at).toLocaleString()}</span>
                                 </Col>
-                                <Col width="50" xlarge="90" large="80" medium="70">{new Date(task.next_executed_at).toLocaleString()}</Col>
                             </Row>
                             <Row noGap>
-                                <Col width="50" xlarge="10" large="20" medium="30">
-                                    <span>创建时间</span>
+                                <Col>
+                                    <span class="font-weight-bold">创建时间&nbsp;</span>
+                                    <span>{new Date(task.created_at).toLocaleString()}</span>
                                 </Col>
-                                <Col width="50" xlarge="90" large="80" medium="70">{new Date(task.created_at).toLocaleString()}</Col>
                             </Row>
                         </CardContent>
                     </Card>

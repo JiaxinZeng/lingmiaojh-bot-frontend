@@ -60,7 +60,7 @@
           total++
         }
         return total
-      }, 0)}&nbsp;|&nbsp;今日导入{
+      }, 0)}&nbsp;|&nbsp;新增{
       tasks.reduce((total, task) => {
         if (!task?.created_at) {
           return total
