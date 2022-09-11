@@ -26,9 +26,9 @@
     "framework7-svelte": "^7.0.7",
     "lodash": "^4.17.21",
     "material-icons": "^1.11.9",
+    "prismjs": "^1.29.0",
     "skeleton-elements": "^4.0.0",
     "svelte": "^3.49.0",
-    "svelte-highlight": "^6.2.1",
     "svrollbar": "^0.12.0",
     "swiper": "^8.3.2"
   },

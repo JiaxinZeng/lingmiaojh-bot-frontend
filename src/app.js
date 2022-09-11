@@ -6,7 +6,10 @@ import 'framework7/css/bundle'
 
 import '@/css/icons.css'
 import '@/css/app.scss'
-import '@/css/highlight.scss'
+
+import 'prismjs'
+import 'prismjs/themes/prism.css'
+import 'prismjs/components/prism-log'
 
 import App from '@/app.svelte'
 

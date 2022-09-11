@@ -1,6 +1,6 @@
 <PageContent class="flex-grow-1">
     <div bind:this={viewport} class="scrollable-container">
-        <Highlight class="no-margin" language={basic} code={logs} />
+        <pre bind:this={contents}><code class="language-log">{logs}</code></pre>
     </div>
     <Svrollbar {viewport} {contents} />
 </PageContent>
@@ -9,11 +9,10 @@
   import {
     PageContent
   } from 'framework7-svelte'
-  import { onMount } from 'svelte'
+  import { afterUpdate, onMount } from 'svelte'
   import api from '@/js/api'
-  import { Highlight } from 'svelte-highlight'
-  import basic from 'svelte-highlight/languages/basic'
   import { Svrollbar } from 'svrollbar'
+  import Prism from 'prismjs'
 
   let logs = ''
   let viewport
@@ -27,8 +26,10 @@
         }
         logs += `${log?.log}\n`
       })
+      console.log(logs)
     })
-
-    contents = document.querySelector('.hljs')
+  })
+  afterUpdate(() => {
+    Prism.highlightAll()
   })
 </script>

@@ -16,8 +16,15 @@
       --f7-dialog-button-text-color: var(--f7-color-pink);
     }
   }
-
   --f7-popover-width: 170px;
+
+  code[class*="language-"], pre[class*="language-"] {
+    @include hidden-scrollbars;
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    color: var(--f7-text-color)
+  }
 }
 
 .page-content {
@@ -29,14 +36,6 @@
   display: flex;
   flex-flow: column;
   padding: var(--f7-typography-padding);
-}
-
-@media (min-width: 960px) {
-  .device-desktop {
-    .main-page {
-      padding-left: calc(var(--f7-typography-padding) / 2);
-    }
-  }
 }
 
 .panel {
@@ -53,10 +52,6 @@
 
 .v-scrollbar {
   z-index: 1;
-}
-
-.hljs {
-  @include hidden-scrollbars;
 }
 
 .flex-flow-column {

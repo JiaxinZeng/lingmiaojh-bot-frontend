@@ -38,9 +38,6 @@ export default {
       ]
     })
   ],
-  optimizeDeps: {
-    include: ['highlight.js', 'highlight.js/lib/core']
-  },
   root: SRC_DIR,
   base: '',
   publicDir: PUBLIC_DIR,
@@ -55,9 +52,9 @@ export default {
           lodash: ['lodash'],
           framework7: ['framework7'],
           dom7: ['dom7'],
-          'highlight.js': ['highlight.js'],
           svrollbar: ['svrollbar'],
-          'clamp-js': ['clamp-js']
+          'clamp-js': ['clamp-js'],
+          prismjs: ['prismjs']
         }
       }
     }
