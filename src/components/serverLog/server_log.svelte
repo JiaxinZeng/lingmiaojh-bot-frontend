@@ -26,7 +26,6 @@
         }
         logs += `${log?.log}\n`
       })
-      console.log(logs)
     })
   })
   afterUpdate(() => {

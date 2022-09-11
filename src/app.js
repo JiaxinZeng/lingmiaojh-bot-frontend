@@ -24,6 +24,6 @@ const app = new App({
   target: document.getElementById('app')
 })
 
-navigator?.serviceWorker.register('/service-worker.js')
+navigator?.serviceWorker?.register('/service-worker.js')
 
 export default app
