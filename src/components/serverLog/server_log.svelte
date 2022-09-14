@@ -1,6 +1,6 @@
 <PageContent class="flex-grow-1">
     <div bind:this={viewport} class="scrollable-container">
-        <pre bind:this={contents}><code class="language-log">{logs}</code></pre>
+        <pre class="no-margin" bind:this={contents}>{logs}</pre>
     </div>
     <Svrollbar {viewport} {contents} />
 </PageContent>
@@ -9,10 +9,9 @@
   import {
     PageContent
   } from 'framework7-svelte'
-  import { afterUpdate, onMount } from 'svelte'
+  import { onMount } from 'svelte'
   import api from '@/js/api'
   import { Svrollbar } from 'svrollbar'
-  import Prism from 'prismjs'
 
   let logs = ''
   let viewport
@@ -27,8 +26,5 @@
         logs += `${log?.log}\n`
       })
     })
-  })
-  afterUpdate(() => {
-    Prism.highlightAll()
   })
 </script>

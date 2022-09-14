@@ -144,7 +144,7 @@
                 </View>
             </Panel>
 
-            {#if window.innerWidth < 960}
+            {#if showingSidebarFab}
                 <Fab
                         position="right-bottom"
                         class="z-index-5001"
@@ -210,11 +210,17 @@
   }
 
   let sidebar
+  let showingSidebarFab = false
   let loading = true
 
   onMount(() => {
     utils.progress.loading(() => utils.store.getUserInfo(), true, '正在加载用户信息').then(() => {
       loading = false
     })
+  })
+
+  showingSidebarFab = window.innerWidth < 960
+  window.addEventListener('resize', () => {
+    showingSidebarFab = window.innerWidth < 960
   })
 </script>

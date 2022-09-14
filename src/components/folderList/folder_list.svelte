@@ -34,7 +34,14 @@
   onMount(() => {
     Util.store.getTaskFolders(type)
   })
+  let colNum = calcColNum()
 
-  const colNum = Math.ceil((window.innerWidth - 32) / 250)
+  window.addEventListener('resize', () => {
+    colNum = calcColNum()
+  })
   let folders = useStore(`task${type}Folders`, newFolders => (folders = _.chunk(newFolders, colNum)))
+
+  function calcColNum () {
+    return Math.ceil((window.innerWidth - 32) / 250)
+  }
 </script>

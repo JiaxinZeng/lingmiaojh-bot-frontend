@@ -54,9 +54,7 @@ export default {
           'framework7-lite-bundle': ['framework7/lite-bundle'],
           dom7: ['dom7'],
           svrollbar: ['svrollbar'],
-          'clamp-js': ['clamp-js'],
-          prismjs: ['prismjs'],
-          'prismjs/components': ['prismjs/components/prism-log']
+          'clamp-js': ['clamp-js']
         }
       }
     }

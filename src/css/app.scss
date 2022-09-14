@@ -17,14 +17,6 @@
     }
   }
   --f7-popover-width: 170px;
-
-  code[class*="language-"], pre[class*="language-"] {
-    @include hidden-scrollbars;
-    background: transparent;
-    padding: 0;
-    margin: 0;
-    color: var(--f7-text-color)
-  }
 }
 
 .page-content {

@@ -17,7 +17,7 @@
             <ListItem class="task-list-item"
                       title={`${task.name}`}
                       link
-                      header={`${task.msg}`}
+                      header={`${task.msg || '无消息'}`}
                       accordionItem
                       virtualListIndex={tasks.indexOf(task)}
                       style={`top: ${vlData.topPosition}px`}
