@@ -139,6 +139,12 @@
                                       onClick={changePage('management8')}
                             >
                             </ListItem>
+                            <ListItem link
+                                      title="点D跳D"
+                                      selected={currentPage === 'management9'}
+                                      onClick={changePage('management9')}
+                            >
+                            </ListItem>
                         </List>
                     </Page>
                 </View>
