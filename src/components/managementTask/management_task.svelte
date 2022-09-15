@@ -325,7 +325,7 @@
         el: createMobileDialogElement
       })
       createMobileDialog.open()
-    } else if (type === '2' || type === '3' || type === '4') {
+    } else if (type === '2' || type === '3' || type === '4' || type === '9') {
       f7.dialog.login(null, '添加账号', (username, password) => {
         f7.dialog.password('请输入支付密码', '添加账号', (paymentPassword) => {
           api.req(() => api.task.createTaskByUsername(type, username, password, folder.id, paymentPassword), '添加成功',

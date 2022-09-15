@@ -117,7 +117,7 @@
           f7.dialog.alert('没有输入密码或者支付密码', '提示')
           return
         }
-      } else if (type === '7' || type === '8') {
+      } else if (type === '7' || type === '8' || type === '9') {
         if (!usingPassword) {
           f7.dialog.alert('没有输入密码', '提示')
           return
@@ -159,7 +159,7 @@
             account.password,
             folder.id,
             account.paymentPassword)
-        } else if (type === '7' || type === '8') {
+        } else if (type === '7' || type === '8' || type === '9') {
           lastResp = await api.task.createTaskByUsername(type,
             account.account,
             account.password,

@@ -160,7 +160,7 @@
               util.progress.loading(() => util.store.getTasks(type, folder.id), true)
             })
         })
-      } else if (type === '2' || type === '3' || type === '4' || type === '7' || type === '8') {
+      } else if (type === '2' || type === '3' || type === '4' || type === '7' || type === '8' || type === '9') {
         f7.dialog.prompt('请输入密码', '登录', (password) => {
           api.req(() => api.task.loginByPassword(type, task.name, password), '登录成功', '登录失败', '正在登录')
             .then(() => {
@@ -173,7 +173,7 @@
 
   function onResetPaymentPasswordButtonClick (task) {
     return function () {
-      f7.dialog.password('请输入密码', '重设支付密码', (password) => {
+      f7.dialog.password('请输入支付密码', '重设支付密码', (password) => {
         api.req(() => api.task.resetPaymentPassword(type, task.name, password), '重设成功', '重设失败', '正在重设')
           .then(() => {
             util.progress.loading(() => util.store.getTasks(type, folder.id), true)

@@ -19,7 +19,9 @@ const store = createStore({
     task7s: [],
     task7Folders: [],
     task8s: [],
-    task8Folders: []
+    task8Folders: [],
+    task9s: [],
+    task9Folders: []
   },
   getters: {
     userInfo ({ state }) {
@@ -72,6 +74,12 @@ const store = createStore({
     },
     task8Folders ({ state }) {
       return state.task8Folders
+    },
+    task9s ({ state }) {
+      return state.task9s
+    },
+    task9Folders ({ state }) {
+      return state.task9Folders
     }
   },
   actions: {
