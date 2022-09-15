@@ -325,7 +325,7 @@
         el: createMobileDialogElement
       })
       createMobileDialog.open()
-    } else if (type === '2' || type === '3' || type === '4' || type === '9') {
+    } else if (type === '2' || type === '3' || type === '4') {
       f7.dialog.login(null, '添加账号', (username, password) => {
         f7.dialog.password('请输入支付密码', '添加账号', (paymentPassword) => {
           api.req(() => api.task.createTaskByUsername(type, username, password, folder.id, paymentPassword), '添加成功',
@@ -335,7 +335,7 @@
             })
         })
       })
-    } else if (type === '7' || type === '8') {
+    } else if (type === '7' || type === '8' || type === '9') {
       f7.dialog.login(null, '添加账号', (username, password) => {
         api.req(() => api.task.createTaskByUsername(type, username, password, folder.id), '添加成功',
           '添加失败', '正在添加账号')
