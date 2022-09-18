@@ -22,18 +22,29 @@ export default {
       }
     }
 
+    function showOkAlert (param) {
+      if (okAlert) {
+        if (typeof okAlert === 'function') {
+          f7.dialog.alert(okAlert(param), '提示')
+        } else {
+          f7.dialog.alert(okAlert, '提示')
+        }
+      }
+    }
+
     return new Promise((resolve, reject) => {
       reqFunc().then(resp => {
+        if (resp === 'ignored') {
+          closeProgressDialog()
+          showOkAlert()
+          resolve()
+          return
+        }
+
         const respObj = JSON.parse(resp.data)
         if (respObj && respObj?.status === config.statusSuccessCode) {
           closeProgressDialog()
-          if (okAlert) {
-            if (typeof okAlert === 'function') {
-              f7.dialog.alert(okAlert(respObj), '提示')
-            } else {
-              f7.dialog.alert(okAlert, '提示')
-            }
-          }
+          showOkAlert(respObj)
           resolve(respObj)
         } else {
           closeProgressDialog()

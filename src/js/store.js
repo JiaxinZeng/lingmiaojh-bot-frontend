@@ -5,23 +5,8 @@ const store = createStore({
   state: {
     userInfo: {},
     tasks: [],
-    taskFolders: [],
-    task2s: [],
-    task2Folders: [],
-    task3s: [],
-    task3Folders: [],
-    task4s: [],
-    task4Folders: [],
-    task5s: [],
-    task5Folders: [],
-    task6s: [],
-    task6Folders: [],
-    task7s: [],
-    task7Folders: [],
-    task8s: [],
-    task8Folders: [],
-    task9s: [],
-    task9Folders: []
+    rawTasks: [],
+    taskFolders: []
   },
   getters: {
     userInfo ({ state }) {
@@ -32,54 +17,6 @@ const store = createStore({
     },
     taskFolders ({ state }) {
       return state.taskFolders
-    },
-    task2s ({ state }) {
-      return state.task2s
-    },
-    task2Folders ({ state }) {
-      return state.task2Folders
-    },
-    task3s ({ state }) {
-      return state.task3s
-    },
-    task3Folders ({ state }) {
-      return state.task3Folders
-    },
-    task4s ({ state }) {
-      return state.task4s
-    },
-    task4Folders ({ state }) {
-      return state.task4Folders
-    },
-    task5s ({ state }) {
-      return state.task5s
-    },
-    task5Folders ({ state }) {
-      return state.task5Folders
-    },
-    task6s ({ state }) {
-      return state.task6s
-    },
-    task6Folders ({ state }) {
-      return state.task6Folders
-    },
-    task7s ({ state }) {
-      return state.task7s
-    },
-    task7Folders ({ state }) {
-      return state.task7Folders
-    },
-    task8s ({ state }) {
-      return state.task8s
-    },
-    task8Folders ({ state }) {
-      return state.task8Folders
-    },
-    task9s ({ state }) {
-      return state.task9s
-    },
-    task9Folders ({ state }) {
-      return state.task9Folders
     }
   },
   actions: {
@@ -89,26 +26,24 @@ const store = createStore({
       okCallback,
       errorCallback
     }) {
+      state.tasks = []
       api.task.getTasks(type, folderId).then(resp => {
-        state[`task${type}s`] = JSON.parse(resp.data).data
+        const data = resp.data
+        state.tasks = JSON.parse(data).data
+        state.rawTasks = JSON.parse(data).data
         okCallback && okCallback(resp)
       }).catch(err => {
         errorCallback && errorCallback(err)
       })
     },
     filterTasks ({ state }, {
-      type,
-      folderId,
       condition,
-      okCallback,
-      errorCallback
+      callback
     }) {
-      api.task.getTasks(type, folderId).then(resp => {
-        state[`task${type}s`] = JSON.parse(resp.data).data.filter(condition)
-        okCallback && okCallback(resp)
-      }).catch(err => {
-        errorCallback && errorCallback(err)
-      })
+      (async function () {
+        state.tasks = state.rawTasks.filter(condition)
+        callback && callback()
+      })()
     },
     getTaskFolders ({ state }, {
       type,
@@ -116,7 +51,9 @@ const store = createStore({
       errorCallback
     }) {
       api.folder.getTaskFolders(type).then(resp => {
-        state[`task${type}Folders`] = JSON.parse(resp.data).data
+        const newTaskFolders = state.taskFolders
+        newTaskFolders[type] = JSON.parse(resp.data).data
+        state.taskFolders = newTaskFolders
         okCallback && okCallback(resp)
       }).catch(err => {
         errorCallback && errorCallback(err)
@@ -124,16 +61,12 @@ const store = createStore({
     },
     filterTaskFolders ({ state }, {
       type,
-      folderName,
+      condition,
       okCallback,
       errorCallback
     }) {
       api.folder.getTaskFolders(type).then(resp => {
-        state[`task${type}Folders`] = JSON.parse(resp.data)
-          .data
-          .filter(folder => {
-            return folder.name.toLowerCase().includes(folderName.toLowerCase())
-          })
+        state.taskFolders = JSON.parse(resp.data).data.filter(condition)
         okCallback && okCallback(resp)
       }).catch(err => {
         errorCallback && errorCallback(err)

@@ -1,6 +1,6 @@
 <Block class="no-margin no-padding">
     {#if folders}
-        {#each folders as folderRow}
+        {#each _.chunk(folders[type], colNum) as folderRow}
             <Row noGap>
                 {#each new Array(colNum) as _, i}
                     <Col>
@@ -26,20 +26,20 @@
   import FolderListItem from './folder_list_item.svelte'
   import { onMount } from 'svelte'
   import _ from 'lodash'
-  import Util from '@/js/utils'
+  import utils from '@/js/utils'
 
   export let action = () => {}
   export let type = ''
 
   onMount(() => {
-    Util.store.getTaskFolders(type)
+    utils.store.getTaskFolders(type)
   })
   let colNum = calcColNum()
 
   window.addEventListener('resize', () => {
     colNum = calcColNum()
   })
-  let folders = useStore(`task${type}Folders`, newFolders => (folders = _.chunk(newFolders, colNum)))
+  let folders = useStore('taskFolders', newFolders => { folders = newFolders })
 
   function calcColNum () {
     return Math.ceil((window.innerWidth - 32) / 250)

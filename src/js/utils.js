@@ -14,7 +14,7 @@ export default {
           errorCallback (err) {
             reject(err)
           }
-        }).then(() => {})
+        })
       })
     },
     getTaskFolders (type) {
@@ -27,14 +27,23 @@ export default {
           errorCallback (err) {
             reject(err)
           }
-        }).then(() => {})
+        })
       })
     },
-    filterTasks (type, folderId, condition) {
-      return new Promise((resolve, reject) => {
+    filterTasks (condition) {
+      return new Promise(resolve => {
         store.dispatch('filterTasks', {
+          condition,
+          callback () {
+            resolve('ignored')
+          }
+        })
+      })
+    },
+    filterTaskFolders (type, condition) {
+      return new Promise((resolve, reject) => {
+        store.dispatch('filterTaskFolders', {
           type,
-          folderId,
           condition,
           okCallback (resp) {
             resolve(resp)
@@ -42,21 +51,7 @@ export default {
           errorCallback (err) {
             reject(err)
           }
-        }).then(() => {})
-      })
-    },
-    filterTaskFolders (type, folderName) {
-      return new Promise((resolve, reject) => {
-        store.dispatch('filterTaskFolders', {
-          type,
-          folderName,
-          okCallback (resp) {
-            resolve(resp)
-          },
-          errorCallback (err) {
-            reject(err)
-          }
-        }).then(() => {})
+        })
       })
     },
     getUserInfo () {
@@ -68,7 +63,7 @@ export default {
           errorCallback (err) {
             reject(err)
           }
-        }).then(() => {})
+        })
       })
     }
   },
