@@ -1,6 +1,6 @@
-<div bind:this={queryDialogElement} class="task-query-dialog dialog dialog-buttons-2" style="display: none;">
+<div bind:this={filterDialogElement} class="task-filter-dialog dialog dialog-buttons-2" style="display: none;">
     <div class="dialog-inner">
-        <div class="dialog-title">查询任务</div>
+        <div class="dialog-title">筛选任务</div>
         <List noHairlines class="no-padding no-margin">
             <ListInput
                     outline
@@ -8,16 +8,16 @@
                     floatingLabel
                     type="text"
                     placeholder="请输入手机号码"
-                    value={queryDialogMobileInputValue}
-                    on:input={e => (queryDialogMobileInputValue = e.detail[0].target.value)}
+                    value={filterDialogMobileInputValue}
+                    on:input={e => (filterDialogMobileInputValue = e.detail[0].target.value)}
             >
                 <Input
                         slot="content-start"
                         outline
                         type="select"
                         class="condition"
-                        value={queryDialogMobileConditionValue}
-                        on:input={e => (queryDialogMobileConditionValue = e.detail[0].target.value)}
+                        value={filterDialogMobileConditionValue}
+                        on:input={e => (filterDialogMobileConditionValue = e.detail[0].target.value)}
                 >
                     <option value="all">不限</option>
                     <option value="include">包含</option>
@@ -30,16 +30,16 @@
                     floatingLabel
                     type="text"
                     placeholder="请输入邀请人"
-                    value={queryDialogInviterInputValue}
-                    on:input={e => (queryDialogInviterInputValue = e.detail[0].target.value)}
+                    value={filterDialogInviterInputValue}
+                    on:input={e => (filterDialogInviterInputValue = e.detail[0].target.value)}
             >
                 <Input
                         slot="content-start"
                         outline
                         type="select"
                         class="condition"
-                        value={queryDialogInviterConditionValue}
-                        on:input={e => (queryDialogInviterConditionValue = e.detail[0].target.value)}
+                        value={filterDialogInviterConditionValue}
+                        on:input={e => (filterDialogInviterConditionValue = e.detail[0].target.value)}
                 >
                     <option value="all">不限</option>
                     <option value="include">包含</option>
@@ -52,16 +52,16 @@
                     floatingLabel
                     type="number"
                     placeholder="请输入余额"
-                    value={queryDialogCoinInputValue}
-                    on:input={e => (queryDialogCoinInputValue = e.detail[0].target.value)}
+                    value={filterDialogCoinInputValue}
+                    on:input={e => (filterDialogCoinInputValue = e.detail[0].target.value)}
             >
                 <Input
                         slot="content-start"
                         outline
                         type="select"
                         class="condition"
-                        value={queryDialogCoinConditionValue}
-                        on:input={e => (queryDialogCoinConditionValue = e.detail[0].target.value)}
+                        value={filterDialogCoinConditionValue}
+                        on:input={e => (filterDialogCoinConditionValue = e.detail[0].target.value)}
                 >
                     <option value="all">不限</option>
                     <option value="less">小于</option>
@@ -75,16 +75,16 @@
                     floatingLabel
                     type="text"
                     placeholder="请输入消息"
-                    value={queryDialogMsgInputValue}
-                    on:input={e => (queryDialogMsgInputValue = e.detail[0].target.value)}
+                    value={filterDialogMsgInputValue}
+                    on:input={e => (filterDialogMsgInputValue = e.detail[0].target.value)}
             >
                 <Input
                         slot="content-start"
                         outline
                         type="select"
                         class="condition"
-                        value={queryDialogMsgConditionValue}
-                        on:input={e => (queryDialogMsgConditionValue = e.detail[0].target.value)}
+                        value={filterDialogMsgConditionValue}
+                        on:input={e => (filterDialogMsgConditionValue = e.detail[0].target.value)}
                 >
                     <option value="all">不限</option>
                     <option value="include">包含</option>
@@ -97,16 +97,16 @@
                     floatingLabel
                     type="datetime-local"
                     placeholder="请选择日期"
-                    value={queryDialogCreateTimeInputValue}
-                    on:input={e => (queryDialogCreateTimeInputValue = e.detail[0].target.value)}
+                    value={filterDialogCreateTimeInputValue}
+                    on:input={e => (filterDialogCreateTimeInputValue = e.detail[0].target.value)}
             >
                 <Input
                         slot="content-start"
                         outline
                         type="select"
                         class="condition"
-                        value={queryDialogCreateTimeConditionValue}
-                        on:input={e => (queryDialogCreateTimeConditionValue = e.detail[0].target.value)}
+                        value={filterDialogCreateTimeConditionValue}
+                        on:input={e => (filterDialogCreateTimeConditionValue = e.detail[0].target.value)}
                 >
                     <option value="all">不限</option>
                     <option value="before">之前</option>
@@ -118,8 +118,8 @@
                     label="运行状态"
                     type="select"
                     placeholder="请选择日期"
-                    value={queryDialogStatusConditionValue}
-                    on:input={e => (queryDialogStatusConditionValue = e.detail[0].target.value)}
+                    value={filterDialogStatusConditionValue}
+                    on:input={e => (filterDialogStatusConditionValue = e.detail[0].target.value)}
             >
                 <option value="all">不限</option>
                 <option value="online">在线</option>
@@ -128,8 +128,8 @@
         </List>
     </div>
     <div class="dialog-buttons">
-        <span class="dialog-button" on:click={onQueryDialogCloseButtonClick}>取消</span>
-        <span class="dialog-button dialog-button-bold" on:click={onQueryDialogConfirmButtonClick}>确定</span>
+        <span class="dialog-button" on:click={onFilterDialogCloseButtonClick}>取消</span>
+        <span class="dialog-button dialog-button-bold" on:click={onFilterDialogConfirmButtonClick}>确定</span>
     </div>
 </div>
 
@@ -142,103 +142,103 @@
   } from 'framework7-svelte'
   import api from '@/js/api'
   import utils from '@/js/utils'
-  import './task_query_dialog.scss'
+  import './task_filter_dialog.scss'
 
-  let queryDialogElement
-  let queryDialog
-  let queryDialogMobileInputValue = ''
-  let queryDialogMobileConditionValue = 'all'
-  let queryDialogInviterInputValue = ''
-  let queryDialogInviterConditionValue = 'all'
-  let queryDialogCoinInputValue = ''
-  let queryDialogCoinConditionValue = 'all'
-  let queryDialogMsgInputValue = ''
-  let queryDialogMsgConditionValue = 'all'
-  let queryDialogCreateTimeInputValue = ''
-  let queryDialogCreateTimeConditionValue = 'all'
-  let queryDialogStatusConditionValue = 'all'
+  let filterDialogElement
+  let filterDialog
+  let filterDialogMobileInputValue = ''
+  let filterDialogMobileConditionValue = 'all'
+  let filterDialogInviterInputValue = ''
+  let filterDialogInviterConditionValue = 'all'
+  let filterDialogCoinInputValue = ''
+  let filterDialogCoinConditionValue = 'all'
+  let filterDialogMsgInputValue = ''
+  let filterDialogMsgConditionValue = 'all'
+  let filterDialogCreateTimeInputValue = ''
+  let filterDialogCreateTimeConditionValue = 'all'
+  let filterDialogStatusConditionValue = 'all'
 
-  function onQueryDialogCloseButtonClick () {
-    queryDialog.close()
+  function onFilterDialogCloseButtonClick () {
+    filterDialog.close()
   }
 
-  function onQueryDialogConfirmButtonClick () {
-    queryDialog.close()
+  function onFilterDialogConfirmButtonClick () {
+    filterDialog.close()
 
     api.req(() => utils.store.filterTasks(task => {
-      if (queryDialogMobileConditionValue === 'include') {
-        if (!task.name.includes(queryDialogMobileInputValue)) {
+      if (filterDialogMobileConditionValue === 'include') {
+        if (!task.name.includes(filterDialogMobileInputValue)) {
           return false
         }
-      } else if (queryDialogMobileConditionValue === 'equal') {
-        if (task.name !== queryDialogMobileInputValue) {
-          return false
-        }
-      }
-
-      if (queryDialogInviterConditionValue === 'include') {
-        if (!task.inviter.includes(queryDialogInviterInputValue)) {
-          return false
-        }
-      } else if (queryDialogInviterConditionValue === 'equal') {
-        if (task.inviter !== queryDialogInviterInputValue) {
+      } else if (filterDialogMobileConditionValue === 'equal') {
+        if (task.name !== filterDialogMobileInputValue) {
           return false
         }
       }
 
-      if (queryDialogCoinConditionValue === 'equal') {
-        if (task.coin !== Number(queryDialogCoinInputValue)) {
+      if (filterDialogInviterConditionValue === 'include') {
+        if (!task.inviter.includes(filterDialogInviterInputValue)) {
           return false
         }
-      } else if (queryDialogCoinConditionValue === 'more') {
-        if (task.coin < Number(queryDialogCoinInputValue)) {
-          return false
-        }
-      } else if (queryDialogCoinConditionValue === 'less') {
-        if (task.coin > Number(queryDialogCoinInputValue)) {
+      } else if (filterDialogInviterConditionValue === 'equal') {
+        if (task.inviter !== filterDialogInviterInputValue) {
           return false
         }
       }
 
-      if (queryDialogMsgConditionValue === 'include') {
-        if (!task.msg.includes(queryDialogMsgInputValue)) {
+      if (filterDialogCoinConditionValue === 'equal') {
+        if (task.coin !== Number(filterDialogCoinInputValue)) {
           return false
         }
-      } else if (queryDialogMsgConditionValue === 'equal') {
-        if (task.msg !== queryDialogMsgInputValue) {
+      } else if (filterDialogCoinConditionValue === 'more') {
+        if (task.coin < Number(filterDialogCoinInputValue)) {
           return false
         }
-      }
-
-      if (queryDialogCreateTimeConditionValue === 'before') {
-        if (!task.created_at || new Date(task.created_at) >= new Date(queryDialogCreateTimeInputValue)) {
-          return false
-        }
-      } else if (queryDialogCreateTimeConditionValue === 'after') {
-        if (!task.created_at || new Date(task.created_at) <= new Date(queryDialogCreateTimeInputValue)) {
+      } else if (filterDialogCoinConditionValue === 'less') {
+        if (task.coin > Number(filterDialogCoinInputValue)) {
           return false
         }
       }
 
-      if (queryDialogStatusConditionValue === 'online') {
+      if (filterDialogMsgConditionValue === 'include') {
+        if (!task.msg.includes(filterDialogMsgInputValue)) {
+          return false
+        }
+      } else if (filterDialogMsgConditionValue === 'equal') {
+        if (task.msg !== filterDialogMsgInputValue) {
+          return false
+        }
+      }
+
+      if (filterDialogCreateTimeConditionValue === 'before') {
+        if (!task.created_at || new Date(task.created_at) >= new Date(filterDialogCreateTimeInputValue)) {
+          return false
+        }
+      } else if (filterDialogCreateTimeConditionValue === 'after') {
+        if (!task.created_at || new Date(task.created_at) <= new Date(filterDialogCreateTimeInputValue)) {
+          return false
+        }
+      }
+
+      if (filterDialogStatusConditionValue === 'online') {
         if (task.status !== 1) {
           return false
         }
-      } else if (queryDialogStatusConditionValue === 'offline') {
+      } else if (filterDialogStatusConditionValue === 'offline') {
         if (task.status !== 0) {
           return false
         }
       }
 
       return true
-    }), '查询完成', '查询失败', '正在查询')
-      .catch(() => queryDialog.open())
+    }), '筛选完成', '筛选失败', '正在筛选')
+      .catch(() => filterDialog.open())
   }
 
   export function open () {
-    queryDialog = f7.dialog.create({
-      el: queryDialogElement
+    filterDialog = f7.dialog.create({
+      el: filterDialogElement
     })
-    queryDialog.open()
+    filterDialog.open()
   }
 </script>

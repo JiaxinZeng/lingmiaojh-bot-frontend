@@ -8,35 +8,31 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development vite",
-    "build": "cross-env NODE_ENV=production vite build && npx workbox generateSW workbox-config.js",
-    "postinstall": "cpy --flat ./node_modules/framework7-icons/fonts/*.* ./src/fonts/ && cpy --flat ./node_modules/material-icons/iconfont/*.* ./src/fonts/"
+    "build": "cross-env NODE_ENV=production vite build && npx workbox generateSW workbox-config.js"
   },
   "browserslist": [
-    "IOS >= 13",
-    "Safari >= 13",
-    "last 5 Chrome versions",
-    "last 5 Firefox versions",
-    "Samsung >= 12"
+    "ie 11"
   ],
   "dependencies": {
     "clamp-js": "^0.7.0",
     "dom7": "^4.0.4",
-    "framework7": "^7.0.7",
+    "framework7": "^7.0.8",
     "framework7-icons": "^5.0.5",
-    "framework7-svelte": "^7.0.7",
+    "framework7-svelte": "^7.0.8",
     "lodash": "^4.17.21",
     "material-icons": "^1.11.9",
     "skeleton-elements": "^4.0.0",
-    "svelte": "^3.49.0",
+    "svelte": "^3.50.1",
+    "svelte-preprocess": "^4.10.7",
     "svrollbar": "^0.12.0",
-    "swiper": "^8.3.2"
+    "swiper": "^8.4.2"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^1.0.1",
-    "@vitejs/plugin-legacy": "^2.0.1",
+    "@sveltejs/vite-plugin-svelte": "^1.0.6",
+    "@vitejs/plugin-legacy": "^2.1.0",
     "cpy-cli": "^4.1.0",
     "cross-env": "^7.0.3",
-    "eslint": "^8.21.0",
+    "eslint": "^8.23.1",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.2.4",
@@ -45,8 +41,8 @@
     "postcss-preset-env": "^7.7.2",
     "sass": "^1.54.4",
     "terser": "^5.15.0",
-    "vite": "^3.0.6",
-    "vite-plugin-eslint": "^1.8.0",
+    "vite": "^3.1.2",
+    "vite-plugin-eslint": "^1.8.1",
     "workbox-cli": "^6.5.4"
   }
 }

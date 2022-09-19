@@ -17,6 +17,9 @@
     }
   }
   --f7-popover-width: 170px;
+  --f7-treeview-label-font-size: 16px;
+  --f7-treeview-toggle-size: 18px;
+  --f7-treeview-item-height: 30px
 }
 
 .page-content {
@@ -48,10 +51,6 @@
 
 .flex-flow-column {
   flex-flow: column !important;
-}
-
-.flex-grow-1 {
-  flex-grow: 1 !important;
 }
 
 .font-weight-bold {
@@ -88,8 +87,4 @@
 
 .overflow-hidden {
   overflow: hidden !important;
-}
-
-.calendar-popover, .sheet-modal {
-  z-index: 13501;
 }

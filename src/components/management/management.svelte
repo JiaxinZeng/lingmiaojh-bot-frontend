@@ -14,7 +14,7 @@
         </div>
     </div>
 </ActionBar>
-<PageContent class="flex-grow-1">
+<PageContent>
     <FolderList type={type} action={onFolderListAction}/>
     <Popover bind:this={popover}>
         <List noHairlines noHairlinesBetween>

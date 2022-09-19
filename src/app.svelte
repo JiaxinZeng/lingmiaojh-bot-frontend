@@ -10,7 +10,7 @@
                 <View>
                     <Page>
                         <List
-                                class={`${window.innerWidth > 960 ? 'margin-top margin-bottom margin-left border-radius-card' : 'no-margin'} overflow-hidden`}
+                                class="margin-top margin-bottom margin-left border-radius-card overflow-hidden"
                                 noHairlines
                                 menuList
                         >
@@ -143,6 +143,12 @@
                                       title="点D跳D"
                                       selected={currentPage === 'management9'}
                                       onClick={changePage('management9')}
+                            >
+                            </ListItem>
+                            <ListItem link
+                                      title="果T生X"
+                                      selected={currentPage === 'management10'}
+                                      onClick={changePage('management10')}
                             >
                             </ListItem>
                         </List>

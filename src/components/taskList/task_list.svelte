@@ -65,7 +65,7 @@
                                     </Button>
                                 </div>
 
-                                {#if type === '2' || type === '3' || type === '4' || type === '5'}
+                                {#if type === '2' || type === '3' || type === '4' || type === '5' || type === '10'}
                                     <div>
                                         <Button tooltip="重设支付密码"
                                                 on:click={onResetPaymentPasswordButtonClick(task)}>
@@ -84,14 +84,12 @@
                             </div>
                             <Row noGap class="margin-top-half">
                                 <Col>
-                                    <span class="font-weight-bold">下次执行时间&nbsp;</span>
-                                    <span>{new Date(task.next_executed_at).toLocaleString()}</span>
+                                    <span class="font-weight-bold">下次执行时间&nbsp;</span>{new Date(task.next_executed_at).toLocaleString()}
                                 </Col>
                             </Row>
                             <Row noGap>
                                 <Col>
-                                    <span class="font-weight-bold">创建时间&nbsp;</span>
-                                    <span>{new Date(task.created_at).toLocaleString()}</span>
+                                    <span class="font-weight-bold">创建时间&nbsp;</span>{new Date(task.created_at).toLocaleString()}
                                 </Col>
                             </Row>
                         </CardContent>
@@ -160,7 +158,7 @@
               util.progress.loading(() => util.store.getTasks(type, folder.id), true)
             })
         })
-      } else if (type === '2' || type === '3' || type === '4' || type === '7' || type === '8' || type === '9') {
+      } else if (type === '2' || type === '3' || type === '4' || type === '7' || type === '8' || type === '9' || type === '10') {
         f7.dialog.prompt('请输入密码', '登录', (password) => {
           api.req(() => api.task.loginByPassword(type, task.name, password), '登录成功', '登录失败', '正在登录')
             .then(() => {

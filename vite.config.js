@@ -2,6 +2,7 @@ import path from 'path'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import eslint from 'vite-plugin-eslint'
 import legacy from '@vitejs/plugin-legacy'
+import autoPreprocess from 'svelte-preprocess'
 
 const SRC_DIR = path.resolve(__dirname, './src')
 const PUBLIC_DIR = path.resolve(__dirname, './public')
@@ -9,7 +10,11 @@ const BUILD_DIR = path.resolve(__dirname, './www')
 
 export default {
   plugins: [
-    svelte(),
+    svelte({
+      preprocess: [
+        autoPreprocess()
+      ]
+    }),
     eslint({
       exclude: ['node_modules/**', 'www/**']
     }),

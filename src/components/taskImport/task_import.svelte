@@ -1,28 +1,3 @@
-<ActionBar class="margin-bottom-half">
-    <Row noGap>
-        <Col width="100">
-            <BlockTitle class="title">任务导入</BlockTitle>
-        </Col>
-    </Row>
-    <div class="margin-top-half display-flex">
-        <div>
-            <Button tooltip="返回" on:click={onBackButtonClick}>
-                <Icon class="font-weight-bold" md="material:arrow_back"/>
-            </Button>
-        </div>
-        <div>
-            <Button tooltip="确定" on:click={onCheckButtonClick}>
-                <Icon class="font-weight-bold" md="material:check"/>
-            </Button>
-        </div>
-    </div>
-</ActionBar>
-<PageContent class="flex-grow-1 task-import">
-    <TextEditor bind:this={textEditor}
-                buttons={[['bold', 'italic', 'underline', 'strikeThrough'], ['alignLeft', 'alignCenter', 'alignRight', 'alignJustify']]}
-                placeholder={placeholder}/>
-</PageContent>
-
 <script>
   import {
     BlockTitle,
@@ -100,19 +75,19 @@
     let usingPassword = null
     let usingPaymentPassword = null
     for (let i = 0; i < contentLines.length; i++) {
-      const accountInfos = contentLines[i].split('|')
+      const accountInfos = contentLines[i].split('|').map(info => info.trim())
 
-      if (accountInfos.length === 0 || accountInfos[0].trim().length === 0) {
+      if (accountInfos.length === 0 || accountInfos[0].length === 0) {
         continue
       }
-      if (accountInfos?.[1] && accountInfos[1].trim().length !== 0) {
+      if (accountInfos?.[1] && accountInfos[1].length !== 0) {
         usingPassword = accountInfos[1]
       }
-      if (accountInfos?.[2] && accountInfos[2].trim().length !== 0) {
+      if (accountInfos?.[2] && accountInfos[2].length !== 0) {
         usingPaymentPassword = accountInfos[2]
       }
 
-      if (type === '2' || type === '3' || type === '4') {
+      if (type === '2' || type === '3' || type === '4' || type === '10') {
         if (!usingPassword || !usingPaymentPassword) {
           f7.dialog.alert('没有输入密码或者支付密码', '提示')
           return
@@ -152,18 +127,33 @@
         const account = accounts[i]
 
         if (type === '' || type === '6') {
-          lastResp = await api.task.createTaskByMobile(type, account.account, folder.id)
-        } else if (type === '2' || type === '3' || type === '4' || type === '5') {
-          lastResp = await api.task.createTaskByUsername(type,
+          lastResp = await api.task.createTaskByMobile(
+            type,
+            account.account,
+            folder.id
+          )
+        } else if (type === '2' || type === '3' || type === '4' || type === '10') {
+          lastResp = await api.task.createTaskByUsername(
+            type,
             account.account,
             account.password,
             folder.id,
-            account.paymentPassword)
+            account.paymentPassword
+          )
         } else if (type === '7' || type === '8' || type === '9') {
-          lastResp = await api.task.createTaskByUsername(type,
+          lastResp = await api.task.createTaskByUsername(
+            type,
             account.account,
             account.password,
-            folder.id)
+            folder.id
+          )
+        } else if (type === '5') {
+          lastResp = await api.task.createTaskByMobile(
+            type,
+            account.account,
+            folder.id,
+            account.paymentPassword
+          )
         }
 
         dialog.setProgress(Math.round(i / accounts.length * 100))
@@ -188,3 +178,28 @@
     f7router.back()
   }
 </script>
+
+<ActionBar class="margin-bottom-half">
+    <Row noGap>
+        <Col width="100">
+            <BlockTitle class="title">任务导入</BlockTitle>
+        </Col>
+    </Row>
+    <div class="margin-top-half display-flex">
+        <div>
+            <Button tooltip="返回" on:click={onBackButtonClick}>
+                <Icon class="font-weight-bold" md="material:arrow_back"/>
+            </Button>
+        </div>
+        <div>
+            <Button tooltip="确定" on:click={onCheckButtonClick}>
+                <Icon class="font-weight-bold" md="material:check"/>
+            </Button>
+        </div>
+    </div>
+</ActionBar>
+<PageContent class="task-import">
+    <TextEditor bind:this={textEditor}
+                buttons={[['bold', 'italic', 'underline', 'strikeThrough'], ['alignLeft', 'alignCenter', 'alignRight', 'alignJustify']]}
+                placeholder={placeholder}/>
+</PageContent>

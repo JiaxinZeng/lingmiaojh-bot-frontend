@@ -1,4 +1,4 @@
-<PageContent class="flex-grow-1">
+<PageContent>
     <div bind:this={viewport} class="scrollable-container">
         <pre class="no-margin" bind:this={contents}>{logs}</pre>
     </div>
