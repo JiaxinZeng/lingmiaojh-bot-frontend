@@ -169,7 +169,7 @@
             })
         })
       })
-    } else if (type === '7' || type === '8' || type === '9') {
+    } else if (type === '7' || type === '8' || type === '9' || type === '11' || type === '12') {
       f7.dialog.login(null, '添加账号', (username, password) => {
         api.req(() => api.task.createTaskByUsername(type, username, password, folder.id), '添加成功',
           '添加失败', '正在添加账号')

@@ -108,7 +108,7 @@
             <div>
                 <Button on:click={onGroupButtonClick}>
                     <Icon class="font-weight-bold" md="material:account_tree"/>
-                    <span class="font-weight-bold">分组</span>
+                    <span class="font-weight-bold">统计</span>
                 </Button>
             </div>
         </div>

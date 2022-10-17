@@ -28,7 +28,7 @@
 <ActionBar class="margin-bottom-half">
     <Row noGap>
         <Col width="100">
-            <BlockTitle class="title">分组</BlockTitle>
+            <BlockTitle class="title">邀请人统计</BlockTitle>
         </Col>
     </Row>
     <div class="margin-top-half display-flex flex-flow-wrap">

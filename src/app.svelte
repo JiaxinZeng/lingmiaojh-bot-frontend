@@ -151,6 +151,18 @@
                                       onClick={changePage('management10')}
                             >
                             </ListItem>
+                            <ListItem link
+                                      title="J娱Meta"
+                                      selected={currentPage === 'management11'}
+                                      onClick={changePage('management11')}
+                            >
+                            </ListItem>
+                            <ListItem link
+                                      title="星JH"
+                                      selected={currentPage === 'management12'}
+                                      onClick={changePage('management12')}
+                            >
+                            </ListItem>
                         </List>
                     </Page>
                 </View>

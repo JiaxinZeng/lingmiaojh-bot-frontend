@@ -158,7 +158,7 @@
               util.progress.loading(() => util.store.getTasks(type, folder.id), true)
             })
         })
-      } else if (type === '2' || type === '3' || type === '4' || type === '7' || type === '8' || type === '9' || type === '10') {
+      } else if (type === '2' || type === '3' || type === '4' || type === '7' || type === '8' || type === '9' || type === '10' || type === '11' || type === '12') {
         f7.dialog.prompt('请输入密码', '登录', (password) => {
           api.req(() => api.task.loginByPassword(type, task.name, password), '登录成功', '登录失败', '正在登录')
             .then(() => {
