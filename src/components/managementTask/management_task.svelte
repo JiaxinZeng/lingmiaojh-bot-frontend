@@ -17,10 +17,13 @@
   import { afterUpdate, onMount } from 'svelte'
   import _ from 'lodash'
   import { Svrollbar } from 'svrollbar'
+  import framework7 from 'framework7'
 
   export let folder
   export let f7router
   export let type = ''
+
+  const paramFolder = framework7.utils.parseUrlQuery(window.location.href)?.folder
 
   onMount(() => {
     if (folder?.id) {
@@ -75,12 +78,14 @@
             </Col>
         </Row>
         <div class="margin-top-half display-flex flex-flow-wrap">
-            <div>
-                <Button on:click={() => f7router.back()}>
-                    <Icon class="font-weight-bold" md="material:arrow_back"/>
-                    <span class="font-weight-bold">返回</span>
-                </Button>
-            </div>
+            {#if !paramFolder}
+                <div>
+                    <Button on:click={() => f7router.back()}>
+                        <Icon class="font-weight-bold" md="material:arrow_back"/>
+                        <span class="font-weight-bold">返回</span>
+                    </Button>
+                </div>
+            {/if}
             <div>
                 <Button on:click={onRefreshButtonClick}>
                     <Icon class="font-weight-bold" md="material:refresh"/>

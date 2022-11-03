@@ -6,8 +6,8 @@
                     <Col>
                         {#if folderRow[i]}
                             <FolderListItem action={e => {
-                          action(e, folderRow[i])
-                        }} folderName={folderRow[i].name}/>
+                                action(e, folderRow[i])
+                            }} folderName={folderRow[i].name}/>
                         {/if}
                     </Col>
                 {/each}
@@ -24,16 +24,11 @@
     useStore
   } from 'framework7-svelte'
   import FolderListItem from './folder_list_item.svelte'
-  import { onMount } from 'svelte'
   import _ from 'lodash'
-  import utils from '@/js/utils'
 
   export let action = () => {}
   export let type = ''
 
-  onMount(() => {
-    utils.store.getTaskFolders(type)
-  })
   let colNum = calcColNum()
 
   window.addEventListener('resize', () => {

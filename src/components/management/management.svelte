@@ -1,44 +1,3 @@
-<ActionBar class="margin-bottom-half">
-    <div class="display-flex">
-        <div>
-            <Button on:click={onCreateButtonClick}>
-                <Icon class="font-weight-bold" md="material:add"/>
-                <span class="font-weight-bold">添加</span>
-            </Button>
-        </div>
-        <div>
-            <Button on:click={onRefreshButtonClick}>
-                <Icon class="font-weight-bold" md="material:refresh"/>
-                <span class="font-weight-bold">刷新</span>
-            </Button>
-        </div>
-    </div>
-</ActionBar>
-<PageContent>
-    <FolderList type={type} action={onFolderListAction}/>
-    <Popover bind:this={popover}>
-        <List noHairlines noHairlinesBetween>
-            <ListItem popoverClose>
-                <span slot="title" class="font-weight-bold">{clickedFolder?.name}</span>
-            </ListItem>
-            <ListItem link
-                      popoverClose
-                      on:click={ () => {
-                        f7router.navigate(`/management${type}_task/`, {
-                          props: {
-                            folder: clickedFolder
-                          }
-                        })
-                      }}
-                      title="打开"/>
-            <ListItem link popoverClose on:click={onChangeFolderNameButtonClick} title="重命名"/>
-            {#if !noDelete}
-                <ListItem link popoverClose on:click={onDeleteFolderButtonClick} title="删除"/>
-            {/if}
-        </List>
-    </Popover>
-</PageContent>
-
 <script>
   import ActionBar from '@/components/actionBar'
   import {
@@ -48,18 +7,49 @@
     List,
     ListItem,
     PageContent,
-    Popover
+    Popover,
+    useStore
   } from 'framework7-svelte'
   import FolderList from '@/components/folderList'
   import api from '@/js/api'
   import utils from '@/js/utils'
   import framework7 from 'framework7'
+  import { onMount } from 'svelte'
 
   export let f7router
   export let type = ''
   let popover
   let clickedFolder = null
-  const noDelete = framework7.utils.parseUrlQuery(window.location.href)?.noDelete
+
+  const paramNoDelete = framework7.utils.parseUrlQuery(window.location.href)?.noDelete
+  const paramFolder = framework7.utils.parseUrlQuery(window.location.href)?.folder
+
+  let folders = useStore('taskFolders', newFolders => {
+    folders = newFolders
+    jumpToParamFolder()
+  })
+
+  onMount(() => {
+    utils.store.getTaskFolders(type)
+  })
+
+  function jumpToParamFolder () {
+    const targetFolder = paramFolder ? parseInt(paramFolder) : null
+    if (!targetFolder || Number.isNaN(targetFolder)) {
+      return
+    }
+
+    if (paramFolder) {
+      const folder = folders[type]?.find(f => f.id === targetFolder)
+      if (folder) {
+        f7router.navigate(`/management${type}_task/`, {
+          props: {
+            folder
+          }
+        })
+      }
+    }
+  }
 
   function onCreateButtonClick () {
     f7.dialog.prompt('请输入新文件夹名称', '新建文件夹', (name) => {
@@ -111,3 +101,48 @@
     utils.progress.loading(() => utils.store.getTaskFolders(type), false)
   }
 </script>
+
+{#if !paramFolder}
+    <ActionBar class="margin-bottom-half">
+        <div class="display-flex">
+            <div>
+                <Button on:click={onCreateButtonClick}>
+                    <Icon class="font-weight-bold" md="material:add"/>
+                    <span class="font-weight-bold">添加</span>
+                </Button>
+            </div>
+            <div>
+                <Button on:click={onRefreshButtonClick}>
+                    <Icon class="font-weight-bold" md="material:refresh"/>
+                    <span class="font-weight-bold">刷新</span>
+                </Button>
+            </div>
+        </div>
+    </ActionBar>
+    <PageContent>
+        <FolderList type={type} action={onFolderListAction}/>
+        <Popover bind:this={popover}>
+            <List noHairlines noHairlinesBetween>
+                <ListItem popoverClose>
+                    <span slot="title" class="font-weight-bold">{clickedFolder?.name}</span>
+                </ListItem>
+                <ListItem link
+                          popoverClose
+                          on:click={ () => {
+                        f7router.navigate(`/management${type}_task/`, {
+                          props: {
+                            folder: clickedFolder
+                          }
+                        })
+                      }}
+                          title="打开"/>
+                <ListItem link popoverClose on:click={onChangeFolderNameButtonClick} title="重命名"/>
+                {#if !paramNoDelete}
+                    <ListItem link popoverClose on:click={onDeleteFolderButtonClick} title="删除"/>
+                {/if}
+            </List>
+        </Popover>
+    </PageContent>
+{:else}
+    <PageContent>跳转到目标文件夹中...</PageContent>
+{/if}

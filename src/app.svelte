@@ -1,188 +1,3 @@
-<App { ...f7params } colorTheme="blue">
-    {#if !loading}
-        {#if !onlyPage}
-            <Panel
-                    bind:this={sidebar}
-                    cover
-                    left
-                    visibleBreakpoint={960}
-            >
-                <View>
-                    <Page>
-                        <List
-                                class="margin-top margin-bottom margin-left border-radius-card overflow-hidden"
-                                noHairlines
-                                menuList
-                        >
-                            <ListItem link
-                                      title="仪表盘"
-                                      selected={currentPage === 'home'}
-                                      onClick={changePage('home')}
-                            >
-                        <span slot="media">
-                            <Icon md="material:dashboard"/>
-                        </span>
-                            </ListItem>
-                            <ListItem link
-                                      title="访问管控"
-                                      selected={false}
-                                      disabled
-                            >
-                        <span slot="media">
-                            <Icon md="material:beach_access"/>
-                        </span>
-                            </ListItem>
-                            <ListItem link
-                                      title="运行日志"
-                                      selected={currentPage === 'server_log'}
-                                      onClick={changePage('server_log')}
-                            >
-                        <span slot="media">
-                            <Icon md="material:history"/>
-                        </span>
-                            </ListItem>
-                            <ListItem link
-                                      title="账号管理"
-                                      disabled
-                            >
-                        <span slot="media">
-                            <Icon md="material:person_filled"/>
-                        </span>
-                            </ListItem>
-                            <ListItem link
-                                      title="旅游LML"
-                                      selected={currentPage === 'management'}
-                                      onClick={changePage('management')}
-                            >
-                                <!--                        <span slot="media">-->
-                                <!--                            <img class="display-block"-->
-                                <!--                                 width="24"-->
-                                <!--                                 height="24"-->
-                                <!--                                 src="assets/ic_lv_you_lian_meng_lian.png"-->
-                                <!--                                 alt=""/>-->
-                                <!--                        </span>-->
-                            </ListItem>
-                            <ListItem link
-                                      title="汇J生T"
-                                      selected={currentPage === 'management2'}
-                                      onClick={changePage('management2')}
-                            >
-                                <!--                        <span slot="media">-->
-                                <!--                            <img class="display-block"-->
-                                <!--                                 width="24"-->
-                                <!--                                 height="24"-->
-                                <!--                                 src="assets/ic_hui_jin_sheng_tai.png"-->
-                                <!--                                 alt=""/>-->
-                                <!--                        </span>-->
-                            </ListItem>
-                            <ListItem link
-                                      title="游Y商C"
-                                      selected={currentPage === 'management3'}
-                                      onClick={changePage('management3')}
-                            >
-                                <!--                        <span slot="media">-->
-                                <!--                            <img class="display-block"-->
-                                <!--                                 width="24"-->
-                                <!--                                 height="24"-->
-                                <!--                                 src="assets/ic_you_yu_shop.png"-->
-                                <!--                                 alt=""/>-->
-                                <!--                        </span>-->
-                            </ListItem>
-                            <ListItem link
-                                      title="酷Y"
-                                      selected={currentPage === 'management4'}
-                                      onClick={changePage('management4')}
-                            >
-                                <!--                        <span slot="media">-->
-                                <!--                            <img class="display-block"-->
-                                <!--                                 width="24"-->
-                                <!--                                 height="24"-->
-                                <!--                                 src="assets/ic_ku_you.png"-->
-                                <!--                                 alt=""/>-->
-                                <!--                        </span>-->
-                            </ListItem>
-                            <ListItem link
-                                      title="嗨PJ"
-                                      selected={currentPage === 'management5'}
-                                      onClick={changePage('management5')}
-                            >
-                                <!--                        <span slot="media">-->
-                                <!--                            <img class="display-block"-->
-                                <!--                                 width="24"-->
-                                <!--                                 height="24"-->
-                                <!--                                 src="assets/ic_hi_pin_ji.png"-->
-                                <!--                                 alt=""/>-->
-                                <!--                        </span>-->
-                            </ListItem>
-                            <ListItem link
-                                      title="每日XC"
-                                      selected={currentPage === 'management6'}
-                                      onClick={changePage('management6')}
-                            >
-                                <!--                        <span slot="media">-->
-                                <!--                            <img class="display-block"-->
-                                <!--                                 width="24"-->
-                                <!--                                 height="24"-->
-                                <!--                                 src="assets/ic_mei_ri_xiang_cun.png"-->
-                                <!--                                 alt=""/>-->
-                                <!--                        </span>-->
-                            </ListItem>
-                            <ListItem link
-                                      title="七C人S"
-                                      selected={currentPage === 'management7'}
-                                      onClick={changePage('management7')}
-                            >
-                            </ListItem>
-                            <ListItem link
-                                      title="淘F生H"
-                                      selected={currentPage === 'management8'}
-                                      onClick={changePage('management8')}
-                            >
-                            </ListItem>
-                            <ListItem link
-                                      title="点D跳D"
-                                      selected={currentPage === 'management9'}
-                                      onClick={changePage('management9')}
-                            >
-                            </ListItem>
-                            <ListItem link
-                                      title="果T生X"
-                                      selected={currentPage === 'management10'}
-                                      onClick={changePage('management10')}
-                            >
-                            </ListItem>
-                            <ListItem link
-                                      title="J娱Meta"
-                                      selected={currentPage === 'management11'}
-                                      onClick={changePage('management11')}
-                            >
-                            </ListItem>
-                            <ListItem link
-                                      title="星JH"
-                                      selected={currentPage === 'management12'}
-                                      onClick={changePage('management12')}
-                            >
-                            </ListItem>
-                        </List>
-                    </Page>
-                </View>
-            </Panel>
-
-            {#if showingSidebarFab}
-                <Fab
-                        position="right-bottom"
-                        class="z-index-5001"
-                        on:click={() => { sidebar.instance().toggle() }}
-                >
-                    <Icon md="material:menu"></Icon>
-                </Fab>
-            {/if}
-        {/if}
-
-        <View main class="safe-areas" url={onlyPage ? `/${onlyPage}/` : '/home/'}/>
-    {/if}
-</App>
-
 <script>
   import {
     App,
@@ -219,8 +34,7 @@
       passwordPlaceholder: '密码'
     }
   }
-
-  const onlyPage = framework7.utils.parseUrlQuery(window.location.href)?.page
+  const paramPage = framework7.utils.parseUrlQuery(window.location.href)?.page
 
   let currentPage = 'home'
   const _changePage = _.debounce(function (page) {
@@ -248,3 +62,143 @@
     showingSidebarFab = window.innerWidth < 960
   })
 </script>
+
+<App { ...f7params } colorTheme="blue">
+    {#if !loading}
+        {#if !paramPage}
+            <Panel
+                    bind:this={sidebar}
+                    cover
+                    left
+                    visibleBreakpoint={960}
+            >
+                <View>
+                    <Page>
+                        <List
+                                class="margin-top margin-bottom margin-left border-radius-card overflow-hidden"
+                                noHairlines
+                                menuList
+                        >
+                            <ListItem link
+                                      title="仪表盘"
+                                      selected={currentPage === 'home'}
+                                      onClick={changePage('home')}
+                            >
+                                <span slot="media">
+                                    <Icon md="material:dashboard"/>
+                                </span>
+                            </ListItem>
+                            <ListItem link
+                                      title="访问管控"
+                                      selected={false}
+                                      disabled
+                            >
+                                <span slot="media">
+                                    <Icon md="material:beach_access"/>
+                                </span>
+                            </ListItem>
+                            <ListItem link
+                                      title="账号管理"
+                                      disabled
+                            >
+                                <span slot="media">
+                                    <Icon md="material:person_filled"/>
+                                </span>
+                            </ListItem>
+                            <ListItem link
+                                      title="旅游LML"
+                                      selected={currentPage === 'management'}
+                                      onClick={changePage('management')}
+                            >
+                            </ListItem>
+                            <ListItem link
+                                      title="汇J生T"
+                                      selected={currentPage === 'management2'}
+                                      onClick={changePage('management2')}
+                            >
+                            </ListItem>
+                            <!--                            <ListItem link-->
+                            <!--                                      title="游Y商C"-->
+                            <!--                                      selected={currentPage === 'management3'}-->
+                            <!--                                      onClick={changePage('management3')}-->
+                            <!--                            >-->
+                            <!--                            </ListItem>-->
+                            <!--                            <ListItem link-->
+                            <!--                                      title="酷Y"-->
+                            <!--                                      selected={currentPage === 'management4'}-->
+                            <!--                                      onClick={changePage('management4')}-->
+                            <!--                            >-->
+                            <!--                            </ListItem>-->
+                            <!--                            <ListItem link-->
+                            <!--                                      title="嗨PJ"-->
+                            <!--                                      selected={currentPage === 'management5'}-->
+                            <!--                                      onClick={changePage('management5')}-->
+                            <!--                            >-->
+                            <!--                            </ListItem>-->
+                            <!--                            <ListItem link-->
+                            <!--                                      title="每日XC"-->
+                            <!--                                      selected={currentPage === 'management6'}-->
+                            <!--                                      onClick={changePage('management6')}-->
+                            <!--                            >-->
+                            <!--                            </ListItem>-->
+                            <!--                            <ListItem link-->
+                            <!--                                      title="七C人S"-->
+                            <!--                                      selected={currentPage === 'management7'}-->
+                            <!--                                      onClick={changePage('management7')}-->
+                            <!--                            >-->
+                            <!--                            </ListItem>-->
+                            <ListItem link
+                                      title="淘F生H"
+                                      selected={currentPage === 'management8'}
+                                      onClick={changePage('management8')}
+                            >
+                            </ListItem>
+                            <ListItem link
+                                      title="点D跳D"
+                                      selected={currentPage === 'management9'}
+                                      onClick={changePage('management9')}
+                            >
+                            </ListItem>
+                            <ListItem link
+                                      title="果T生X"
+                                      selected={currentPage === 'management10'}
+                                      onClick={changePage('management10')}
+                            >
+                            </ListItem>
+                            <ListItem link
+                                      title="J娱Meta"
+                                      selected={currentPage === 'management11'}
+                                      onClick={changePage('management11')}
+                            >
+                            </ListItem>
+                            <ListItem link
+                                      title="星JH"
+                                      selected={currentPage === 'management12'}
+                                      onClick={changePage('management12')}
+                            >
+                            </ListItem>
+                            <ListItem link
+                                      title="恋Y"
+                                      selected={currentPage === 'management13'}
+                                      onClick={changePage('management13')}
+                            >
+                            </ListItem>
+                        </List>
+                    </Page>
+                </View>
+            </Panel>
+
+            {#if showingSidebarFab}
+                <Fab
+                        position="right-bottom"
+                        class="z-index-5001"
+                        on:click={() => { sidebar.instance().toggle() }}
+                >
+                    <Icon md="material:menu"></Icon>
+                </Fab>
+            {/if}
+        {/if}
+
+        <View main class="safe-areas" url={paramPage ? `/${paramPage}/` : '/home/'} />
+    {/if}
+</App>

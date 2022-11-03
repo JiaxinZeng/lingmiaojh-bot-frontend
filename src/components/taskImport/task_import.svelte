@@ -87,17 +87,17 @@
         usingPaymentPassword = accountInfos[2]
       }
 
-      if (type === '2' || type === '3' || type === '4' || type === '10') {
+      if (type === '2' || type === '3' || type === '4' || type === '10' || type === '12') {
         if (!usingPassword || !usingPaymentPassword) {
           f7.dialog.alert('没有输入密码或者支付密码', '提示')
           return
         }
-      } else if (type === '7' || type === '8' || type === '9' || type === '11' || type === '12') {
+      } else if (type === '7' || type === '8' || type === '9' || type === '11') {
         if (!usingPassword) {
           f7.dialog.alert('没有输入密码', '提示')
           return
         }
-      } else if (type === '5') {
+      } else if (type === '5' || type === '13') {
         if (!usingPaymentPassword) {
           f7.dialog.alert('没有输入支付密码', '提示')
           return
@@ -132,7 +132,7 @@
             account.account,
             folder.id
           )
-        } else if (type === '2' || type === '3' || type === '4' || type === '10') {
+        } else if (type === '2' || type === '3' || type === '4' || type === '10' || type === '12') {
           lastResp = await api.task.createTaskByUsername(
             type,
             account.account,
@@ -140,14 +140,14 @@
             folder.id,
             account.paymentPassword
           )
-        } else if (type === '7' || type === '8' || type === '9' || type === '11' || type === '12') {
+        } else if (type === '7' || type === '8' || type === '9' || type === '11') {
           lastResp = await api.task.createTaskByUsername(
             type,
             account.account,
             account.password,
             folder.id
           )
-        } else if (type === '5') {
+        } else if (type === '5' || type === '13') {
           lastResp = await api.task.createTaskByMobile(
             type,
             account.account,

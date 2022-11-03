@@ -10,7 +10,7 @@
                     placeholder="请输入手机号码"
                     on:input={e => (createMobileDialogMobileInputValue = e.detail[0].target.value)}
             />
-            {#if type === '5'}
+            {#if type === '5' || type === '13'}
                 <ListInput
                         outline
                         label="支付密码"
@@ -154,7 +154,7 @@
   }
 
   export function open () {
-    if (type === '' || type === '5' || type === '6') {
+    if (type === '' || type === '5' || type === '6' || type === '13') {
       createMobileDialog = f7.dialog.create({
         el: createMobileDialogElement
       })
