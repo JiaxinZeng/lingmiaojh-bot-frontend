@@ -1,4 +1,4 @@
-<div bind:this={filterDialogElement} class="task-filter-dialog dialog dialog-buttons-2" style="display: none;">
+<div bind:this={dialogElement} class="task-filter-dialog dialog dialog-buttons-2" style="display: none;">
     <div class="dialog-inner">
         <div class="dialog-title">筛选任务</div>
         <List noHairlines class="no-padding no-margin">
@@ -8,16 +8,16 @@
                     floatingLabel
                     type="text"
                     placeholder="请输入手机号码"
-                    value={filterDialogMobileInputValue}
-                    on:input={e => (filterDialogMobileInputValue = e.detail[0].target.value)}
+                    value={dialogMobileInputValue}
+                    on:input={e => (dialogMobileInputValue = e.detail[0].target.value)}
             >
                 <Input
                         slot="content-start"
                         outline
                         type="select"
                         class="condition"
-                        value={filterDialogMobileConditionValue}
-                        on:input={e => (filterDialogMobileConditionValue = e.detail[0].target.value)}
+                        value={dialogMobileConditionValue}
+                        on:input={e => (dialogMobileConditionValue = e.detail[0].target.value)}
                 >
                     <option value="all">不限</option>
                     <option value="include">包含</option>
@@ -30,16 +30,16 @@
                     floatingLabel
                     type="text"
                     placeholder="请输入邀请人"
-                    value={filterDialogInviterInputValue}
-                    on:input={e => (filterDialogInviterInputValue = e.detail[0].target.value)}
+                    value={dialogInviterInputValue}
+                    on:input={e => (dialogInviterInputValue = e.detail[0].target.value)}
             >
                 <Input
                         slot="content-start"
                         outline
                         type="select"
                         class="condition"
-                        value={filterDialogInviterConditionValue}
-                        on:input={e => (filterDialogInviterConditionValue = e.detail[0].target.value)}
+                        value={dialogInviterConditionValue}
+                        on:input={e => (dialogInviterConditionValue = e.detail[0].target.value)}
                 >
                     <option value="all">不限</option>
                     <option value="include">包含</option>
@@ -52,16 +52,16 @@
                     floatingLabel
                     type="number"
                     placeholder="请输入余额"
-                    value={filterDialogCoinInputValue}
-                    on:input={e => (filterDialogCoinInputValue = e.detail[0].target.value)}
+                    value={dialogCoinInputValue}
+                    on:input={e => (dialogCoinInputValue = e.detail[0].target.value)}
             >
                 <Input
                         slot="content-start"
                         outline
                         type="select"
                         class="condition"
-                        value={filterDialogCoinConditionValue}
-                        on:input={e => (filterDialogCoinConditionValue = e.detail[0].target.value)}
+                        value={dialogCoinConditionValue}
+                        on:input={e => (dialogCoinConditionValue = e.detail[0].target.value)}
                 >
                     <option value="all">不限</option>
                     <option value="less">小于</option>
@@ -75,16 +75,16 @@
                     floatingLabel
                     type="text"
                     placeholder="请输入消息"
-                    value={filterDialogMsgInputValue}
-                    on:input={e => (filterDialogMsgInputValue = e.detail[0].target.value)}
+                    value={dialogMsgInputValue}
+                    on:input={e => (dialogMsgInputValue = e.detail[0].target.value)}
             >
                 <Input
                         slot="content-start"
                         outline
                         type="select"
                         class="condition"
-                        value={filterDialogMsgConditionValue}
-                        on:input={e => (filterDialogMsgConditionValue = e.detail[0].target.value)}
+                        value={dialogMsgConditionValue}
+                        on:input={e => (dialogMsgConditionValue = e.detail[0].target.value)}
                 >
                     <option value="all">不限</option>
                     <option value="include">包含</option>
@@ -97,16 +97,16 @@
                     floatingLabel
                     type="datetime-local"
                     placeholder="请选择日期"
-                    value={filterDialogCreateTimeInputValue}
-                    on:input={e => (filterDialogCreateTimeInputValue = e.detail[0].target.value)}
+                    value={dialogCreateTimeInputValue}
+                    on:input={e => (dialogCreateTimeInputValue = e.detail[0].target.value)}
             >
                 <Input
                         slot="content-start"
                         outline
                         type="select"
                         class="condition"
-                        value={filterDialogCreateTimeConditionValue}
-                        on:input={e => (filterDialogCreateTimeConditionValue = e.detail[0].target.value)}
+                        value={dialogCreateTimeConditionValue}
+                        on:input={e => (dialogCreateTimeConditionValue = e.detail[0].target.value)}
                 >
                     <option value="all">不限</option>
                     <option value="before">之前</option>
@@ -118,8 +118,8 @@
                     label="运行状态"
                     type="select"
                     placeholder="请选择日期"
-                    value={filterDialogStatusConditionValue}
-                    on:input={e => (filterDialogStatusConditionValue = e.detail[0].target.value)}
+                    value={dialogStatusConditionValue}
+                    on:input={e => (dialogStatusConditionValue = e.detail[0].target.value)}
             >
                 <option value="all">不限</option>
                 <option value="online">在线</option>
@@ -128,8 +128,8 @@
         </List>
     </div>
     <div class="dialog-buttons">
-        <span class="dialog-button" on:click={onFilterDialogCloseButtonClick}>取消</span>
-        <span class="dialog-button dialog-button-bold" on:click={onFilterDialogConfirmButtonClick}>确定</span>
+        <span class="dialog-button" on:keypress={onCloseButtonClick} on:click={onCloseButtonClick}>取消</span>
+        <span class="dialog-button dialog-button-bold" on:keypress={onConfirmButtonClick} on:click={onConfirmButtonClick}>确定</span>
     </div>
 </div>
 
@@ -144,87 +144,87 @@
   import utils from '@/js/utils'
   import './task_filter_dialog.scss'
 
-  let filterDialogElement
-  let filterDialog
-  let filterDialogMobileInputValue = ''
-  let filterDialogMobileConditionValue = 'all'
-  let filterDialogInviterInputValue = ''
-  let filterDialogInviterConditionValue = 'all'
-  let filterDialogCoinInputValue = ''
-  let filterDialogCoinConditionValue = 'all'
-  let filterDialogMsgInputValue = ''
-  let filterDialogMsgConditionValue = 'all'
-  let filterDialogCreateTimeInputValue = ''
-  let filterDialogCreateTimeConditionValue = 'all'
-  let filterDialogStatusConditionValue = 'all'
+  let dialogElement
+  let dialog
+  let dialogMobileInputValue = ''
+  let dialogMobileConditionValue = 'all'
+  let dialogInviterInputValue = ''
+  let dialogInviterConditionValue = 'all'
+  let dialogCoinInputValue = ''
+  let dialogCoinConditionValue = 'all'
+  let dialogMsgInputValue = ''
+  let dialogMsgConditionValue = 'all'
+  let dialogCreateTimeInputValue = ''
+  let dialogCreateTimeConditionValue = 'all'
+  let dialogStatusConditionValue = 'all'
 
-  function onFilterDialogCloseButtonClick () {
-    filterDialog.close()
+  function onCloseButtonClick () {
+    dialog.close()
   }
 
-  function onFilterDialogConfirmButtonClick () {
-    filterDialog.close()
+  function onConfirmButtonClick () {
+    dialog.close()
 
     api.req(() => utils.store.filterTasks(task => {
-      if (filterDialogMobileConditionValue === 'include') {
-        if (!task.name.includes(filterDialogMobileInputValue)) {
+      if (dialogMobileConditionValue === 'include') {
+        if (!task.name.includes(dialogMobileInputValue)) {
           return false
         }
-      } else if (filterDialogMobileConditionValue === 'equal') {
-        if (task.name !== filterDialogMobileInputValue) {
-          return false
-        }
-      }
-
-      if (filterDialogInviterConditionValue === 'include') {
-        if (!task.inviter.includes(filterDialogInviterInputValue)) {
-          return false
-        }
-      } else if (filterDialogInviterConditionValue === 'equal') {
-        if (task.inviter !== filterDialogInviterInputValue) {
+      } else if (dialogMobileConditionValue === 'equal') {
+        if (task.name !== dialogMobileInputValue) {
           return false
         }
       }
 
-      if (filterDialogCoinConditionValue === 'equal') {
-        if (task.coin !== Number(filterDialogCoinInputValue)) {
+      if (dialogInviterConditionValue === 'include') {
+        if (!task.inviter.includes(dialogInviterInputValue)) {
           return false
         }
-      } else if (filterDialogCoinConditionValue === 'more') {
-        if (task.coin < Number(filterDialogCoinInputValue)) {
-          return false
-        }
-      } else if (filterDialogCoinConditionValue === 'less') {
-        if (task.coin > Number(filterDialogCoinInputValue)) {
+      } else if (dialogInviterConditionValue === 'equal') {
+        if (task.inviter !== dialogInviterInputValue) {
           return false
         }
       }
 
-      if (filterDialogMsgConditionValue === 'include') {
-        if (!task.msg.includes(filterDialogMsgInputValue)) {
+      if (dialogCoinConditionValue === 'equal') {
+        if (task.coin !== Number(dialogCoinInputValue)) {
           return false
         }
-      } else if (filterDialogMsgConditionValue === 'equal') {
-        if (task.msg !== filterDialogMsgInputValue) {
+      } else if (dialogCoinConditionValue === 'more') {
+        if (task.coin < Number(dialogCoinInputValue)) {
           return false
         }
-      }
-
-      if (filterDialogCreateTimeConditionValue === 'before') {
-        if (!task.created_at || new Date(task.created_at) >= new Date(filterDialogCreateTimeInputValue)) {
-          return false
-        }
-      } else if (filterDialogCreateTimeConditionValue === 'after') {
-        if (!task.created_at || new Date(task.created_at) <= new Date(filterDialogCreateTimeInputValue)) {
+      } else if (dialogCoinConditionValue === 'less') {
+        if (task.coin > Number(dialogCoinInputValue)) {
           return false
         }
       }
 
-      if (filterDialogStatusConditionValue === 'online') {
+      if (dialogMsgConditionValue === 'include') {
+        if (!task.msg.includes(dialogMsgInputValue)) {
+          return false
+        }
+      } else if (dialogMsgConditionValue === 'equal') {
+        if (task.msg !== dialogMsgInputValue) {
+          return false
+        }
+      }
+
+      if (dialogCreateTimeConditionValue === 'before') {
+        if (!task.created_at || new Date(task.created_at) >= new Date(dialogCreateTimeInputValue)) {
+          return false
+        }
+      } else if (dialogCreateTimeConditionValue === 'after') {
+        if (!task.created_at || new Date(task.created_at) <= new Date(dialogCreateTimeInputValue)) {
+          return false
+        }
+      }
+
+      if (dialogStatusConditionValue === 'online') {
         if (task.status !== 1) {
           return false
         }
-      } else if (filterDialogStatusConditionValue === 'offline') {
+      } else if (dialogStatusConditionValue === 'offline') {
         if (task.status !== 0) {
           return false
         }
@@ -232,13 +232,13 @@
 
       return true
     }), '筛选完成', '筛选失败', '正在筛选')
-      .catch(() => filterDialog.open())
+      .catch(() => dialog.open())
   }
 
   export function open () {
-    filterDialog = f7.dialog.create({
-      el: filterDialogElement
+    dialog = f7.dialog.create({
+      el: dialogElement
     })
-    filterDialog.open()
+    dialog.open()
   }
 </script>

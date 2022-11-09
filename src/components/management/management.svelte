@@ -42,11 +42,14 @@
     if (paramFolder) {
       const folder = folders[type]?.find(f => f.id === targetFolder)
       if (folder) {
-        f7router.navigate(`/management${type}_task/`, {
-          props: {
-            folder
-          }
-        })
+        console.log(folder)
+        setTimeout(() => {
+          f7router.navigate(`/management${type}_task/`, {
+            props: {
+              folder
+            }
+          })
+        }, 500)
       }
     }
   }

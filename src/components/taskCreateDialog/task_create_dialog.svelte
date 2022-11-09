@@ -1,4 +1,4 @@
-<div bind:this={createMobileDialogElement} class="task-create-dialog dialog dialog-buttons-2" style="display: none;">
+<div bind:this={dialogElement} class="task-create-dialog dialog dialog-buttons-2" style="display: none;">
     <div class="dialog-inner">
         <div class="dialog-title">添加账号</div>
         <List noHairlines class="no-padding no-margin">
@@ -8,7 +8,7 @@
                     floatingLabel
                     type="text"
                     placeholder="请输入手机号码"
-                    on:input={e => (createMobileDialogMobileInputValue = e.detail[0].target.value)}
+                    on:input={e => (dialogMobileInputValue = e.detail[0].target.value)}
             />
             {#if type === '5' || type === '13'}
                 <ListInput
@@ -17,7 +17,7 @@
                         floatingLabel
                         type="text"
                         placeholder="请输入支付密码"
-                        on:input={e => (createMobileDialogPaymentPasswordInputValue = e.detail[0].target.value)}
+                        on:input={e => (dialogPaymentPasswordInputValue = e.detail[0].target.value)}
                 />
             {/if}
             <ListInput
@@ -26,13 +26,13 @@
                     floatingLabel
                     type="text"
                     placeholder="请输入验证码"
-                    on:input={e => (createMobileDialogCodeInputValue = e.detail[0].target.value)}
+                    on:input={e => (dialogCodeInputValue = e.detail[0].target.value)}
             >
                 <Button
                         slot="content-end"
                         class="content-end margin-left-half"
                         tooltip="发送验证码"
-                        on:click={onCreateMobileDialogSendButtonClick}
+                        on:click={onSendButtonClick}
                 >
                     <Icon class="font-weight-bold font-size-24px" md="material:send"/>
                 </Button>
@@ -40,8 +40,8 @@
         </List>
     </div>
     <div class="dialog-buttons">
-        <span class="dialog-button" on:click={onCreateMobileDialogCancelButtonClick}>取消</span>
-        <span class="dialog-button dialog-button-bold" on:click={onCreateMobileDialogConfirmButtonClick}>确定</span>
+        <span class="dialog-button" on:keypress={onCancelButtonClick} on:click={onCancelButtonClick}>取消</span>
+        <span class="dialog-button dialog-button-bold" on:keypress={onConfirmButtonClick} on:click={onConfirmButtonClick}>确定</span>
     </div>
 </div>
 
@@ -60,105 +60,131 @@
   export let type
   export let folder
 
-  let createMobileDialogElement
-  let createMobileDialogMobileInputValue = ''
-  let createMobileDialogCodeInputValue = ''
-  let createMobileDialogPaymentPasswordInputValue = ''
-  let createMobileDialog
-  let createMobileDialogSendButtonClicked = false
+  let dialogElement
+  let dialogMobileInputValue = ''
+  let dialogCodeInputValue = ''
+  let dialogPaymentPasswordInputValue = ''
+  let dialog
 
-  function onCreateMobileDialogSendButtonClick () {
-    createMobileDialog.close();
-    (async function () {
+  const memo = new Map()
+  memo.getOrDefault = function (key) {
+    const defaultValue = {
+      created: false,
+      loginSuccess: false
+    }
+
+    if (this.has(key)) {
+      return this.get(key)
+    } else {
+      this.set(key, defaultValue)
+      return defaultValue
+    }
+  }
+
+  function onSendButtonClick () {
+    dialog.close()
+    ;(async function () {
       try {
-        await api.req(
-          () => api.task.createTaskByMobile(
-            type,
-            createMobileDialogMobileInputValue,
-            folder.id,
-            createMobileDialogPaymentPasswordInputValue
-          ),
-          null,
-          '添加失败',
-          '正在添加账号'
-        )
+        try {
+          await api.req(
+            () => api.task.createTaskByMobile(
+              type,
+              dialogMobileInputValue,
+              folder.id,
+              dialogPaymentPasswordInputValue
+            ),
+            null,
+            null,
+            '正在添加账号'
+          )
+        } catch (err) {
+        }
         await api.req(
           () => api.task.sendLoginVerifyCode(
             type,
-            createMobileDialogMobileInputValue
+            dialogMobileInputValue
           ),
           '发送成功',
           '发送失败',
           '正在发送'
         )
-        createMobileDialogSendButtonClicked = true
+        memo.get(dialogMobileInputValue).created = true
       } catch (err) {
       }
-      createMobileDialog.open()
+      dialog.open()
     })()
   }
 
-  function onCreateMobileDialogCancelButtonClick () {
-    createMobileDialog.close()
-    if (createMobileDialogSendButtonClicked) {
-      api.req(
-        () => api.task.cancelCreate(type, createMobileDialogMobileInputValue),
-        null,
-        '取消失败',
-        '正在取消添加账号'
-      )
-        .then(() => createMobileDialog.destroy())
-        .catch(() => createMobileDialog.open())
-    }
+  function onCancelButtonClick () {
+    dialog.close()
+    ;(async function () {
+      try {
+        for (const key of memo.keys()) {
+          if (memo.get(key).created && !memo.get(key).loginSuccess) {
+            await api.req(
+              () => api.task.cancelCreate(type, dialogMobileInputValue),
+              null,
+              '取消失败',
+              '正在取消添加账号'
+            )
+            memo.get(key).created = false
+          }
+        }
+      } catch (err) {
+      }
+    })()
   }
 
-  function onCreateMobileDialogConfirmButtonClick () {
-    createMobileDialog.close()
-    if (createMobileDialogCodeInputValue) {
-      (async function () {
-        try {
-          if (!createMobileDialogSendButtonClicked) {
-            await api.req(
-              () => api.task.createTaskByMobile(
-                type,
-                createMobileDialogMobileInputValue,
-                folder.id,
-                createMobileDialogPaymentPasswordInputValue
-              ),
-              null,
-              '添加失败',
-              '正在添加账号'
-            )
-          }
-          await api.req(
-            () => api.task.loginByCode(
-              type,
-              createMobileDialogMobileInputValue,
-              createMobileDialogCodeInputValue
-            ),
-            '登录成功',
-            '登录失败',
-            '正在登录'
-          )
-        } catch (err) {
-          createMobileDialog.open()
-          return
-        }
-        await utils.progress.loading(() => utils.store.getTasks(type, folder.id), true)
-        createMobileDialogSendButtonClicked = false
-      })()
+  function onConfirmButtonClick () {
+    dialog.close()
+    if (!dialogCodeInputValue) {
+      f7.dialog.alert('请先输入验证码', '提示', () => dialog.open())
       return
     }
 
-    f7.dialog.alert('请先输入验证码', '提示', () => createMobileDialog.open())
+    (async function () {
+      try {
+        if (!memo.getOrDefault(dialogMobileInputValue).created) {
+          try {
+            await api.req(
+              () => api.task.createTaskByMobile(
+                type,
+                dialogMobileInputValue,
+                folder.id,
+                dialogPaymentPasswordInputValue
+              ),
+              null,
+              null,
+              '正在添加账号'
+            )
+          } catch (err) {
+          }
+        }
+        await api.req(
+          () => api.task.loginByCode(
+            type,
+            dialogMobileInputValue,
+            dialogCodeInputValue
+          ),
+          '登录成功',
+          '登录失败',
+          '正在登录'
+        )
+        memo.get(dialogMobileInputValue).loginSuccess = true
+      } catch (err) {
+        dialog.open()
+        return
+      }
+      await utils.progress.loading(() => utils.store.getTasks(type, folder.id), true)
+    })()
   }
 
   export function open () {
-    if (type === '' || type === '5' || type === '6' || type === '13') {
-      createMobileDialog = f7.dialog.create({
-        el: createMobileDialogElement
+    if (type === '' || type === '5' || type === '6' || type === '8' || type === '13' || type === '14') {
+      dialog = f7.dialog.create({
+        el: dialogElement
       })
-      createMobileDialog.open()
+      dialog.open()
     } else if (type === '2' || type === '3' || type === '4' || type === '10') {
       f7.dialog.login(null, '添加账号', (username, password) => {
         f7.dialog.password('请输入支付密码', '添加账号', (paymentPassword) => {
@@ -169,7 +195,7 @@
             })
         })
       })
-    } else if (type === '7' || type === '8' || type === '9' || type === '11' || type === '12') {
+    } else if (type === '7' || type === '9' || type === '11' || type === '12') {
       f7.dialog.login(null, '添加账号', (username, password) => {
         api.req(() => api.task.createTaskByUsername(type, username, password, folder.id), '添加成功',
           '添加失败', '正在添加账号')

@@ -21,14 +21,21 @@
   let contents
 
   onMount(() => {
-    groupedTasks = _.groupBy(tasks, 'inviter')
+    groupedTasks = _.groupBy(_.filter(tasks.map((task) => {
+      if (task.name.length === 11) {
+        task.name = task.name.slice(0, 3) + '****' + task.name.slice(7)
+      }
+      return task
+    }), (task) => {
+      return task.inviter && task.status === 1
+    }), 'inviter')
   })
 </script>
 
 <ActionBar class="margin-bottom-half">
     <Row noGap>
         <Col width="100">
-            <BlockTitle class="title">邀请人统计</BlockTitle>
+            <BlockTitle class="title">统计</BlockTitle>
         </Col>
     </Row>
     <div class="margin-top-half display-flex flex-flow-wrap">
@@ -48,7 +55,7 @@
                     {#each Object.keys(groupedTasks) as key}
                         <TreeviewItem itemToggle>
                             <div slot="label">
-                                <span class="font-weight-bold">组&nbsp;</span>{key}&nbsp;&nbsp;<span class="font-weight-bold">合计&nbsp;</span>{groupedTasks[key].length}
+                                <span class="font-weight-bold">邀请人&nbsp;</span>{key}&nbsp;&nbsp;<span class="font-weight-bold">合计&nbsp;</span>{groupedTasks[key].length}
                             </div>
                             {#each groupedTasks[key] as task}
                                 <TreeviewItem itemToggle label={task.name}>

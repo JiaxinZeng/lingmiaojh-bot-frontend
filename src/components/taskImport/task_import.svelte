@@ -92,7 +92,7 @@
           f7.dialog.alert('没有输入密码或者支付密码', '提示')
           return
         }
-      } else if (type === '7' || type === '8' || type === '9' || type === '11') {
+      } else if (type === '7' || type === '9' || type === '11') {
         if (!usingPassword) {
           f7.dialog.alert('没有输入密码', '提示')
           return
@@ -126,7 +126,7 @@
       for (let i = 0; i < accounts.length; i++) {
         const account = accounts[i]
 
-        if (type === '' || type === '6') {
+        if (type === '' || type === '6' || type === '8' || type === '14') {
           lastResp = await api.task.createTaskByMobile(
             type,
             account.account,
@@ -140,7 +140,7 @@
             folder.id,
             account.paymentPassword
           )
-        } else if (type === '7' || type === '8' || type === '9' || type === '11') {
+        } else if (type === '7' || type === '9' || type === '11') {
           lastResp = await api.task.createTaskByUsername(
             type,
             account.account,

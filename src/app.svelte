@@ -18,7 +18,7 @@
   import { onMount } from 'svelte'
 
   const f7params = {
-    name: 'Lingmiaojh Bot',
+    name: '云端',
     theme: 'md',
     store,
     routes,
@@ -153,12 +153,12 @@
                                       onClick={changePage('management8')}
                             >
                             </ListItem>
-                            <ListItem link
-                                      title="点D跳D"
-                                      selected={currentPage === 'management9'}
-                                      onClick={changePage('management9')}
-                            >
-                            </ListItem>
+<!--                            <ListItem link-->
+<!--                                      title="点D跳D"-->
+<!--                                      selected={currentPage === 'management9'}-->
+<!--                                      onClick={changePage('management9')}-->
+<!--                            >-->
+<!--                            </ListItem>-->
                             <ListItem link
                                       title="果T生X"
                                       selected={currentPage === 'management10'}
@@ -181,6 +181,12 @@
                                       title="恋Y"
                                       selected={currentPage === 'management13'}
                                       onClick={changePage('management13')}
+                            >
+                            </ListItem>
+                            <ListItem link
+                                      title="东M优P"
+                                      selected={currentPage === 'management14'}
+                                      onClick={changePage('management14')}
                             >
                             </ListItem>
                         </List>

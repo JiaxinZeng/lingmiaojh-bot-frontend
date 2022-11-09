@@ -26,6 +26,8 @@ import Management12Page from '@/pages/management12.svelte'
 import Management12TaskPage from '@/pages/management12_task.svelte'
 import Management13Page from '@/pages/management13.svelte'
 import Management13TaskPage from '@/pages/management13_task.svelte'
+import Management14Page from '@/pages/management14.svelte'
+import Management14TaskPage from '@/pages/management14_task.svelte'
 import TaskImportPage from '@/pages/task_import.svelte'
 import TaskGroup from '@/pages/task_group.svelte'
 
@@ -222,6 +224,20 @@ const routes = [
   {
     path: '/management13_task/',
     component: Management13TaskPage,
+    options: {
+      transition: 'f7-fade'
+    }
+  },
+  {
+    path: '/management14/',
+    component: Management14Page,
+    options: {
+      transition: 'f7-dive'
+    }
+  },
+  {
+    path: '/management14_task/',
+    component: Management14TaskPage,
     options: {
       transition: 'f7-fade'
     }

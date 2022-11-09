@@ -7,9 +7,12 @@
     Page, useStore
   } from 'framework7-svelte'
   import Management from '@/components/management'
+  import { onMount } from 'svelte'
 
-  let userInfo = useStore('userInfo', newUserInfo => (userInfo = newUserInfo))
-  $: document.title = `${userInfo?.nickname} tfsh`
+  const userInfo = useStore('userInfo')
+  onMount(() => {
+    document.title = `${userInfo?.nickname} tfsh`
+  })
 
   export let f7router
 </script>
