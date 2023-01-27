@@ -44,9 +44,10 @@
       if (folder) {
         console.log(folder)
         setTimeout(() => {
-          f7router.navigate(`/management${type}_task/`, {
+          f7router.navigate('/management_task/', {
             props: {
-              folder
+              folder,
+              type
             }
           })
         }, 500)

@@ -1,5 +1,5 @@
 <Page class="main-page" pageContent={false}>
-    <Management type={f7route.route.options.type} f7router={f7router} />
+    <Management type={f7route.params.type} f7router={f7router} />
 </Page>
 
 <script>

@@ -107,14 +107,14 @@
                             </ListItem>
                             <ListItem link
                                       title="旅游LML"
-                                      selected={currentPage === 'management'}
-                                      onClick={changePage('management')}
+                                      selected={currentPage === 'management/1'}
+                                      onClick={changePage('management/1')}
                             >
                             </ListItem>
                             <ListItem link
                                       title="汇J生T"
-                                      selected={currentPage === 'management2'}
-                                      onClick={changePage('management2')}
+                                      selected={currentPage === 'management/2'}
+                                      onClick={changePage('management/2')}
                             >
                             </ListItem>
                             <!--                            <ListItem link-->
@@ -149,8 +149,8 @@
                             <!--                            </ListItem>-->
                             <ListItem link
                                       title="淘F生H"
-                                      selected={currentPage === 'management8'}
-                                      onClick={changePage('management8')}
+                                      selected={currentPage === 'management/8'}
+                                      onClick={changePage('management/8')}
                             >
                             </ListItem>
 <!--                            <ListItem link-->
@@ -161,8 +161,8 @@
 <!--                            </ListItem>-->
                             <ListItem link
                                       title="果T生X"
-                                      selected={currentPage === 'management10'}
-                                      onClick={changePage('management10')}
+                                      selected={currentPage === 'management/10'}
+                                      onClick={changePage('management/10')}
                             >
                             </ListItem>
 <!--                            <ListItem link-->
@@ -173,14 +173,14 @@
 <!--                            </ListItem>-->
                             <ListItem link
                                       title="星JH"
-                                      selected={currentPage === 'management12'}
-                                      onClick={changePage('management12')}
+                                      selected={currentPage === 'management/12'}
+                                      onClick={changePage('management/12')}
                             >
                             </ListItem>
                             <ListItem link
                                       title="恋Y"
-                                      selected={currentPage === 'management13'}
-                                      onClick={changePage('management13')}
+                                      selected={currentPage === 'management/13'}
+                                      onClick={changePage('management/13')}
                             >
                             </ListItem>
 <!--                            <ListItem link-->
@@ -191,20 +191,20 @@
 <!--                            </ListItem>-->
                             <ListItem link
                                       title="红Y旅Y"
-                                      selected={currentPage === 'management15'}
-                                      onClick={changePage('management15')}
+                                      selected={currentPage === 'management/15'}
+                                      onClick={changePage('management/15')}
                             >
                             </ListItem>
                             <ListItem link
                                       title="邻C家Y"
-                                      selected={currentPage === 'management16'}
-                                      onClick={changePage('management16')}
+                                      selected={currentPage === 'management/16'}
+                                      onClick={changePage('management/16')}
                             >
                             </ListItem>
                             <ListItem link
                                       title="中Q数J联M"
-                                      selected={currentPage === 'management17'}
-                                      onClick={changePage('management17')}
+                                      selected={currentPage === 'management/17'}
+                                      onClick={changePage('management/17')}
                             >
                             </ListItem>
                         </List>
