@@ -12,7 +12,6 @@
   } from 'framework7-svelte'
   import routes from '@/js/routes'
   import store from '@/js/store'
-  import _ from 'lodash'
   import framework7 from 'framework7'
   import utils from '@/js/utils'
   import { onMount } from 'svelte'
@@ -36,14 +35,10 @@
   }
   const paramPage = framework7.utils.parseUrlQuery(window.location.href)?.page
 
-  let currentPage = 'home'
-  const _changePage = _.debounce(function (page) {
-    f7.views.main.router.navigate(`/${page}/`)
-  }, 500)
-  const changePage = (page) => {
+  let curViewPath = '/home/'
+  const navigateTo = (path) => {
     return function () {
-      currentPage = page
-      _changePage(page)
+      f7.views.main.router.navigate(`${path}`)
     }
   }
 
@@ -61,6 +56,12 @@
   window.addEventListener('resize', () => {
     showingSidebarFab = window.innerWidth < 960
   })
+
+  function onViewInit () {
+    f7.view.main.router.on('routeChange', (newRoute, previousRoute, router) => {
+      curViewPath = newRoute.path
+    })
+  }
 </script>
 
 <App { ...f7params } colorTheme="blue">
@@ -81,8 +82,8 @@
                         >
                             <ListItem link
                                       title="仪表盘"
-                                      selected={currentPage === 'home'}
-                                      onClick={changePage('home')}
+                                      selected={curViewPath === '/home/'}
+                                      onClick={navigateTo('/home/')}
                             >
                                 <span slot="media">
                                     <Icon md="material:dashboard"/>
@@ -107,104 +108,104 @@
                             </ListItem>
                             <ListItem link
                                       title="旅游LML"
-                                      selected={currentPage === 'management/1'}
-                                      onClick={changePage('management/1')}
+                                      selected={curViewPath === '/management/1/'}
+                                      onClick={navigateTo('/management/1/')}
                             >
                             </ListItem>
                             <ListItem link
                                       title="汇J生T"
-                                      selected={currentPage === 'management/2'}
-                                      onClick={changePage('management/2')}
+                                      selected={curViewPath === '/management/2/'}
+                                      onClick={navigateTo('/management/2/')}
                             >
                             </ListItem>
                             <!--                            <ListItem link-->
                             <!--                                      title="游Y商C"-->
-                            <!--                                      selected={currentPage === 'management3'}-->
-                            <!--                                      onClick={changePage('management3')}-->
+                            <!--                                      selected={curViewPath === 'management3'}-->
+                            <!--                                      onClick={navigateTo('management3')}-->
                             <!--                            >-->
                             <!--                            </ListItem>-->
                             <!--                            <ListItem link-->
                             <!--                                      title="酷Y"-->
-                            <!--                                      selected={currentPage === 'management4'}-->
-                            <!--                                      onClick={changePage('management4')}-->
+                            <!--                                      selected={curViewPath === 'management4'}-->
+                            <!--                                      onClick={navigateTo('management4')}-->
                             <!--                            >-->
                             <!--                            </ListItem>-->
                             <!--                            <ListItem link-->
                             <!--                                      title="嗨PJ"-->
-                            <!--                                      selected={currentPage === 'management5'}-->
-                            <!--                                      onClick={changePage('management5')}-->
+                            <!--                                      selected={curViewPath === 'management5'}-->
+                            <!--                                      onClick={navigateTo('management5')}-->
                             <!--                            >-->
                             <!--                            </ListItem>-->
                             <!--                            <ListItem link-->
                             <!--                                      title="每日XC"-->
-                            <!--                                      selected={currentPage === 'management6'}-->
-                            <!--                                      onClick={changePage('management6')}-->
+                            <!--                                      selected={curViewPath === 'management6'}-->
+                            <!--                                      onClick={navigateTo('management6')}-->
                             <!--                            >-->
                             <!--                            </ListItem>-->
                             <!--                            <ListItem link-->
                             <!--                                      title="七C人S"-->
-                            <!--                                      selected={currentPage === 'management7'}-->
-                            <!--                                      onClick={changePage('management7')}-->
+                            <!--                                      selected={curViewPath === 'management7'}-->
+                            <!--                                      onClick={navigateTo('management7')}-->
                             <!--                            >-->
                             <!--                            </ListItem>-->
                             <ListItem link
                                       title="淘F生H"
-                                      selected={currentPage === 'management/8'}
-                                      onClick={changePage('management/8')}
+                                      selected={curViewPath === '/management/8/'}
+                                      onClick={navigateTo('/management/8/')}
                             >
                             </ListItem>
 <!--                            <ListItem link-->
 <!--                                      title="点D跳D"-->
-<!--                                      selected={currentPage === 'management9'}-->
-<!--                                      onClick={changePage('management9')}-->
+<!--                                      selected={curViewPath === 'management9'}-->
+<!--                                      onClick={navigateTo('management9')}-->
 <!--                            >-->
 <!--                            </ListItem>-->
                             <ListItem link
                                       title="果T生X"
-                                      selected={currentPage === 'management/10'}
-                                      onClick={changePage('management/10')}
+                                      selected={curViewPath === '/management/10/'}
+                                      onClick={navigateTo('/management/10/')}
                             >
                             </ListItem>
 <!--                            <ListItem link-->
 <!--                                      title="J娱Meta"-->
-<!--                                      selected={currentPage === 'management11'}-->
-<!--                                      onClick={changePage('management11')}-->
+<!--                                      selected={curViewPath === 'management11'}-->
+<!--                                      onClick={navigateTo('management11')}-->
 <!--                            >-->
 <!--                            </ListItem>-->
                             <ListItem link
                                       title="星JH"
-                                      selected={currentPage === 'management/12'}
-                                      onClick={changePage('management/12')}
+                                      selected={curViewPath === '/management/12/'}
+                                      onClick={navigateTo('/management/12/')}
                             >
                             </ListItem>
                             <ListItem link
                                       title="恋Y"
-                                      selected={currentPage === 'management/13'}
-                                      onClick={changePage('management/13')}
+                                      selected={curViewPath === '/management/13/'}
+                                      onClick={navigateTo('/management/13/')}
                             >
                             </ListItem>
 <!--                            <ListItem link-->
 <!--                                      title="东M优P"-->
-<!--                                      selected={currentPage === 'management14'}-->
-<!--                                      onClick={changePage('management14')}-->
+<!--                                      selected={curViewPath === 'management14'}-->
+<!--                                      onClick={navigateTo('management14')}-->
 <!--                            >-->
 <!--                            </ListItem>-->
                             <ListItem link
                                       title="红Y旅Y"
-                                      selected={currentPage === 'management/15'}
-                                      onClick={changePage('management/15')}
+                                      selected={curViewPath === '/management/15/'}
+                                      onClick={navigateTo('/management/15/')}
                             >
                             </ListItem>
                             <ListItem link
                                       title="邻C家Y"
-                                      selected={currentPage === 'management/16'}
-                                      onClick={changePage('management/16')}
+                                      selected={curViewPath === '/management/16/'}
+                                      onClick={navigateTo('/management/16/')}
                             >
                             </ListItem>
                             <ListItem link
                                       title="中Q数J联M"
-                                      selected={currentPage === 'management/17'}
-                                      onClick={changePage('management/17')}
+                                      selected={curViewPath === '/management/17/'}
+                                      onClick={navigateTo('/management/17/')}
                             >
                             </ListItem>
                         </List>
@@ -223,6 +224,11 @@
             {/if}
         {/if}
 
-        <View main class="safe-areas" url={paramPage ? `/${paramPage}/` : '/home/'} />
+        <View
+                main
+                class="safe-areas"
+                url={paramPage ? `/${paramPage}/` : '/home/'}
+                on:viewInit={onViewInit}
+        />
     {/if}
 </App>

@@ -6,7 +6,7 @@
   import {
     Page
   } from 'framework7-svelte'
-  import TaskImport from '@/components/taskImport'
+  import TaskImport from '@/widgets/taskImport'
 
   export let type
   export let f7router

@@ -11,7 +11,7 @@ import App from '@/app.svelte'
 
 framework7.request.setup({
   headers: {
-    'access-token': framework7.utils.parseUrlQuery(window.location.href)?.accessToken
+    'Access-Token': framework7.utils.parseUrlQuery(window.location.href)?.accessToken
   }
 })
 

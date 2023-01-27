@@ -4,7 +4,7 @@
 
 <script>
   import { Page } from 'framework7-svelte'
-  import ManagementTask from '@/components/managementTask'
+  import ManagementTask from '@/widgets/managementTask'
 
   export let f7router
   export let type

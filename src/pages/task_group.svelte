@@ -6,7 +6,7 @@
   import {
     Page
   } from 'framework7-svelte'
-  import TaskGroup from '@/components/taskGroup'
+  import TaskGroup from '@/widgets/taskGroup'
 
   export let f7router
 </script>

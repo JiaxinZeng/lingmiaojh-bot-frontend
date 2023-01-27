@@ -10,8 +10,8 @@
     useStore
   } from 'framework7-svelte'
   import TaskList from '@/components/taskList'
-  import TaskFilterDialog from '@/components/taskFilterDialog'
-  import TaskCreateDialog from '@/components/taskCreateDialog'
+  import TaskFilterDialog from '@/widgets/taskFilterDialog'
+  import TaskCreateDialog from '@/widgets/taskCreateDialog'
   import utils from '@/js/utils'
   import './management_task.scss'
   import { afterUpdate, onMount } from 'svelte'

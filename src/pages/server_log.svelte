@@ -6,5 +6,5 @@
   import {
     Page
   } from 'framework7-svelte'
-  import ServerLog from '@/components/serverLog'
+  import ServerLog from '@/widgets/serverLog'
 </script>

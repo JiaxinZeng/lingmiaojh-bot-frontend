@@ -5,10 +5,11 @@
   "description": "Lingmiaojh Bot",
   "repository": "",
   "license": "UNLICENSED",
+  "type": "module",
   "scripts": {
     "start": "npm run dev",
     "dev": "cross-env NODE_ENV=development vite",
-    "build": "cross-env NODE_ENV=production vite build && npx workbox generateSW workbox-config.js"
+    "build": "cross-env NODE_ENV=production vite build && npx workbox generateSW workbox-config.cjs"
   },
   "browserslist": [
     "ie 11"
@@ -16,33 +17,33 @@
   "dependencies": {
     "clamp-js": "^0.7.0",
     "dom7": "^4.0.4",
-    "framework7": "^7.0.8",
+    "framework7": "^7.1.2",
     "framework7-icons": "^5.0.5",
-    "framework7-svelte": "^7.0.8",
+    "framework7-svelte": "^7.1.2",
     "lodash": "^4.17.21",
-    "material-icons": "^1.11.9",
-    "skeleton-elements": "^4.0.0",
-    "svelte": "^3.52.0",
-    "svelte-preprocess": "^4.10.7",
+    "material-icons": "^1.13.1",
+    "skeleton-elements": "^4.0.1",
     "svrollbar": "^0.12.0",
-    "swiper": "^8.4.2"
+    "swiper": "^8.4.6"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^1.1.0",
-    "@vitejs/plugin-legacy": "^2.3.1",
+    "@sveltejs/vite-plugin-svelte": "^2.0.2",
+    "@vitejs/plugin-legacy": "^3.0.2",
     "cpy-cli": "^4.1.0",
     "cross-env": "^7.0.3",
-    "eslint": "^8.27.0",
+    "eslint": "^8.32.0",
     "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-n": "^15.5.1",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.6.1",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-svelte3": "^4.0.0",
-    "postcss-preset-env": "^7.8.2",
-    "sass": "^1.56.1",
-    "terser": "^5.15.1",
-    "vite": "^3.2.3",
+    "postcss-preset-env": "^8.0.0",
+    "sass": "^1.57.1",
+    "terser": "^5.16.1",
+    "vite": "^4.0.4",
     "vite-plugin-eslint": "^1.8.1",
-    "workbox-cli": "^6.5.4"
+    "workbox-cli": "^6.5.4",
+    "svelte": "^3.55.1",
+    "svelte-preprocess": "^5.0.1"
   }
 }

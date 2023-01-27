@@ -104,6 +104,15 @@
   function onRefreshButtonClick () {
     utils.progress.loading(() => utils.store.getTaskFolders(type), false)
   }
+
+  function onFolderClick () {
+    f7router.navigate('/management_task/', {
+      props: {
+        folder: clickedFolder,
+        type
+      }
+    })
+  }
 </script>
 
 {#if !paramFolder}
@@ -132,13 +141,7 @@
                 </ListItem>
                 <ListItem link
                           popoverClose
-                          on:click={ () => {
-                        f7router.navigate(`/management${type}_task/`, {
-                          props: {
-                            folder: clickedFolder
-                          }
-                        })
-                      }}
+                          on:click={onFolderClick}
                           title="打开"/>
                 <ListItem link popoverClose on:click={onChangeFolderNameButtonClick} title="重命名"/>
                 {#if !paramNoDelete}
