@@ -1,5 +1,5 @@
 <Page class="main-page" pageContent={false}>
-    <Management f7router={f7router} />
+    <Management type={f7route.route.options.type} f7router={f7router} />
 </Page>
 
 <script>
@@ -7,4 +7,5 @@
   import Management from '@/components/management'
 
   export let f7router
+  export let f7route
 </script>

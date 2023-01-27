@@ -28,6 +28,12 @@ import Management13Page from '@/pages/management13.svelte'
 import Management13TaskPage from '@/pages/management13_task.svelte'
 import Management14Page from '@/pages/management14.svelte'
 import Management14TaskPage from '@/pages/management14_task.svelte'
+import Management15Page from '@/pages/management15.svelte'
+import Management15TaskPage from '@/pages/management15_task.svelte'
+import Management16Page from '@/pages/management16.svelte'
+import Management16TaskPage from '@/pages/management16_task.svelte'
+import Management17Page from '@/pages/management17.svelte'
+import Management17TaskPage from '@/pages/management17_task.svelte'
 import TaskImportPage from '@/pages/task_import.svelte'
 import TaskGroup from '@/pages/task_group.svelte'
 
@@ -50,7 +56,10 @@ const routes = [
     path: '/management/',
     component: ManagementPage,
     options: {
-      transition: 'f7-dive'
+      transition: 'f7-dive',
+      props: {
+        type: ''
+      }
     }
   },
   {
@@ -238,6 +247,48 @@ const routes = [
   {
     path: '/management14_task/',
     component: Management14TaskPage,
+    options: {
+      transition: 'f7-fade'
+    }
+  },
+  {
+    path: '/management15/',
+    component: Management15Page,
+    options: {
+      transition: 'f7-dive'
+    }
+  },
+  {
+    path: '/management15_task/',
+    component: Management15TaskPage,
+    options: {
+      transition: 'f7-fade'
+    }
+  },
+  {
+    path: '/management16/',
+    component: Management16Page,
+    options: {
+      transition: 'f7-dive'
+    }
+  },
+  {
+    path: '/management16_task/',
+    component: Management16TaskPage,
+    options: {
+      transition: 'f7-fade'
+    }
+  },
+  {
+    path: '/management17/',
+    component: Management17Page,
+    options: {
+      transition: 'f7-dive'
+    }
+  },
+  {
+    path: '/management17_task/',
+    component: Management17TaskPage,
     options: {
       transition: 'f7-fade'
     }

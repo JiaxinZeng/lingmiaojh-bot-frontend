@@ -83,6 +83,14 @@
 
   function onSendButtonClick () {
     dialog.close()
+
+    if (type === '5' || type === '13') {
+      if (!dialogPaymentPasswordInputValue) {
+        f7.dialog.alert('请先输入支付密码', '提示', () => dialog.open())
+        return
+      }
+    }
+
     ;(async function () {
       try {
         try {
@@ -99,6 +107,7 @@
           )
         } catch (err) {
         }
+        memo.getOrDefault(dialogMobileInputValue).created = true
         await api.req(
           () => api.task.sendLoginVerifyCode(
             type,
@@ -108,7 +117,6 @@
           '发送失败',
           '正在发送'
         )
-        memo.get(dialogMobileInputValue).created = true
       } catch (err) {
       }
       dialog.open()
@@ -120,7 +128,7 @@
     ;(async function () {
       try {
         for (const key of memo.keys()) {
-          if (memo.get(key).created && !memo.get(key).loginSuccess) {
+          if (memo.get(key) && memo.get(key).created && !memo.get(key).loginSuccess) {
             await api.req(
               () => api.task.cancelCreate(type, dialogMobileInputValue),
               null,
@@ -142,6 +150,13 @@
       return
     }
 
+    if (type === '5' || type === '13') {
+      if (!dialogPaymentPasswordInputValue) {
+        f7.dialog.alert('请先输入支付密码', '提示', () => dialog.open())
+        return
+      }
+    }
+
     (async function () {
       try {
         if (!memo.getOrDefault(dialogMobileInputValue).created) {
@@ -160,6 +175,7 @@
           } catch (err) {
           }
         }
+        memo.get(dialogMobileInputValue).created = true
         await api.req(
           () => api.task.loginByCode(
             type,
@@ -185,7 +201,7 @@
         el: dialogElement
       })
       dialog.open()
-    } else if (type === '2' || type === '3' || type === '4' || type === '10') {
+    } else if (type === '2' || type === '3' || type === '4' || type === '10' || type === '16' || type === '17') {
       f7.dialog.login(null, '添加账号', (username, password) => {
         f7.dialog.password('请输入支付密码', '添加账号', (paymentPassword) => {
           api.req(() => api.task.createTaskByUsername(type, username, password, folder.id, paymentPassword), '添加成功',
@@ -195,7 +211,7 @@
             })
         })
       })
-    } else if (type === '7' || type === '9' || type === '11' || type === '12') {
+    } else if (type === '7' || type === '9' || type === '11' || type === '12' || type === '15') {
       f7.dialog.login(null, '添加账号', (username, password) => {
         api.req(() => api.task.createTaskByUsername(type, username, password, folder.id), '添加成功',
           '添加失败', '正在添加账号')

@@ -58,7 +58,7 @@
             })
         })
       } else if (type === '2' || type === '3' || type === '4' || type === '7' || type === '9' || type === '10' ||
-        type === '11' || type === '12') {
+        type === '11' || type === '12' || type === '15' || type === '16' || type === '17') {
         f7.dialog.prompt('请输入密码', '登录', (password) => {
           api.req(() => api.task.loginByPassword(type, task.name, password), '登录成功', '登录失败', '正在登录')
             .then(() => {
@@ -154,7 +154,7 @@
                                     </Button>
                                 </div>
 
-                                {#if type === '2' || type === '3' || type === '4' || type === '5' || type === '10' || type === '13'}
+                                {#if type === '2' || type === '3' || type === '4' || type === '5' || type === '10' || type === '13' || type === '16' || type === '17'}
                                     <div>
                                         <Button tooltip="重设支付密码"
                                                 on:click={onResetPaymentPasswordButtonClick(task)}>

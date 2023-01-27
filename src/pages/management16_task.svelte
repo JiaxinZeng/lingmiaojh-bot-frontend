@@ -1,5 +1,5 @@
 <Page class="main-page" pageContent={false}>
-    <ManagementTask type={f7route.route.options.type} folder={folder} f7router={f7router}/>
+    <ManagementTask type="16" folder={folder} f7router={f7router} />
 </Page>
 
 <script>
@@ -7,6 +7,5 @@
   import ManagementTask from '@/components/managementTask'
 
   export let f7router
-  export let f7route
   export let folder
 </script>

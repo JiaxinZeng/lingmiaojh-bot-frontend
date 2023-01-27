@@ -87,12 +87,12 @@
         usingPaymentPassword = accountInfos[2]
       }
 
-      if (type === '2' || type === '3' || type === '4' || type === '10' || type === '12') {
+      if (type === '2' || type === '3' || type === '4' || type === '10' || type === '12' || type === '16' || type === '17') {
         if (!usingPassword || !usingPaymentPassword) {
           f7.dialog.alert('没有输入密码或者支付密码', '提示')
           return
         }
-      } else if (type === '7' || type === '9' || type === '11') {
+      } else if (type === '7' || type === '9' || type === '11' || type === '15') {
         if (!usingPassword) {
           f7.dialog.alert('没有输入密码', '提示')
           return
@@ -132,7 +132,7 @@
             account.account,
             folder.id
           )
-        } else if (type === '2' || type === '3' || type === '4' || type === '10' || type === '12') {
+        } else if (type === '2' || type === '3' || type === '4' || type === '10' || type === '12' || type === '16' || type === '17') {
           lastResp = await api.task.createTaskByUsername(
             type,
             account.account,
@@ -140,7 +140,7 @@
             folder.id,
             account.paymentPassword
           )
-        } else if (type === '7' || type === '9' || type === '11') {
+        } else if (type === '7' || type === '9' || type === '11' || type === '15') {
           lastResp = await api.task.createTaskByUsername(
             type,
             account.account,

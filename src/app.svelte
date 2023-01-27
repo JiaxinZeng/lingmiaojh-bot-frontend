@@ -165,12 +165,12 @@
                                       onClick={changePage('management10')}
                             >
                             </ListItem>
-                            <ListItem link
-                                      title="J娱Meta"
-                                      selected={currentPage === 'management11'}
-                                      onClick={changePage('management11')}
-                            >
-                            </ListItem>
+<!--                            <ListItem link-->
+<!--                                      title="J娱Meta"-->
+<!--                                      selected={currentPage === 'management11'}-->
+<!--                                      onClick={changePage('management11')}-->
+<!--                            >-->
+<!--                            </ListItem>-->
                             <ListItem link
                                       title="星JH"
                                       selected={currentPage === 'management12'}
@@ -183,10 +183,28 @@
                                       onClick={changePage('management13')}
                             >
                             </ListItem>
+<!--                            <ListItem link-->
+<!--                                      title="东M优P"-->
+<!--                                      selected={currentPage === 'management14'}-->
+<!--                                      onClick={changePage('management14')}-->
+<!--                            >-->
+<!--                            </ListItem>-->
                             <ListItem link
-                                      title="东M优P"
-                                      selected={currentPage === 'management14'}
-                                      onClick={changePage('management14')}
+                                      title="红Y旅Y"
+                                      selected={currentPage === 'management15'}
+                                      onClick={changePage('management15')}
+                            >
+                            </ListItem>
+                            <ListItem link
+                                      title="邻C家Y"
+                                      selected={currentPage === 'management16'}
+                                      onClick={changePage('management16')}
+                            >
+                            </ListItem>
+                            <ListItem link
+                                      title="中Q数J联M"
+                                      selected={currentPage === 'management17'}
+                                      onClick={changePage('management17')}
                             >
                             </ListItem>
                         </List>
