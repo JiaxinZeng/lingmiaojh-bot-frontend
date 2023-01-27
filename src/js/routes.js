@@ -24,14 +24,11 @@ const routes = [
     path: '/management/:type/',
     component: ManagementPage,
     options: {
-      transition: 'f7-dive',
-      props: {
-        type: ''
-      }
+      transition: 'f7-dive'
     }
   },
   {
-    path: '/management_task/',
+    path: '/management/:type/task/',
     component: ManagementTaskPage,
     options: {
       transition: 'f7-fade'

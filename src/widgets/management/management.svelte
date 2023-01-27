@@ -44,10 +44,9 @@
       if (folder) {
         console.log(folder)
         setTimeout(() => {
-          f7router.navigate('/management_task/', {
+          f7router.navigate(`/management/${type}/task/`, {
             props: {
-              folder,
-              type
+              folder
             }
           })
         }, 500)
@@ -106,10 +105,9 @@
   }
 
   function onFolderClick () {
-    f7router.navigate('/management_task/', {
+    f7router.navigate(`/management/${type}/task/`, {
       props: {
-        folder: clickedFolder,
-        type
+        folder: clickedFolder
       }
     })
   }

@@ -108,13 +108,13 @@
                             </ListItem>
                             <ListItem link
                                       title="旅游LML"
-                                      selected={curViewPath === '/management/1/'}
+                                      selected={curViewPath.startsWith('/management/1/')}
                                       onClick={navigateTo('/management/1/')}
                             >
                             </ListItem>
                             <ListItem link
                                       title="汇J生T"
-                                      selected={curViewPath === '/management/2/'}
+                                      selected={curViewPath.startsWith('/management/2/')}
                                       onClick={navigateTo('/management/2/')}
                             >
                             </ListItem>
@@ -150,7 +150,7 @@
                             <!--                            </ListItem>-->
                             <ListItem link
                                       title="淘F生H"
-                                      selected={curViewPath === '/management/8/'}
+                                      selected={curViewPath.startsWith('/management/8/')}
                                       onClick={navigateTo('/management/8/')}
                             >
                             </ListItem>
@@ -162,7 +162,7 @@
 <!--                            </ListItem>-->
                             <ListItem link
                                       title="果T生X"
-                                      selected={curViewPath === '/management/10/'}
+                                      selected={curViewPath.startsWith('/management/10/')}
                                       onClick={navigateTo('/management/10/')}
                             >
                             </ListItem>
@@ -174,13 +174,13 @@
 <!--                            </ListItem>-->
                             <ListItem link
                                       title="星JH"
-                                      selected={curViewPath === '/management/12/'}
+                                      selected={curViewPath.startsWith('/management/12/')}
                                       onClick={navigateTo('/management/12/')}
                             >
                             </ListItem>
                             <ListItem link
                                       title="恋Y"
-                                      selected={curViewPath === '/management/13/'}
+                                      selected={curViewPath.startsWith('/management/13/')}
                                       onClick={navigateTo('/management/13/')}
                             >
                             </ListItem>
@@ -192,19 +192,19 @@
 <!--                            </ListItem>-->
                             <ListItem link
                                       title="红Y旅Y"
-                                      selected={curViewPath === '/management/15/'}
+                                      selected={curViewPath.startsWith('/management/15/')}
                                       onClick={navigateTo('/management/15/')}
                             >
                             </ListItem>
                             <ListItem link
                                       title="邻C家Y"
-                                      selected={curViewPath === '/management/16/'}
+                                      selected={curViewPath.startsWith('/management/16/')}
                                       onClick={navigateTo('/management/16/')}
                             >
                             </ListItem>
                             <ListItem link
                                       title="中Q数J联M"
-                                      selected={curViewPath === '/management/17/'}
+                                      selected={curViewPath.startsWith('/management/17/')}
                                       onClick={navigateTo('/management/17/')}
                             >
                             </ListItem>

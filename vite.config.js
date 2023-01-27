@@ -56,7 +56,7 @@ export default {
         manualChunks: {
           lodash: ['lodash'],
           framework7: ['framework7'],
-          'framework7-lite-bundle': ['framework7/lite-bundle'],
+          'framework7/lite-bundle': ['framework7/lite-bundle'],
           dom7: ['dom7'],
           svrollbar: ['svrollbar'],
           'clamp-js': ['clamp-js']
