@@ -13,7 +13,7 @@
   import TaskFilterDialog from '@/widgets/taskFilterDialog'
   import TaskCreateDialog from '@/widgets/taskCreateDialog'
   import utils from '@/js/utils'
-  import './management_task.scss'
+  import './task_manager.scss'
   import { afterUpdate, onMount } from 'svelte'
   import _ from 'lodash'
   import { Svrollbar } from 'svrollbar'
@@ -118,7 +118,7 @@
             </div>
         </div>
     </ActionBar>
-    <PageContent class="management-task-page-content">
+    <PageContent class="task-manager-page-content">
         <div bind:this={viewport} class="scrollable-container">
             {#key tasks}
                 <TaskList parent={viewport} type={type} folder={folder} tasks={tasks}/>

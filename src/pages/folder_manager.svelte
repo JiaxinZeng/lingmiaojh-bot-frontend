@@ -1,10 +1,10 @@
 <Page class="main-page" pageContent={false}>
-    <Management type={f7route.params.type} f7router={f7router} />
+    <FolderManager type={f7route.params.type} f7router={f7router} />
 </Page>
 
 <script>
   import { Page, useStore } from 'framework7-svelte'
-  import Management from '@/widgets/management'
+  import FolderManager from '@/widgets/folderManager'
   import { onMount } from 'svelte'
 
   export let f7router

@@ -108,14 +108,14 @@
                             </ListItem>
                             <ListItem link
                                       title="旅游LML"
-                                      selected={curViewPath.startsWith('/management/1/')}
-                                      onClick={navigateTo('/management/1/')}
+                                      selected={curViewPath.startsWith('/folder_manager/1/')}
+                                      onClick={navigateTo('/folder_manager/1/')}
                             >
                             </ListItem>
                             <ListItem link
                                       title="汇J生T"
-                                      selected={curViewPath.startsWith('/management/2/')}
-                                      onClick={navigateTo('/management/2/')}
+                                      selected={curViewPath.startsWith('/folder_manager/2/')}
+                                      onClick={navigateTo('/folder_manager/2/')}
                             >
                             </ListItem>
                             <!--                            <ListItem link-->
@@ -150,8 +150,8 @@
                             <!--                            </ListItem>-->
                             <ListItem link
                                       title="淘F生H"
-                                      selected={curViewPath.startsWith('/management/8/')}
-                                      onClick={navigateTo('/management/8/')}
+                                      selected={curViewPath.startsWith('/folder_manager/8/')}
+                                      onClick={navigateTo('/folder_manager/8/')}
                             >
                             </ListItem>
 <!--                            <ListItem link-->
@@ -162,8 +162,8 @@
 <!--                            </ListItem>-->
                             <ListItem link
                                       title="果T生X"
-                                      selected={curViewPath.startsWith('/management/10/')}
-                                      onClick={navigateTo('/management/10/')}
+                                      selected={curViewPath.startsWith('/folder_manager/10/')}
+                                      onClick={navigateTo('/folder_manager/10/')}
                             >
                             </ListItem>
 <!--                            <ListItem link-->
@@ -174,14 +174,14 @@
 <!--                            </ListItem>-->
                             <ListItem link
                                       title="星JH"
-                                      selected={curViewPath.startsWith('/management/12/')}
-                                      onClick={navigateTo('/management/12/')}
+                                      selected={curViewPath.startsWith('/folder_manager/12/')}
+                                      onClick={navigateTo('/folder_manager/12/')}
                             >
                             </ListItem>
                             <ListItem link
                                       title="恋Y"
-                                      selected={curViewPath.startsWith('/management/13/')}
-                                      onClick={navigateTo('/management/13/')}
+                                      selected={curViewPath.startsWith('/folder_manager/13/')}
+                                      onClick={navigateTo('/folder_manager/13/')}
                             >
                             </ListItem>
 <!--                            <ListItem link-->
@@ -192,20 +192,20 @@
 <!--                            </ListItem>-->
                             <ListItem link
                                       title="红Y旅Y"
-                                      selected={curViewPath.startsWith('/management/15/')}
-                                      onClick={navigateTo('/management/15/')}
+                                      selected={curViewPath.startsWith('/folder_manager/15/')}
+                                      onClick={navigateTo('/folder_manager/15/')}
                             >
                             </ListItem>
                             <ListItem link
                                       title="邻C家Y"
-                                      selected={curViewPath.startsWith('/management/16/')}
-                                      onClick={navigateTo('/management/16/')}
+                                      selected={curViewPath.startsWith('/folder_manager/16/')}
+                                      onClick={navigateTo('/folder_manager/16/')}
                             >
                             </ListItem>
                             <ListItem link
                                       title="中Q数J联M"
-                                      selected={curViewPath.startsWith('/management/17/')}
-                                      onClick={navigateTo('/management/17/')}
+                                      selected={curViewPath.startsWith('/folder_manager/17/')}
+                                      onClick={navigateTo('/folder_manager/17/')}
                             >
                             </ListItem>
                         </List>
