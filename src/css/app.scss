@@ -16,6 +16,7 @@
       --f7-dialog-button-text-color: var(--f7-color-pink);
     }
   }
+
   --f7-popover-width: 170px;
   --f7-treeview-label-font-size: 16px;
   --f7-treeview-toggle-size: 18px;
@@ -35,6 +36,34 @@
 
 .panel {
   background-color: var(--f7-page-bg-color);
+}
+
+.md .sidebar {
+  .list .item-media {
+    min-width: initial;
+  }
+}
+
+.sidebar .page-content {
+  > div {
+    @media (max-width: 960px) {
+      margin: 0 !important;
+    }
+  }
+
+  .menu-list {
+    margin-top: var(--f7-typography-margin);
+    margin-bottom: var(--f7-typography-margin);
+    margin-left: var(--f7-typography-margin);
+    overflow: hidden;
+    border-radius: var(--f7-card-border-radius);
+    height: calc(100% - var(--f7-typography-margin) * 2);
+
+    .item-divider {
+      margin: calc(var(--f7-menu-list-offset) / 2) var(--f7-menu-list-offset);
+      height: 2px;
+    }
+  }
 }
 
 .scrollable-container {

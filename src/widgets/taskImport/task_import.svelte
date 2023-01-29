@@ -19,6 +19,8 @@
   export let type
   export let folder
 
+  console.log(type)
+
   let textEditor = null
   let isImported = false
 
@@ -126,7 +128,7 @@
       for (let i = 0; i < accounts.length; i++) {
         const account = accounts[i]
 
-        if (type === '' || type === '6' || type === '8' || type === '14') {
+        if (type === '1' || type === '6' || type === '8' || type === '14') {
           lastResp = await api.task.createTaskByMobile(
             type,
             account.account,

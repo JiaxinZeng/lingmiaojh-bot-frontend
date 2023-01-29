@@ -45,9 +45,8 @@
   let createDialog
 
   function onImportButtonClick () {
-    f7router.navigate('/task_import/', {
+    f7router.navigate(`/task_folder_manager/${type}/task_manager/task_import/`, {
       props: {
-        type,
         folder
       }
     })
@@ -66,7 +65,7 @@
   }
 
   function onGroupButtonClick () {
-    f7router.navigate('/task_group/')
+    f7router.navigate(`/task_folder_manager/${type}/task_manager/task_group/`)
   }
 </script>
 

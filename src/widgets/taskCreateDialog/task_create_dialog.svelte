@@ -1,50 +1,3 @@
-<div bind:this={dialogElement} class="task-create-dialog dialog dialog-buttons-2" style="display: none;">
-    <div class="dialog-inner">
-        <div class="dialog-title">添加账号</div>
-        <List noHairlines class="no-padding no-margin">
-            <ListInput
-                    outline
-                    label="手机号码"
-                    floatingLabel
-                    type="text"
-                    placeholder="请输入手机号码"
-                    on:input={e => (dialogMobileInputValue = e.detail[0].target.value)}
-            />
-            {#if type === '5' || type === '13'}
-                <ListInput
-                        outline
-                        label="支付密码"
-                        floatingLabel
-                        type="text"
-                        placeholder="请输入支付密码"
-                        on:input={e => (dialogPaymentPasswordInputValue = e.detail[0].target.value)}
-                />
-            {/if}
-            <ListInput
-                    outline
-                    label="验证码"
-                    floatingLabel
-                    type="text"
-                    placeholder="请输入验证码"
-                    on:input={e => (dialogCodeInputValue = e.detail[0].target.value)}
-            >
-                <Button
-                        slot="content-end"
-                        class="content-end margin-left-half"
-                        tooltip="发送验证码"
-                        on:click={onSendButtonClick}
-                >
-                    <Icon class="font-weight-bold font-size-24px" md="material:send"/>
-                </Button>
-            </ListInput>
-        </List>
-    </div>
-    <div class="dialog-buttons">
-        <span class="dialog-button" on:keypress={onCancelButtonClick} on:click={onCancelButtonClick}>取消</span>
-        <span class="dialog-button dialog-button-bold" on:keypress={onConfirmButtonClick} on:click={onConfirmButtonClick}>确定</span>
-    </div>
-</div>
-
 <script>
   import {
     Button,
@@ -196,7 +149,7 @@
   }
 
   export function open () {
-    if (type === '' || type === '5' || type === '6' || type === '8' || type === '13' || type === '14') {
+    if (type === '1' || type === '5' || type === '6' || type === '8' || type === '13' || type === '14') {
       dialog = f7.dialog.create({
         el: dialogElement
       })
@@ -222,3 +175,50 @@
     }
   }
 </script>
+
+<div bind:this={dialogElement} class="task-create-dialog dialog dialog-buttons-2" style="display: none;">
+    <div class="dialog-inner">
+        <div class="dialog-title">添加账号</div>
+        <List noHairlines class="no-padding no-margin">
+            <ListInput
+                    outline
+                    label="手机号码"
+                    floatingLabel
+                    type="text"
+                    placeholder="请输入手机号码"
+                    on:input={e => (dialogMobileInputValue = e.detail[0].target.value)}
+            />
+            {#if type === '5' || type === '13'}
+                <ListInput
+                        outline
+                        label="支付密码"
+                        floatingLabel
+                        type="text"
+                        placeholder="请输入支付密码"
+                        on:input={e => (dialogPaymentPasswordInputValue = e.detail[0].target.value)}
+                />
+            {/if}
+            <ListInput
+                    outline
+                    label="验证码"
+                    floatingLabel
+                    type="text"
+                    placeholder="请输入验证码"
+                    on:input={e => (dialogCodeInputValue = e.detail[0].target.value)}
+            >
+                <Button
+                        slot="content-end"
+                        class="content-end margin-left-half"
+                        tooltip="发送验证码"
+                        on:click={onSendButtonClick}
+                >
+                    <Icon class="font-weight-bold font-size-24px" md="material:send"/>
+                </Button>
+            </ListInput>
+        </List>
+    </div>
+    <div class="dialog-buttons">
+        <span class="dialog-button" on:keypress={onCancelButtonClick} on:click={onCancelButtonClick}>取消</span>
+        <span class="dialog-button dialog-button-bold" on:keypress={onConfirmButtonClick} on:click={onConfirmButtonClick}>确定</span>
+    </div>
+</div>

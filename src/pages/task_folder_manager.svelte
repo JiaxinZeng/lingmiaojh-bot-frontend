@@ -4,7 +4,7 @@
 
 <script>
   import { Page, useStore } from 'framework7-svelte'
-  import FolderManager from '@/widgets/folderManager'
+  import FolderManager from '@/widgets/taskFolderManager'
   import { onMount } from 'svelte'
 
   export let f7router
@@ -12,7 +12,8 @@
 
   const titles = {
     1: 'lylml',
-    2: 'hjst'
+    2: 'hjst',
+    13: 'ly'
   }
 
   const userInfo = useStore('userInfo')

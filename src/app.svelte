@@ -72,14 +72,11 @@
                     cover
                     left
                     visibleBreakpoint={960}
+                    class="sidebar"
             >
                 <View>
                     <Page>
-                        <List
-                                class="margin-top margin-bottom margin-left border-radius-card overflow-hidden"
-                                noHairlines
-                                menuList
-                        >
+                        <List noHairlines menuList>
                             <ListItem link
                                       title="仪表盘"
                                       selected={curViewPath === '/home/'}
@@ -106,17 +103,26 @@
                                     <Icon md="material:person_filled"/>
                                 </span>
                             </ListItem>
+                            <ListItem divider>
+
+                            </ListItem>
                             <ListItem link
                                       title="旅游LML"
-                                      selected={curViewPath.startsWith('/folder_manager/1/')}
-                                      onClick={navigateTo('/folder_manager/1/')}
+                                      selected={curViewPath.startsWith('/task_folder_manager/1/')}
+                                      onClick={navigateTo('/task_folder_manager/1/')}
                             >
+                                <span slot="media">
+                                    <Icon md="material:cloudy_filled"/>
+                                </span>
                             </ListItem>
                             <ListItem link
                                       title="汇J生T"
-                                      selected={curViewPath.startsWith('/folder_manager/2/')}
-                                      onClick={navigateTo('/folder_manager/2/')}
+                                      selected={curViewPath.startsWith('/task_folder_manager/2/')}
+                                      onClick={navigateTo('/task_folder_manager/2/')}
                             >
+                                <span slot="media">
+                                    <Icon md="material:cloudy_filled"/>
+                                </span>
                             </ListItem>
                             <!--                            <ListItem link-->
                             <!--                                      title="游Y商C"-->
@@ -150,9 +156,12 @@
                             <!--                            </ListItem>-->
                             <ListItem link
                                       title="淘F生H"
-                                      selected={curViewPath.startsWith('/folder_manager/8/')}
-                                      onClick={navigateTo('/folder_manager/8/')}
+                                      selected={curViewPath.startsWith('/task_folder_manager/8/')}
+                                      onClick={navigateTo('/task_folder_manager/8/')}
                             >
+                                <span slot="media">
+                                    <Icon md="material:cloudy_filled"/>
+                                </span>
                             </ListItem>
 <!--                            <ListItem link-->
 <!--                                      title="点D跳D"-->
@@ -162,9 +171,12 @@
 <!--                            </ListItem>-->
                             <ListItem link
                                       title="果T生X"
-                                      selected={curViewPath.startsWith('/folder_manager/10/')}
-                                      onClick={navigateTo('/folder_manager/10/')}
+                                      selected={curViewPath.startsWith('/task_folder_manager/10/')}
+                                      onClick={navigateTo('/task_folder_manager/10/')}
                             >
+                                <span slot="media">
+                                    <Icon md="material:cloudy_filled"/>
+                                </span>
                             </ListItem>
 <!--                            <ListItem link-->
 <!--                                      title="J娱Meta"-->
@@ -174,15 +186,21 @@
 <!--                            </ListItem>-->
                             <ListItem link
                                       title="星JH"
-                                      selected={curViewPath.startsWith('/folder_manager/12/')}
-                                      onClick={navigateTo('/folder_manager/12/')}
+                                      selected={curViewPath.startsWith('/task_folder_manager/12/')}
+                                      onClick={navigateTo('/task_folder_manager/12/')}
                             >
+                                <span slot="media">
+                                    <Icon md="material:cloudy_filled"/>
+                                </span>
                             </ListItem>
                             <ListItem link
                                       title="恋Y"
-                                      selected={curViewPath.startsWith('/folder_manager/13/')}
-                                      onClick={navigateTo('/folder_manager/13/')}
+                                      selected={curViewPath.startsWith('/task_folder_manager/13/')}
+                                      onClick={navigateTo('/task_folder_manager/13/')}
                             >
+                                <span slot="media">
+                                    <Icon md="material:cloudy_filled"/>
+                                </span>
                             </ListItem>
 <!--                            <ListItem link-->
 <!--                                      title="东M优P"-->
@@ -192,21 +210,30 @@
 <!--                            </ListItem>-->
                             <ListItem link
                                       title="红Y旅Y"
-                                      selected={curViewPath.startsWith('/folder_manager/15/')}
-                                      onClick={navigateTo('/folder_manager/15/')}
+                                      selected={curViewPath.startsWith('/task_folder_manager/15/')}
+                                      onClick={navigateTo('/task_folder_manager/15/')}
                             >
+                                <span slot="media">
+                                    <Icon md="material:cloudy_filled"/>
+                                </span>
                             </ListItem>
                             <ListItem link
                                       title="邻C家Y"
-                                      selected={curViewPath.startsWith('/folder_manager/16/')}
-                                      onClick={navigateTo('/folder_manager/16/')}
+                                      selected={curViewPath.startsWith('/task_folder_manager/16/')}
+                                      onClick={navigateTo('/task_folder_manager/16/')}
                             >
+                                <span slot="media">
+                                    <Icon md="material:cloudy_filled"/>
+                                </span>
                             </ListItem>
                             <ListItem link
                                       title="中Q数J联M"
-                                      selected={curViewPath.startsWith('/folder_manager/17/')}
-                                      onClick={navigateTo('/folder_manager/17/')}
+                                      selected={curViewPath.startsWith('/task_folder_manager/17/')}
+                                      onClick={navigateTo('/task_folder_manager/17/')}
                             >
+                                <span slot="media">
+                                    <Icon md="material:cloudy_filled"/>
+                                </span>
                             </ListItem>
                         </List>
                     </Page>
