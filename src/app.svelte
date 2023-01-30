@@ -33,7 +33,13 @@
       passwordPlaceholder: '密码'
     }
   }
-  const paramPage = framework7.utils.parseUrlQuery(window.location.href)?.page
+  let paramPage = framework7.utils.parseUrlQuery(window.location.href)?.page
+  if (paramPage) {
+    const typeId = /management(\d+)$/.exec(paramPage)?.[1]
+    if (typeId) {
+      paramPage = `/task_folder_manager/${typeId}/`
+    }
+  }
 
   let curViewPath = '/home/'
   const navigateTo = (path) => {
@@ -254,7 +260,7 @@
         <View
                 main
                 class="safe-areas"
-                url={paramPage ? `/${paramPage}/` : '/home/'}
+                url={paramPage ? `${paramPage}` : '/home/'}
                 on:viewInit={onViewInit}
         />
     {/if}

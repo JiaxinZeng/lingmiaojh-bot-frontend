@@ -42,7 +42,6 @@
     if (paramFolder) {
       const folder = folders[type]?.find(f => f.id === targetFolder)
       if (folder) {
-        console.log(folder)
         setTimeout(() => {
           f7router.navigate(`/task_folder_manager/${type}/task_manager/`, {
             props: {
