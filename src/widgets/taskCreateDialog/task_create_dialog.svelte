@@ -37,7 +37,7 @@
   function onSendButtonClick () {
     dialog.close()
 
-    if (type === '5' || type === '13') {
+    if (type === '5' || type === '13' || type === '18') {
       if (!dialogPaymentPasswordInputValue) {
         f7.dialog.alert('请先输入支付密码', '提示', () => dialog.open())
         return
@@ -103,7 +103,7 @@
       return
     }
 
-    if (type === '5' || type === '13') {
+    if (type === '5' || type === '13' || type === '18') {
       if (!dialogPaymentPasswordInputValue) {
         f7.dialog.alert('请先输入支付密码', '提示', () => dialog.open())
         return
@@ -149,7 +149,7 @@
   }
 
   export function open () {
-    if (type === '1' || type === '5' || type === '6' || type === '8' || type === '13' || type === '14') {
+    if (type === '1' || type === '5' || type === '6' || type === '8' || type === '13' || type === '14' || type === '18') {
       dialog = f7.dialog.create({
         el: dialogElement
       })
@@ -188,7 +188,7 @@
                     placeholder="请输入手机号码"
                     on:input={e => (dialogMobileInputValue = e.detail[0].target.value)}
             />
-            {#if type === '5' || type === '13'}
+            {#if type === '5' || type === '13' || type === '18'}
                 <ListInput
                         outline
                         label="支付密码"

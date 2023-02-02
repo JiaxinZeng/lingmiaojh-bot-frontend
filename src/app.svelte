@@ -241,6 +241,15 @@
                                     <Icon md="material:cloudy_filled"/>
                                 </span>
                             </ListItem>
+                            <ListItem link
+                                      title="今H满Z"
+                                      selected={curViewPath.startsWith('/task_folder_manager/18/')}
+                                      onClick={navigateTo('/task_folder_manager/18/')}
+                            >
+                                <span slot="media">
+                                    <Icon md="material:cloudy_filled"/>
+                                </span>
+                            </ListItem>
                         </List>
                     </Page>
                 </View>
