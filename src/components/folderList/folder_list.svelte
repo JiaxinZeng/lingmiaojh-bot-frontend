@@ -27,7 +27,7 @@
   import _ from 'lodash'
 
   export let action = () => {}
-  export let type = ''
+  export let type
 
   let colNum = calcColNum()
 

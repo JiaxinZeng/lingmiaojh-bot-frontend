@@ -21,7 +21,8 @@
 
   export let folder
   export let f7router
-  export let type = ''
+  export let taskFeatures
+  export let type
 
   const paramFolder = framework7.utils.parseUrlQuery(window.location.href)?.folder
 
@@ -47,7 +48,8 @@
   function onImportButtonClick () {
     f7router.navigate(`/task_folder_manager/${type}/task_manager/task_import/`, {
       props: {
-        folder
+        folder,
+        taskFeatures
       }
     })
   }
@@ -120,7 +122,7 @@
     <PageContent class="task-manager-page-content">
         <div bind:this={viewport} class="scrollable-container">
             {#key tasks}
-                <TaskList parent={viewport} type={type} folder={folder} tasks={tasks}/>
+                <TaskList parent={viewport} type={type} folder={folder} tasks={tasks} taskFeatures={taskFeatures}/>
             {/key}
         </div>
         {#key contents}
@@ -149,5 +151,5 @@
       }, 0)}
     </div>
 {/if}
-<TaskCreateDialog bind:this={createDialog} type={type} folder={folder} />
-<TaskFilterDialog bind:this={queryDialog} />
+<TaskCreateDialog bind:this={createDialog} type={type} folder={folder} taskFeatures={taskFeatures}/>
+<TaskFilterDialog bind:this={queryDialog}/>

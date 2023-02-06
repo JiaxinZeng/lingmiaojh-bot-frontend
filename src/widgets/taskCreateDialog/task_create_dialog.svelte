@@ -1,17 +1,13 @@
 <script>
-  import {
-    Button,
-    f7,
-    Icon,
-    List,
-    ListInput
-  } from 'framework7-svelte'
+  import { Button, f7, Icon, List, ListInput } from 'framework7-svelte'
   import api from '@/js/api'
   import utils from '@/js/utils'
   import './task_create_dialog.scss'
+  import { TASK_FEATURES } from '@/js/definitions.js'
 
   export let type
   export let folder
+  export let taskFeatures
 
   let dialogElement
   let dialogMobileInputValue = ''
@@ -37,7 +33,7 @@
   function onSendButtonClick () {
     dialog.close()
 
-    if (type === '5' || type === '18') {
+    if ((taskFeatures & TASK_FEATURES.HAS_PAYMENT_PASSWORD) === TASK_FEATURES.HAS_PAYMENT_PASSWORD) {
       if (!dialogPaymentPasswordInputValue) {
         f7.dialog.alert('请先输入支付密码', '提示', () => dialog.open())
         return
@@ -103,7 +99,7 @@
       return
     }
 
-    if (type === '5' || type === '18') {
+    if ((taskFeatures & TASK_FEATURES.HAS_PAYMENT_PASSWORD) === TASK_FEATURES.HAS_PAYMENT_PASSWORD) {
       if (!dialogPaymentPasswordInputValue) {
         f7.dialog.alert('请先输入支付密码', '提示', () => dialog.open())
         return
@@ -149,12 +145,19 @@
   }
 
   export function open () {
-    if (type === '1' || type === '5' || type === '6' || type === '8' || type === '14' || type === '18') {
+    if ((taskFeatures & TASK_FEATURES.LOGIN_BY_SMS_CODE) === TASK_FEATURES.LOGIN_BY_SMS_CODE) {
       dialog = f7.dialog.create({
         el: dialogElement
       })
       dialog.open()
-    } else if (type === '2' || type === '3' || type === '4' || type === '10' || type === '13' || type === '16' || type === '17') {
+      return
+    }
+
+    if ((taskFeatures & TASK_FEATURES.LOGIN_BY_PASSWORD) !== TASK_FEATURES.LOGIN_BY_PASSWORD) {
+      return
+    }
+
+    if ((taskFeatures & TASK_FEATURES.HAS_PAYMENT_PASSWORD) === TASK_FEATURES.HAS_PAYMENT_PASSWORD) {
       f7.dialog.login(null, '添加账号', (username, password) => {
         f7.dialog.password('请输入支付密码', '添加账号', (paymentPassword) => {
           api.req(() => api.task.createTaskByUsername(type, username, password, folder.id, paymentPassword), '添加成功',
@@ -164,15 +167,16 @@
             })
         })
       })
-    } else if (type === '7' || type === '9' || type === '11' || type === '12' || type === '15') {
-      f7.dialog.login(null, '添加账号', (username, password) => {
-        api.req(() => api.task.createTaskByUsername(type, username, password, folder.id), '添加成功',
-          '添加失败', '正在添加账号')
-          .then(() => {
-            utils.progress.loading(() => utils.store.getTasks(type, folder.id), true)
-          })
-      })
+      return
     }
+
+    f7.dialog.login(null, '添加账号', (username, password) => {
+      api.req(() => api.task.createTaskByUsername(type, username, password, folder.id), '添加成功',
+        '添加失败', '正在添加账号')
+        .then(() => {
+          utils.progress.loading(() => utils.store.getTasks(type, folder.id), true)
+        })
+    })
   }
 </script>
 
@@ -188,7 +192,7 @@
                     placeholder="请输入手机号码"
                     on:input={e => (dialogMobileInputValue = e.detail[0].target.value)}
             />
-            {#if type === '5' || type === '18'}
+            {#if (taskFeatures & TASK_FEATURES.HAS_PAYMENT_PASSWORD) === TASK_FEATURES.HAS_PAYMENT_PASSWORD}
                 <ListInput
                         outline
                         label="支付密码"

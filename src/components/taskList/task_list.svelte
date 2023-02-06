@@ -15,11 +15,13 @@
   import api from '@/js/api'
   import util from '@/js/utils'
   import framework7 from 'framework7'
+  import { TASK_FEATURES } from '@/js/definitions.js'
 
   export let folder
-  export let type = ''
+  export let type
   export let tasks
   export let parent
+  export let taskFeatures
 
   const noDelete = framework7.utils.parseUrlQuery(window.location.href)?.noDelete
 
@@ -50,15 +52,17 @@
 
   function onSignInButtonClick (task) {
     return function () {
-      if (type === '1' || type === '5' || type === '6' || type === '8' || type === '14' || type === '18') {
+      if ((taskFeatures & TASK_FEATURES.LOGIN_BY_SMS_CODE) === TASK_FEATURES.LOGIN_BY_SMS_CODE) {
         f7.dialog.prompt('请输入验证码', '登录', (code) => {
           api.req(() => api.task.loginByCode(type, task.name, code), '登录成功', '登录失败', '正在登录')
             .then(() => {
               util.progress.loading(() => util.store.getTasks(type, folder.id), true)
             })
         })
-      } else if (type === '2' || type === '3' || type === '4' || type === '7' || type === '9' || type === '10' ||
-        type === '11' || type === '12' || type === '13' || type === '15' || type === '16' || type === '17') {
+        return
+      }
+
+      if ((taskFeatures & TASK_FEATURES.LOGIN_BY_PASSWORD) === TASK_FEATURES.LOGIN_BY_PASSWORD) {
         f7.dialog.prompt('请输入密码', '登录', (password) => {
           api.req(() => api.task.loginByPassword(type, task.name, password), '登录成功', '登录失败', '正在登录')
             .then(() => {
@@ -140,7 +144,7 @@
                     <Card noShadow class="no-margin">
                         <CardContent class="no-padding-top">
                             <div class="display-flex flex-flow-wrap">
-                                {#if type === '1' || type === '5' || type === '6' || type === '8' || type === '14' || type === '18'}
+                                {#if (taskFeatures & TASK_FEATURES.LOGIN_BY_SMS_CODE) === TASK_FEATURES.LOGIN_BY_SMS_CODE}
                                     <div>
                                         <Button tooltip="发送验证码" on:click={onSendVerifyCodeButtonClick(task)}>
                                             <Icon class="font-weight-bold" md="material:outgoing_mail"/>
@@ -154,7 +158,7 @@
                                     </Button>
                                 </div>
 
-                                {#if type === '2' || type === '3' || type === '4' || type === '5' || type === '10' || type === '13' || type === '16' || type === '17' || type === '18'}
+                                {#if (taskFeatures & TASK_FEATURES.HAS_PAYMENT_PASSWORD) === TASK_FEATURES.HAS_PAYMENT_PASSWORD}
                                     <div>
                                         <Button tooltip="重设支付密码"
                                                 on:click={onResetPaymentPasswordButtonClick(task)}>

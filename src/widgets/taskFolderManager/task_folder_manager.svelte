@@ -17,7 +17,9 @@
   import { onMount } from 'svelte'
 
   export let f7router
-  export let type = '1'
+  export let type
+  export let taskFeatures
+
   let popover
   let clickedFolder = null
 
@@ -45,7 +47,8 @@
         setTimeout(() => {
           f7router.navigate(`/task_folder_manager/${type}/task_manager/`, {
             props: {
-              folder
+              folder,
+              taskFeatures
             }
           })
         }, 500)
@@ -106,7 +109,8 @@
   function onFolderClick () {
     f7router.navigate(`/task_folder_manager/${type}/task_manager/`, {
       props: {
-        folder: clickedFolder
+        folder: clickedFolder,
+        taskFeatures
       }
     })
   }

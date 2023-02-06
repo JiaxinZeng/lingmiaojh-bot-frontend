@@ -1,5 +1,5 @@
 <Page class="main-page" pageContent={false}>
-    <FolderManager type={f7route.params.type} f7router={f7router} />
+    <FolderManager type={f7route.params.type} f7router={f7router} taskFeatures={taskFeatures}/>
 </Page>
 
 <script>
@@ -9,6 +9,7 @@
 
   export let f7router
   export let f7route
+  export let taskFeatures
 
   const titles = {
     1: 'lylml',

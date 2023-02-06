@@ -15,6 +15,7 @@
   import framework7 from 'framework7'
   import utils from '@/js/utils'
   import { onMount } from 'svelte'
+  import { TASK_FEATURES } from '@/js/definitions.js'
 
   const f7params = {
     name: '云端',
@@ -42,9 +43,11 @@
   }
 
   let curViewPath = '/home/'
-  const navigateTo = (path) => {
+  const navigateTo = (path, props) => {
     return function () {
-      f7.views.main.router.navigate(`${path}`)
+      f7.views.main.router.navigate(`${path}`, {
+        props
+      })
     }
   }
 
@@ -115,7 +118,7 @@
                             <ListItem link
                                       title="旅游LML"
                                       selected={curViewPath.startsWith('/task_folder_manager/1/')}
-                                      onClick={navigateTo('/task_folder_manager/1/')}
+                                      onClick={navigateTo('/task_folder_manager/1/', { taskFeatures: TASK_FEATURES.LOGIN_BY_SMS_CODE })}
                             >
                                 <span slot="media">
                                     <Icon md="material:cloudy_filled"/>
@@ -124,7 +127,7 @@
                             <ListItem link
                                       title="汇J生T"
                                       selected={curViewPath.startsWith('/task_folder_manager/2/')}
-                                      onClick={navigateTo('/task_folder_manager/2/')}
+                                      onClick={navigateTo('/task_folder_manager/2/', { taskFeatures: TASK_FEATURES.LOGIN_BY_SMS_CODE | TASK_FEATURES.HAS_PAYMENT_PASSWORD })}
                             >
                                 <span slot="media">
                                     <Icon md="material:cloudy_filled"/>
@@ -163,7 +166,7 @@
                             <ListItem link
                                       title="淘F生H"
                                       selected={curViewPath.startsWith('/task_folder_manager/8/')}
-                                      onClick={navigateTo('/task_folder_manager/8/')}
+                                      onClick={navigateTo('/task_folder_manager/8/', { taskFeatures: TASK_FEATURES.LOGIN_BY_SMS_CODE })}
                             >
                                 <span slot="media">
                                     <Icon md="material:cloudy_filled"/>
@@ -178,7 +181,7 @@
                             <ListItem link
                                       title="果T生X"
                                       selected={curViewPath.startsWith('/task_folder_manager/10/')}
-                                      onClick={navigateTo('/task_folder_manager/10/')}
+                                      onClick={navigateTo('/task_folder_manager/10/', { taskFeatures: TASK_FEATURES.LOGIN_BY_PASSWORD | TASK_FEATURES.HAS_PAYMENT_PASSWORD })}
                             >
                                 <span slot="media">
                                     <Icon md="material:cloudy_filled"/>
@@ -193,7 +196,7 @@
                             <ListItem link
                                       title="星JH"
                                       selected={curViewPath.startsWith('/task_folder_manager/12/')}
-                                      onClick={navigateTo('/task_folder_manager/12/')}
+                                      onClick={navigateTo('/task_folder_manager/12/', { taskFeatures: TASK_FEATURES.LOGIN_BY_PASSWORD })}
                             >
                                 <span slot="media">
                                     <Icon md="material:cloudy_filled"/>
@@ -202,7 +205,7 @@
                             <ListItem link
                                       title="恋Y"
                                       selected={curViewPath.startsWith('/task_folder_manager/13/')}
-                                      onClick={navigateTo('/task_folder_manager/13/')}
+                                      onClick={navigateTo('/task_folder_manager/13/', { taskFeatures: TASK_FEATURES.LOGIN_BY_PASSWORD | TASK_FEATURES.HAS_PAYMENT_PASSWORD })}
                             >
                                 <span slot="media">
                                     <Icon md="material:cloudy_filled"/>
@@ -217,7 +220,7 @@
                             <ListItem link
                                       title="红Y旅Y"
                                       selected={curViewPath.startsWith('/task_folder_manager/15/')}
-                                      onClick={navigateTo('/task_folder_manager/15/')}
+                                      onClick={navigateTo('/task_folder_manager/15/', { taskFeatures: TASK_FEATURES.LOGIN_BY_PASSWORD })}
                             >
                                 <span slot="media">
                                     <Icon md="material:cloudy_filled"/>
@@ -226,7 +229,7 @@
                             <ListItem link
                                       title="邻C家Y"
                                       selected={curViewPath.startsWith('/task_folder_manager/16/')}
-                                      onClick={navigateTo('/task_folder_manager/16/')}
+                                      onClick={navigateTo('/task_folder_manager/16/', { taskFeatures: TASK_FEATURES.LOGIN_BY_PASSWORD | TASK_FEATURES.HAS_PAYMENT_PASSWORD })}
                             >
                                 <span slot="media">
                                     <Icon md="material:cloudy_filled"/>
@@ -235,7 +238,7 @@
                             <ListItem link
                                       title="中Q数J联M"
                                       selected={curViewPath.startsWith('/task_folder_manager/17/')}
-                                      onClick={navigateTo('/task_folder_manager/17/')}
+                                      onClick={navigateTo('/task_folder_manager/17/', { taskFeatures: TASK_FEATURES.LOGIN_BY_PASSWORD | TASK_FEATURES.HAS_PAYMENT_PASSWORD })}
                             >
                                 <span slot="media">
                                     <Icon md="material:cloudy_filled"/>
@@ -244,7 +247,7 @@
                             <ListItem link
                                       title="今H满Z"
                                       selected={curViewPath.startsWith('/task_folder_manager/18/')}
-                                      onClick={navigateTo('/task_folder_manager/18/')}
+                                      onClick={navigateTo('/task_folder_manager/18/', { taskFeatures: TASK_FEATURES.LOGIN_BY_SMS_CODE | TASK_FEATURES.HAS_PAYMENT_PASSWORD })}
                             >
                                 <span slot="media">
                                     <Icon md="material:cloudy_filled"/>

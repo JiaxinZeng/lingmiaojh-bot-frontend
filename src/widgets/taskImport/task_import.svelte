@@ -14,12 +14,12 @@
   import Dom7 from 'dom7'
   import api from '@/js/api'
   import utils from '@/js/utils'
+  import { TASK_FEATURES } from '@/js/definitions.js'
 
   export let f7router
   export let type
   export let folder
-
-  console.log(type)
+  export let taskFeatures
 
   let textEditor = null
   let isImported = false
@@ -89,17 +89,18 @@
         usingPaymentPassword = accountInfos[2]
       }
 
-      if (type === '2' || type === '3' || type === '4' || type === '10' || type === '12' || type === '13' || type === '16' || type === '17') {
+      if ((taskFeatures & TASK_FEATURES.LOGIN_BY_PASSWORD) === TASK_FEATURES.LOGIN_BY_PASSWORD &&
+        (taskFeatures & TASK_FEATURES.HAS_PAYMENT_PASSWORD) === TASK_FEATURES.HAS_PAYMENT_PASSWORD) {
         if (!usingPassword || !usingPaymentPassword) {
           f7.dialog.alert('没有输入密码或者支付密码', '提示')
           return
         }
-      } else if (type === '7' || type === '9' || type === '11' || type === '15') {
+      } else if ((taskFeatures & TASK_FEATURES.LOGIN_BY_PASSWORD) === TASK_FEATURES.LOGIN_BY_PASSWORD) {
         if (!usingPassword) {
           f7.dialog.alert('没有输入密码', '提示')
           return
         }
-      } else if (type === '5') {
+      } else if ((taskFeatures & TASK_FEATURES.HAS_PAYMENT_PASSWORD) === TASK_FEATURES.HAS_PAYMENT_PASSWORD) {
         if (!usingPaymentPassword) {
           f7.dialog.alert('没有输入支付密码', '提示')
           return
@@ -128,34 +129,40 @@
       for (let i = 0; i < accounts.length; i++) {
         const account = accounts[i]
 
-        if (type === '1' || type === '6' || type === '8' || type === '14') {
-          lastResp = await api.task.createTaskByMobile(
-            type,
-            account.account,
-            folder.id
-          )
-        } else if (type === '2' || type === '3' || type === '4' || type === '10' || type === '12' || type === '13' || type === '16' || type === '17') {
-          lastResp = await api.task.createTaskByUsername(
-            type,
-            account.account,
-            account.password,
-            folder.id,
-            account.paymentPassword
-          )
-        } else if (type === '7' || type === '9' || type === '11' || type === '15') {
-          lastResp = await api.task.createTaskByUsername(
-            type,
-            account.account,
-            account.password,
-            folder.id
-          )
-        } else if (type === '5') {
-          lastResp = await api.task.createTaskByMobile(
-            type,
-            account.account,
-            folder.id,
-            account.paymentPassword
-          )
+        if ((taskFeatures & TASK_FEATURES.LOGIN_BY_SMS_CODE) === TASK_FEATURES.LOGIN_BY_SMS_CODE) {
+          if ((taskFeatures & TASK_FEATURES.HAS_PAYMENT_PASSWORD) === TASK_FEATURES.HAS_PAYMENT_PASSWORD) {
+            lastResp = await api.task.createTaskByMobile(
+              type,
+              account.account,
+              folder.id,
+              account.paymentPassword
+            )
+          } else {
+            lastResp = await api.task.createTaskByMobile(
+              type,
+              account.account,
+              folder.id
+            )
+          }
+        }
+
+        if ((taskFeatures & TASK_FEATURES.LOGIN_BY_PASSWORD) === TASK_FEATURES.LOGIN_BY_PASSWORD) {
+          if ((taskFeatures & TASK_FEATURES.HAS_PAYMENT_PASSWORD) === TASK_FEATURES.HAS_PAYMENT_PASSWORD) {
+            lastResp = await api.task.createTaskByUsername(
+              type,
+              account.account,
+              account.password,
+              folder.id,
+              account.paymentPassword
+            )
+          } else {
+            lastResp = await api.task.createTaskByUsername(
+              type,
+              account.account,
+              account.password,
+              folder.id
+            )
+          }
         }
 
         dialog.setProgress(Math.round(i / accounts.length * 100))
