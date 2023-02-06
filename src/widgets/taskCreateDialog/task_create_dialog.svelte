@@ -37,7 +37,7 @@
   function onSendButtonClick () {
     dialog.close()
 
-    if (type === '5' || type === '13' || type === '18') {
+    if (type === '5' || type === '18') {
       if (!dialogPaymentPasswordInputValue) {
         f7.dialog.alert('请先输入支付密码', '提示', () => dialog.open())
         return
@@ -103,7 +103,7 @@
       return
     }
 
-    if (type === '5' || type === '13' || type === '18') {
+    if (type === '5' || type === '18') {
       if (!dialogPaymentPasswordInputValue) {
         f7.dialog.alert('请先输入支付密码', '提示', () => dialog.open())
         return
@@ -149,12 +149,12 @@
   }
 
   export function open () {
-    if (type === '1' || type === '5' || type === '6' || type === '8' || type === '13' || type === '14' || type === '18') {
+    if (type === '1' || type === '5' || type === '6' || type === '8' || type === '14' || type === '18') {
       dialog = f7.dialog.create({
         el: dialogElement
       })
       dialog.open()
-    } else if (type === '2' || type === '3' || type === '4' || type === '10' || type === '16' || type === '17') {
+    } else if (type === '2' || type === '3' || type === '4' || type === '10' || type === '13' || type === '16' || type === '17') {
       f7.dialog.login(null, '添加账号', (username, password) => {
         f7.dialog.password('请输入支付密码', '添加账号', (paymentPassword) => {
           api.req(() => api.task.createTaskByUsername(type, username, password, folder.id, paymentPassword), '添加成功',
@@ -188,7 +188,7 @@
                     placeholder="请输入手机号码"
                     on:input={e => (dialogMobileInputValue = e.detail[0].target.value)}
             />
-            {#if type === '5' || type === '13' || type === '18'}
+            {#if type === '5' || type === '18'}
                 <ListInput
                         outline
                         label="支付密码"

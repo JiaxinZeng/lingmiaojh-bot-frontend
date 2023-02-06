@@ -13,7 +13,8 @@
   const titles = {
     1: 'lylml',
     2: 'hjst',
-    13: 'ly'
+    13: 'ly',
+    18: 'jhmz'
   }
 
   const userInfo = useStore('userInfo')
